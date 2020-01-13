@@ -65,8 +65,7 @@ public:
                     new Sprite(
                         json_to_vector2f(object["position"]), 
                         json_to_vector2f(object["factor"]), 
-                        object["location"],
-                        "factory sprite")
+                        object["location"])
                     )
                 );
                 size++;
@@ -129,6 +128,8 @@ public:
         file.close();
 
     }
+
+    int get_object_count() { return size; }
 
 
 

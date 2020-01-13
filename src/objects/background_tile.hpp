@@ -12,7 +12,7 @@ class background_tiles : public Object {
     background_tiles();
 
     background_tiles(std::string location, sf::Vector2f sprite_size) : Object(position, {WINDOW_SIZE_X, WINDOW_SIZE_Y}),
-                                                                       body({0, 0}, {1, 1}, location, "background tile")
+                                                                       body({0, 0}, {1, 1}, location)
 
     {
         body.set_sprite_size(sprite_size);
@@ -56,24 +56,26 @@ class random_background_tiles : public Object {
     random_background_tiles() : 
         Object({0, 0}, {WINDOW_SIZE_X, WINDOW_SIZE_Y}) {}
 
-    random_background_tiles(std::vector<Sprite *> &resources, sf::Vector2f sprite_size, std::vector<std::string> names) : 
+    random_background_tiles(std::map<std::string, Sprite *>  &resources, sf::Vector2f sprite_size, std::vector<std::string> names) : 
         Object({0, 0}, {WINDOW_SIZE_X, WINDOW_SIZE_Y})
 
     {
         init(resources, sprite_size, names);
     }
 
-    void init(std::vector<Sprite *> &resources, sf::Vector2f sprite_size, std::vector<std::string> names) {
+    void init(std::map<std::string, Sprite *> &resources, sf::Vector2f sprite_size, std::vector<std::string> names) {
+
+        std::cout << "Initialising background tiles..." << std::endl;
+
         //get all resources
         for (auto sprite : resources) {
             for (auto name : names) {
-                if (sprite->get_id() == name) {
-                    //also changes the size of global size, might be a problem for later
-                    //short term solution is to change every sprite size before drawing per object
-                    //TODO: check if it's more effecient to use 2 sprites instead of updating the sprite size
-                    sprite->set_sprite_size(sprite_size);
-                    tiles.push_back(sprite);
-                }
+                //also changes the size of global size, might be a problem for later
+                //short term solution is to change every sprite size before drawing per object
+                //TODO: check if it's more effecient to use 2 sprites instead of updating the sprite size
+                resources[name]->set_sprite_size(sprite_size);
+                tiles.push_back(resources[name]);
+                
             }
         }
         //generate random tilemap
@@ -81,6 +83,7 @@ class random_background_tiles : public Object {
         for (int i = 0; i < iterations; i++) {
             seed[i] = rand_range(0, tiles.size() - 1);
         }
+        std::cout << "Initialising background tiles completed" << std::endl;
     }
 
     void draw(sf::RenderWindow &window) {
@@ -88,6 +91,7 @@ class random_background_tiles : public Object {
         int nr = 0;
         for (float x = 0; x < WINDOW_SIZE_X; x += tiles[0]->get_size().x) {
             for (float y = 0; y < WINDOW_SIZE_Y; y += tiles[0]->get_size().y) {
+
                 tiles[seed[nr]]->set_position({x, y});
                 tiles[seed[nr]]->update();
                 tiles[seed[nr]]->draw(window);

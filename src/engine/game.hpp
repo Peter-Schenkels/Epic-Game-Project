@@ -13,18 +13,36 @@ class Game{
 ///Essentials for rendering the game
 private:
 
-    sf::RenderWindow window;
+    // Enable this tool to enable the edit and save function
+    // of the factory pattern
     bool edit_mode;
-    Factory factory;
-    std::vector<Sprite*> resources;
+
+    // Sfml window
+    sf::RenderWindow window;
+
+    // resource management
+    std::map<std::string, Sprite*> resources;
+
+    // event handler
     sf::Event event;
+
+//Objects to be drawn inside the frame
+private:
+
+    // Random backbround tile class
+    random_background_tiles background;
+    Factory factory;
+    Player player;
 
 //Constructor
 public:
 
+    /// Game constructor (doesnt take any input arguments)
+    /// Initialises all the startup events such as loading in the resources that
     Game():
         window({WINDOW_SIZE_X, WINDOW_SIZE_Y}, "window"), 
         factory("factory/save.json"),
+
         ///Player start position, player size
         player({100,100}, {50,50})
 
@@ -34,36 +52,38 @@ public:
         // factory.toggle_mode();
         window.setFramerateLimit(60);
 
-        resources.push_back(new Sprite({0, 0}, {1, 2}, "img/ding1.png", "background tile 1"));
-        resources.push_back(new Sprite({0, 0}, {2, 2}, "img/ding2.png", "background tile 2"));
-        resources.push_back(new Sprite({0, 0}, {2, 2}, "img/ding3.png", "background tile 3"));
-        resources.push_back(new Sprite({0, 0}, {2, 2}, "img/ding4.png", "background tile 4"));
-        resources.push_back(new Sprite({0, 0}, {2, 2}, "img/test2.jpg", "hond 1"));
-        resources.push_back(new Sprite({0, 0}, {2, 2}, "img/test3.jpeg", "hond 2"));
+        std::cout << "Loading textures..." << std::endl;
 
+        resources["Background tile 1"] = new Sprite({0, 0}, {1, 2}, "img/ding1.png");
+        resources["Background tile 2"] = new Sprite({0, 0}, {2, 2}, "img/ding2.png");
+        resources["Background tile 3"] = new Sprite({0, 0}, {2, 2}, "img/ding3.png");
+        resources["Background tile 4"] = new Sprite({0, 0}, {2, 2}, "img/ding4.png");
+        resources["hond 1"] = new Sprite({0, 0}, {2, 2}, "img/test2.jpg");
+        resources["hond 2"] = new Sprite({0, 0}, {2, 2}, "img/test3.jpeg");
+
+        std::cout << "Loading textures completed" << std::endl;
+
+        
         background.init(resources, {100,100}, {
-            "background tile 1",
-            "background tile 2",
-            "background tile 3",
-            "background tile 4"
+            "Background tile 1",
+            "Background tile 2",
+            "Background tile 3",
+            "Background tile 4"
         });
         
-        player.init(resources[4]);
+        player.init(resources["hond 1"]);
+
+        std::cout << "Game ready to launch..." << std::endl;
+
 
     }
 
-//Objects to be drawn inside the frame
-private:
-    random_background_tiles background;
-    Player player;
-
-
-//Main gameloop
 public:
 
+    /// This function is for handeling all the input 
+    /// it parses all the input into an event vaiable
     void get_input(){
         
-
         while (window.pollEvent(event))
         {
             factory.select(event);
@@ -77,12 +97,18 @@ public:
 
     }
 
+    /// This function is for updating all the object
+    /// and for calculating any possible collisions
     void update(){
 
         factory.update();
         player.update();
-        player.collision(factory.get_object(0)); 
-        player.collision(factory.get_object(1)); 
+
+        /// Checking collision with player for every factory object
+        for (int i = 0; i < factory.get_object_count(); i++){
+            player.collision(factory.get_object(i)); 
+        }
+
         
     }
 

@@ -17,6 +17,7 @@ private:
     float resistance = 2;
     bool floating = false;
     bool on_ground = false;
+    int jump_speed = 15; /// amount of pixels per update 
 
 public:
     Player(sf::Vector2f position, sf::Vector2f size) : 
@@ -36,9 +37,11 @@ public:
 
     void init(Sprite *sprite)
     {
+        std::cout << "Initialising player..." << std::endl;
         body = sprite;
         body->set_sprite_size(size);
         body->set_position(position);
+        std::cout << "Initialising player completed" << std::endl;
     }
 
     void draw(sf::RenderWindow &window)
@@ -68,7 +71,7 @@ public:
     void input(sf::Event event){
         //if key up is pressed: jump!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && speed.y == -0.5){
-            speed.y = -20.01;
+            speed.y = -1*(jump_speed + 0.01);
         } 
         //if key left is pressed: move left!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
