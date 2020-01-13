@@ -45,7 +45,7 @@ public:
 
     sf::Vector2f get_size(){ return size; }
 
-    sf::FloatRect get_boundaries();
+    virtual sf::FloatRect get_boundaries();
 
     bool get_selected(){ return selected; };
 

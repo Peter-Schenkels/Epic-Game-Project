@@ -16,7 +16,7 @@ class Sprite : public Object{
 
     sf::Texture texture;
     sf::Sprite body;
-    
+
     /// this Shape is used for the factory 
     /// pattern to display an outline if thsi sprite is selected
     sf::RectangleShape fake;
@@ -67,6 +67,9 @@ public:
     /// This function si only to be used by the factory pattern
     /// it exports this class to a json format       
     json export_to_json(json object) override;
+
+    /// This function returns the global bounds of the body in sf::floatrec
+    sf::FloatRect get_boundaries() override { return body.getGlobalBounds(); }
 
 };
 

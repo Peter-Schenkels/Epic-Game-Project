@@ -123,6 +123,8 @@ public:
     }
 
     json export_to_json(json object) { return ""; }
+
+    sf::FloatRect get_boundaries() override { return body->get_boundaries(); }
 };
 
 #endif

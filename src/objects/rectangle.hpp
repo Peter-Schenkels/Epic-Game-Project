@@ -42,6 +42,8 @@ public:
 
     json export_to_json(json object) override;
 
+    sf::FloatRect get_boundaries() override { return body.getGlobalBounds(); }
+
 };
 
 

@@ -34,6 +34,10 @@ public:
     void draw(sf::RenderWindow &window) override;
 
     json export_to_json(json object) override;
+
+    sf::FloatRect get_boundaries() override { return body.getGlobalBounds(); }
+
+
 };
 
 #endif //CIRCLE_HPP
