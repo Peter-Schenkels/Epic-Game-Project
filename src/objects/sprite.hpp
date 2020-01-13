@@ -16,12 +16,18 @@ class Sprite : public Object{
 
     sf::Texture texture;
     sf::Sprite body;
+    
+    /// this Shape is used for the factory 
+    /// pattern to display an outline if thsi sprite is selected
     sf::RectangleShape fake;
 
 public:
     sf::Vector2f size_factor;
     std::string img_location;
 
+    /// Sprite contructor: Takes in a sf::Vector2f for start position
+    /// And a sf::Vector2f for a size factor to scale ups the image to the factor
+    /// A image location as an std::string
     Sprite(
         sf::Vector2f i_position,
         sf::Vector2f size_factor,
@@ -41,16 +47,25 @@ public:
         set_sprite_size(sf::Vector2f(50, 50));
     }
     
+    /// Set texture of sprite to different img using an image location
+    /// !(Warning) Don't use this function during runtime, it makes the program
+    /// substantially slower (use set_texture(sf::Texture & img) instead)
     void set_texture(std::string img_location);
 
+    /// Set texture of sprite to different img using an sf::Texture
     void set_texture(sf::Texture & img);
 
+    /// Updates the current values of the object
     void update() override;
 
+    /// Draws the body of this class into a window
     void draw(sf::RenderWindow & window) override ;
 
+    /// Changes the sprite size to any givin pixel size
     void set_sprite_size(sf::Vector2f new_size);
 
+    /// This function si only to be used by the factory pattern
+    /// it exports this class to a json format       
     json export_to_json(json object) override;
 
 };
