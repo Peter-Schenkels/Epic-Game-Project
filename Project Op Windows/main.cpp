@@ -28,7 +28,12 @@ int main(int argc, char* argv[]) {
 
 		sf::Event key_press;
 		if (window.pollEvent(key_press)) {
-			if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::K) {
+			if (key_press.type == sf::Event::Closed) {
+				// If the window has been close, save the new objects to a file
+				drawable_object_write(link, platformer.get_drawables());
+				window.close();
+			}
+			else if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::K) {
 				// Change in and out of edit mode
 				platformer.set_edit(!platformer.get_edit());
 			}
@@ -39,15 +44,6 @@ int main(int argc, char* argv[]) {
 					key == sf::Keyboard::D) {
 					platformer.move_key(key_press);
 				}
-			}
-		}
-
-		sf::Event event;
-		if (window.pollEvent(event)) {
-			// If the window has been close, save the new objects to a file
-			if (event.type == sf::Event::Closed) {
-				drawable_object_write(link, platformer.get_drawables());
-				window.close();
 			}
 		}
 

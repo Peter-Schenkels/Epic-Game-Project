@@ -117,9 +117,17 @@ public:
 	}
 
 	void move_key(sf::Event& entry) {
-		/*std::map<sf::Keyboard, sf::Vector2f> moves{};
-		moves.insert(std::pair<sf::Keyboard, sf::Vector2f>(sf::Keyboard::W, sf::Vector2f{ 1, 1 }));*/
+		std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::W, sf::Vector2f{ 0, 1 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::A, sf::Vector2f{ -1, 0 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::S, sf::Vector2f{ 0, -1 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::D, sf::Vector2f{ 1, 0 }));
 
+		for (auto& drawing : drawables) {
+			if (drawing->drawable_get_selected()) {
+				drawing->drawable_move(moves[entry.key.code]);
+			}
+		}
 	}
 
 	std::vector<drawable*> get_drawables() {
