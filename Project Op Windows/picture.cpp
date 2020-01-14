@@ -15,12 +15,7 @@ picture::picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 	texture.loadFromFile(link);
 	sprite.setTexture(texture);
 	sprite.setPosition(location);
-
-	sf::Vector2f current_factor = sprite.getScale();
-	sf::Vector2f new_factor(current_factor.x * (size.x / texture.getSize().x),
-		current_factor.y * (size.y / texture.getSize().y));
-
-	sprite.setScale(new_factor);
+	set_picture_size(size);
 }
 
 // Constructor that uses a drawable pointer
@@ -35,14 +30,20 @@ picture::picture(drawable* input) :
 	sprite.setTexture(texture);
 	sprite.setPosition(location);
 
-	sf::Vector2f current_factor = sprite.getScale();
-	sf::Vector2f new_factor(current_factor.x * (size.x / texture.getSize().x),
-		current_factor.y * (size.y / texture.getSize().y));
 
-	sprite.setScale(new_factor);
 }
 
 
+
+void picture::set_picture_size(sf::Vector2f new_size) {
+
+	sf::Vector2f current_factor = sprite.getScale();
+	sf::Vector2f new_factor(current_factor.x * (new_size.x / texture.getSize().x),
+	current_factor.y * (new_size.y / texture.getSize().y));
+
+	sprite.setScale(new_factor);
+
+}
 // Draws the picture
 void picture::drawable_draw(sf::RenderWindow& window) {
 	window.draw(sprite);
@@ -56,4 +57,7 @@ std::string picture::drawable_get_visual() {
 // Update the picture
 void picture::drawable_update() {
 	sprite.setPosition(location);
+	hitbox = sf::FloatRect(location.x, location.y, drawable_get_size().x, drawable_get_size().y);
+	std::cout << hitbox.left << " " << hitbox.top << std::endl;
+
 }

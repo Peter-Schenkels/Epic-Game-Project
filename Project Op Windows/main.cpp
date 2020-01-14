@@ -3,53 +3,25 @@
 
 // Reads drawable object from a file, allows the user to move them inside the window and saves the new objects to the file
 #include "factory.hpp"
+#include "settings.hpp"
+#include "game.hpp"
+#include <iostream>
+
 
 int main(int argc, char* argv[]) {
-	sf::RenderWindow window{ sf::VideoMode{640, 480}, "SFML window" };
 
-	std::string link("objects.json");
-	// Create a list filled with all drawable objects read from input
-	std::vector<drawable*> drawables = drawable_object_read(link);
-	game platformer{ drawables, window };
-
+	
+	sf::RenderWindow window{ sf::VideoMode{WINDOW_SIZE_X, WINDOW_SIZE_Y}, "epic" };
+	game platformer(window);
+	window.setFramerateLimit(FRAME_RATE);
+	std::cout << "Starting game..." << std::endl;\
 	while (window.isOpen()) {
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && platformer.get_edit()) {
-			// Select the object the mouse left-clicks on
-			sf::Vector2f location{ float(sf::Mouse::getPosition(window).x), float(sf::Mouse::getPosition(window).y) };
-			platformer.select(location);
-		}
-
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && platformer.get_edit()) {
-			// If an object has been selected by left-clicking, right-clicking will move this object
-			// to where right-click has been pressed
-			sf::Vector2f location{ float(sf::Mouse::getPosition(window).x), float(sf::Mouse::getPosition(window).y) };
-			platformer.move_mouse(location);
-		}
-
-		sf::Event key_press;
-		if (window.pollEvent(key_press)) {
-			if (key_press.type == sf::Event::Closed) {
-				// If the window has been close, save the new objects to a file
-				drawable_object_write(link, platformer.get_drawables());
-				window.close();
-			}
-			else if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::K) {
-				// Change in and out of edit mode
-				platformer.set_edit(!platformer.get_edit());
-			}
-			else if (key_press.type == sf::Event::KeyPressed) {
-				// Move something with WASD
-				auto key = key_press.key.code;
-				if (key == sf::Keyboard::W || key == sf::Keyboard::A || key == sf::Keyboard::S ||
-					key == sf::Keyboard::D) {
-					platformer.move_key(key_press);
-				}
-			}
-		}
 
 		// Draw all objects
+		platformer.get_input();
+		platformer.update();
 		platformer.draw();
-		sf::sleep(sf::milliseconds(10));
+
 	}
 	return 0;
 }

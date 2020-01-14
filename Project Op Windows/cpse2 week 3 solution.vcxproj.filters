@@ -8,14 +8,17 @@
     <ClCompile Include="drawable.cpp">
       <Filter>Additional cpp</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Desktop\jsoncpp\dist\jsoncpp.cpp">
-      <Filter>Additional cpp</Filter>
-    </ClCompile>
     <ClCompile Include="rectangle.cpp">
       <Filter>Additional cpp</Filter>
     </ClCompile>
     <ClCompile Include="picture.cpp">
       <Filter>Additional cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jsoncpp\dist\jsoncpp.cpp">
+      <Filter>Additional cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_Hitbox.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -25,11 +28,17 @@
     <ClInclude Include="factory.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\jsoncpp\dist\json\json.h">
+    <ClInclude Include="settings.hpp">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="game.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\jsoncpp\dist\json\json-forwards.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="player.hpp">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="player_hitbox.hpp">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +50,12 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{19c4e993-357d-4bfa-bfc2-3e61a3ef0430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{742168d8-3140-4e58-878b-0f0938552f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{0954e303-b82e-415d-baa5-f9036ecbeb1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

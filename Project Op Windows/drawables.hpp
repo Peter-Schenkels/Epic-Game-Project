@@ -71,78 +71,7 @@ public:
 };
 
 
-class game {
-protected:
-	std::vector<drawable*> drawables;
-	sf::RenderWindow& window;
-	bool edit;
 
-public:
-	game(std::vector<drawable*> vec, sf::RenderWindow& window) :
-		drawables(vec),
-		window(window),
-		edit(false)
-	{}
-
-	void set_edit(bool setting) {
-		edit = setting;
-		sf::sleep(sf::milliseconds(90));
-	}
-
-	bool get_edit() {
-		return edit;
-	}
-
-	void select(sf::Vector2f location) {
-		std::cout << "selected\n";
-		bool selected = false;
-		for (auto drawing : drawables) {
-			if (drawing->drawable_hitbox_contains_point(location) && selected == false) {
-				drawing->drawable_select();
-				selected = true;
-			}
-			else {
-				drawing->drawable_deselect();
-			}
-		}
-		sf::sleep(sf::milliseconds(90));
-	}
-
-	void move_mouse(sf::Vector2f location) {
-		for (auto& drawing : drawables) {
-			if (drawing->drawable_get_selected()) {
-				drawing->drawable_set_position(location);
-			}
-		}
-	}
-
-	void move_key(sf::Event& entry) {
-		std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::W, sf::Vector2f{ 0, 1 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::A, sf::Vector2f{ -1, 0 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::S, sf::Vector2f{ 0, -1 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::D, sf::Vector2f{ 1, 0 }));
-
-		for (auto& drawing : drawables) {
-			if (drawing->drawable_get_selected()) {
-				drawing->drawable_move(moves[entry.key.code]);
-			}
-		}
-	}
-
-	std::vector<drawable*> get_drawables() {
-		return drawables;
-	}
-
-	void draw() {
-		window.clear();
-		for (auto drawing : drawables) {
-			drawing->drawable_update();
-			drawing->drawable_draw(window);
-		}
-		window.display();
-	}
-};
 
 
 class circle : public drawable {
@@ -212,6 +141,9 @@ public:
 
 	// Constructor that uses a drawable pointer
 	picture(drawable* input);
+
+	// Set size of picture to givin size
+	void set_picture_size(sf::Vector2f new_size);
 
 
 	// Draws the picture
