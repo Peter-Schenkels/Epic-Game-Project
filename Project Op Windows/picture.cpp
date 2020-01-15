@@ -6,8 +6,8 @@
 // Contains all functions for the picture subclass
 
 // Constructor that stores the given location and link to the texture
-picture::picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
-	drawable(location, size, "PICTURE", "none"),
+Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
+	Drawable(location, size, "PICTURE", "none"),
 	size(size),
 	link(link)
 {
@@ -17,7 +17,8 @@ picture::picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 	sprite.setPosition(location);
 }
 
-void picture::set_picture_size(sf::Vector2f new_size) {
+// Sets picture size
+void Picture::picture_set_size(sf::Vector2f new_size) {
 
 	sf::Vector2f current_factor = sprite.getScale();
 	sf::Vector2f new_factor(current_factor.x * (new_size.x / texture.getSize().x),
@@ -26,18 +27,19 @@ void picture::set_picture_size(sf::Vector2f new_size) {
 	sprite.setScale(new_factor);
 
 }
+
 // Draws the picture
-void picture::drawable_draw(sf::RenderWindow& window) {
+void Picture::drawable_draw(sf::RenderWindow& window) {
 	window.draw(sprite);
 }
 
 // Returns the link that the picture uses as texture
-std::string picture::drawable_get_visual() {
+std::string Picture::drawable_get_visual() {
 	return link;
 }
 
 // Update the picture
-void picture::drawable_update() {
+void Picture::drawable_update() {
 	sprite.setPosition(location);
 	hitbox = sf::FloatRect(location.x, location.y, drawable_get_size().x, drawable_get_size().y);
 

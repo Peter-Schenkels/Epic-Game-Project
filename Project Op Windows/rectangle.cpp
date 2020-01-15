@@ -6,8 +6,8 @@
 // Contains all functions for the rectangle subclass
 
 // Constructor for the rectangle class that stores the given location, size and color for the rectangle
-rectangle::rectangle(sf::Vector2f location, sf::Vector2f size, std::string color) :
-	drawable(location, size, "RECTANGLE", color),
+Rectangle::Rectangle(sf::Vector2f location, sf::Vector2f size, std::string color) :
+	Drawable(location, size, "RECTANGLE", color),
 	size(size)
 {
 	// Sets size, position and color of the rectangle to those that have been received through the constructor
@@ -27,17 +27,17 @@ rectangle::rectangle(sf::Vector2f location, sf::Vector2f size, std::string color
 
 
 // Function that draws the rectangle
-void rectangle::drawable_draw(sf::RenderWindow& window) {
+void Rectangle::drawable_draw(sf::RenderWindow& window) {
 	window.draw(shape);
 }
 
 // Returns color
-std::string rectangle::drawable_get_visual() {
+std::string Rectangle::drawable_get_visual() {
 	return color;
 }
 
 // Update the rectangle
-void rectangle::drawable_update() {
+void Rectangle::drawable_update() {
 	shape.setPosition(location);
 	hitbox = sf::FloatRect(location.x, location.y, drawable_get_size().x, drawable_get_size().y);
 
