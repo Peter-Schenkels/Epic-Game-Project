@@ -12,10 +12,10 @@
 #include "drawables.hpp"
 
 
-std::vector<drawable*> drawable_object_read(std::string link) {
+std::vector<Drawable*> drawable_object_read(std::string link) {
 	// Reads drawable objects from given file by writing all the text to a string
 	// and afterwards splitting the string into usable parts
-	std::vector<drawable*> drawables;
+	std::vector<Drawable*> drawables;
 	std::ifstream input(link);
 
 	Json::Reader reader;
@@ -32,17 +32,17 @@ std::vector<drawable*> drawable_object_read(std::string link) {
 
 	// Loop through all the objects and save them to drawables
 	for (auto object : objects["Drawables"]["Circles"]) {
-		drawables.push_back(new circle{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
+		drawables.push_back(new Circle{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
 			object["radius"].asFloat(), object["color"].asString() });
 	}
 
 	for (auto object : objects["Drawables"]["Pictures"]) {
-		drawables.push_back(new picture{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
+		drawables.push_back(new Picture{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
 			sf::Vector2f(object["size_x"].asFloat(), object["size_y"].asFloat()), object["link"].asString()});
 	}
 
 	for (auto object : objects["Drawables"]["Rectangles"]) {
-		drawables.push_back(new rectangle{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
+		drawables.push_back(new Rectangle{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
 			sf::Vector2f(object["size_x"].asFloat(), object["size_y"].asFloat()), object["color"].asString() });
 	}
 
@@ -50,7 +50,7 @@ std::vector<drawable*> drawable_object_read(std::string link) {
 }
 
 
-void drawable_object_write(std::string link, std::vector<drawable*> drawables) {
+void drawable_object_write(std::string link, std::vector<Drawable*> drawables) {
 	// Writes the drawable objects in drawables to the given json file
 	std::ofstream output(link);
 	Json::Value event;

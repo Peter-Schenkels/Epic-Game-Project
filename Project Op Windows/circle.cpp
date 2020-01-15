@@ -5,8 +5,8 @@
 
 // Contains all functions for the circle subclass
 
-circle::circle(sf::Vector2f location, float radius, std::string color) :
-	drawable(location, radius, "CIRCLE", color),
+Circle::Circle(sf::Vector2f location, float radius, std::string color) :
+	Drawable(location, radius, "CIRCLE", color),
 	radius(radius)
 {
 	// Sets the size, position and color of the circle to the given variables
@@ -26,17 +26,17 @@ circle::circle(sf::Vector2f location, float radius, std::string color) :
 
 
 // Function that draws the circle
-void circle::drawable_draw(sf::RenderWindow& window) {
+void Circle::drawable_draw(sf::RenderWindow& window) {
 	window.draw(shape);
 }
 
 // Returns color
-std::string circle::drawable_get_visual() {
+std::string Circle::drawable_get_visual() {
 	return color;
 }
 
 // Update the circle
-void circle::drawable_update() {
+void Circle::drawable_update() {
 	shape.setPosition(location);
 	hitbox = sf::FloatRect( location.x, location.y, drawable_get_size().x, drawable_get_size().y );
 }

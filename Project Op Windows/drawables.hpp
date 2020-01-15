@@ -15,7 +15,7 @@
 #include <map>
 
 
-class drawable {
+class Drawable {
 // Superclass for all the of the objects that can be used
 protected:
 	// Location of the object and a bool to remember whether an object has been selected by the user
@@ -24,14 +24,15 @@ protected:
 	bool selected;
 	std::string type;
 	std::string color;
+	bool in_over_world;
 	sf::RectangleShape visual_hitbox; // for debuggen
 
 public:
 	// Constructor for drawable objects that use a size parameter
-	drawable(sf::Vector2f location, sf::Vector2f size, std::string type, std::string color);
+	Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, std::string color);
 
 	// Constructor for drawable objects that use a radius parameter
-	drawable(sf::Vector2f location, float radius, std::string type, std::string color);
+	Drawable(sf::Vector2f location, float radius, std::string type, std::string color);
 
 	// Returns whether the object has been selected by the user or not
 	bool drawable_get_selected();
@@ -61,6 +62,12 @@ public:
 	// Returns the size of the object
 	sf::Vector2f drawable_get_size();
 
+	// Get dimension the object finds itself in
+	bool drawable_get_dimension();
+
+	// Set dimension the object finds itself in
+	void drawable_set_dimension(bool set);
+
 	// Returns the object color
 	virtual std::string drawable_get_visual() = 0;
 
@@ -72,7 +79,7 @@ public:
 };
 
 
-class circle : public drawable {
+class Circle : public Drawable {
 // Subclass of drawable for circle objects
 protected:
 	// Shape of the circle, radius of the circle and the color of the circle that is read from the file
@@ -81,7 +88,7 @@ protected:
 
 public:
 	// Constructor for circle that stores the given location, radius and color of the circle
-	circle(sf::Vector2f location, float radius, std::string color);
+	Circle(sf::Vector2f location, float radius, std::string color);
 
 
 	// Function that draws the circle
@@ -95,7 +102,7 @@ public:
 };
 
 
-class rectangle : public drawable {
+class Rectangle : public Drawable {
 // Subclass of drawable for rectangle objects
 protected:
 	// Shape, size and color of the rectangle
@@ -104,7 +111,7 @@ protected:
 
 public:
 	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
-	rectangle(sf::Vector2f location, sf::Vector2f size, std::string color);
+	Rectangle(sf::Vector2f location, sf::Vector2f size, std::string color);
 
 
 	// Function that draws the rectangle
@@ -118,7 +125,7 @@ public:
 };
 
 
-class picture : public drawable {
+class Picture : public Drawable {
 // Subclass of drawable for picture objects
 protected:
 	// The sprite, texture and link to the texture for the object
@@ -129,7 +136,7 @@ protected:
 
 public:
 	// Constructor that stores the given location and link to the texture
-	picture(sf::Vector2f location, sf::Vector2f size, std::string link);
+	Picture(sf::Vector2f location, sf::Vector2f size, std::string link);
 
 
 	// Draws the picture
@@ -142,18 +149,20 @@ public:
 	void drawable_update() override;
 
 	// Sets picture size
-	void set_picture_size(sf::Vector2f new_size);
+	void picture_set_size(sf::Vector2f new_size);
 };
 
 
-class portal : public picture {
+// Class for each of the portals
+class Portal : public Picture {
 protected:
 	std::string orientation;
 	std::string doorway;
 
 public:
-	portal(sf::Vector2f location, sf::Vector2f size, std::string link, std::string orientation) :
-		picture(location, size, link),
+	// Constructor
+	Portal(sf::Vector2f location, sf::Vector2f size, std::string link, std::string orientation) :
+		Picture(location, size, link),
 		orientation(orientation)
 	{
 		float rotation;
@@ -172,40 +181,18 @@ public:
 		}
 		sprite.setRotation(rotation);
 	}
-};
 
 
-class linked_portals {
-protected:
-	portal& void_world;
-	portal& over_world;
-
-public:
-	linked_portals(portal& void_world, portal& over_world):
-		void_world(void_world),
-		over_world(over_world)
-	{}
-
-
-	void portal_set(portal& given, std::string world) {
-		if (world == "OVERWORLD") {
-			over_world = given;
-		}
-		else {
-			void_world = given;
-		}
+	// Return doorway
+	std::string portal_get_doorway() {
+		return doorway;
 	}
 
-	void teleport(drawable* player, std::string destination_world) {
-		if (destination_world == "OVERWORLD") {
-			player->drawable_set_position(over_world.drawable_get_location());
-		}
-		else {
-			player->drawable_set_position(void_world.drawable_get_location());
-		}
-		// Change player momentum
-		// Teleport next to other portal, not inside of it
+	// Return orientation
+	std::string portal_get_orientation() {
+		return orientation;
 	}
 };
+
 
 #endif

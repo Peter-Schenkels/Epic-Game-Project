@@ -6,30 +6,27 @@
 #include "drawables.hpp"
 
 class Player_Hitbox {
-
-public:
+protected:
 	sf::Vector2f position, size;
 	sf::RectangleShape left, right, top, bottom;
 	sf::RectangleShape box;
 
+public:
 	Player_Hitbox(sf::Vector2f position, sf::Vector2f size);
 
-	void update(sf::Vector2f pposition);
+	void Player_Hitbox_update(sf::Vector2f pposition);
 
-	void draw(sf::RenderWindow& window);
+	void Player_Hitbox_draw(sf::RenderWindow& window);
 
-	bool leftSideIntersect(sf::FloatRect collider);
+	bool Player_Hitbox_left_side_intersect(sf::FloatRect collider);
 
-	bool rightSideIntersect(sf::FloatRect collider);
+	bool Player_Hitbox_right_side_intersect(sf::FloatRect collider);
 
-	bool topSideIntersect(sf::FloatRect collider);
+	bool Player_Hitbox_top_side_intersect(sf::FloatRect collider);
 
-	bool bottomSideIntersect(sf::FloatRect collider);
+	bool Player_Hitbox_bottom_side_intersect(sf::FloatRect collider);
 
-	sf::FloatRect getOuterbounds();
-
-
-
+	sf::FloatRect Player_Hitbox_get_outerbounds();
 };
 
 
