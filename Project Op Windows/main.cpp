@@ -16,7 +16,6 @@ int main(int argc, char* argv[]) {
 	window.setFramerateLimit(FRAME_RATE);
 	std::cout << "Starting game..." << std::endl;\
 	while (window.isOpen()) {
-
 		// Draw all objects
 		platformer.get_input();
 		platformer.update();

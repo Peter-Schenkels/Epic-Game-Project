@@ -11,9 +11,9 @@
 			},
 			{
 				"color" : "green",
-				"position_x" : 733.0,
-				"position_y" : 367.0,
-				"radius" : 20.0
+				"position_x" : 350.0,
+				"position_y" : 30.0,
+				"radius" : 100.0
 			}
 		],
 		"Pictures" : 

@@ -54,9 +54,10 @@ void drawable::drawable_move(sf::Vector2f delta) {
 
 // Set position
 void drawable::drawable_set_position(sf::Vector2f position) {
-	hitbox.left = position.x;
-	hitbox.top = position.y;
-	location = position;
+	auto new_position = sf::Vector2f(float(int(position.x / 30.0) * 30.0), float(int(position.y / 30.0) * 30.0));
+	hitbox.left = new_position.x;
+	hitbox.top = new_position.y;
+	location = new_position;
 }
 
 // Return the drawable type

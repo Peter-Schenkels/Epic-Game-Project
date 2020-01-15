@@ -17,23 +17,6 @@ picture::picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 	sprite.setPosition(location);
 }
 
-// Constructor that uses a drawable pointer
-picture::picture(drawable* input) :
-	drawable(input->drawable_get_location(), sf::Vector2f(input->drawable_get_hitbox().width,
-		input->drawable_get_hitbox().height), "PICTURE", input->drawable_get_visual()),
-	size(sf::Vector2f(input->drawable_get_hitbox().width, input->drawable_get_hitbox().height)),
-	link(input->drawable_get_visual())
-{
-	// Loads the texture from the given link, sets the texture for the sprite and sets the sprites position
-	texture.loadFromFile(link);
-	sprite.setTexture(texture);
-	sprite.setPosition(location);
-
-
-}
-
-
-
 void picture::set_picture_size(sf::Vector2f new_size) {
 
 	sf::Vector2f current_factor = sprite.getScale();
