@@ -17,11 +17,7 @@
     <ClCompile Include="..\..\jsoncpp\dist\jsoncpp.cpp">
       <Filter>Additional cpp</Filter>
     </ClCompile>
-<<<<<<< Updated upstream
     <ClCompile Include="Player_Hitbox.cpp">
-=======
-    <ClCompile Include="player_hitbox.cpp">
->>>>>>> Stashed changes
       <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,12 +40,6 @@
     <ClInclude Include="player_hitbox.hpp">
       <Filter>Player</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
-=======
-    <ClInclude Include="background_tile.hpp">
-      <Filter>Resources</Filter>
-    </ClInclude>
->>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -75,6 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bird.jpg" />
-    <Image Include="C:\Users\Peter\Documents\Wouter sprites\wovo idle.png" />
+    <Image Include="wovo idle.png" />
   </ItemGroup>
 </Project>
