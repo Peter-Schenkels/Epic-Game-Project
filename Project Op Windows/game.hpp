@@ -23,10 +23,10 @@ protected:
 public:
 	game(sf::RenderWindow& window) :
 		window(window),
-		player({100,0}, {1000,1000})
+		player({100,0}, {100,100})
 	{
 		std::cout << "Loading Textures..." << std::endl;
-		textures["Player Texture"] = new picture({ 0,0 }, { 100,100 }, "test3.jpeg");
+		textures["Player Texture"] = new picture({ 10,10}, { 100,100 }, "test3.jpeg");
 		std::cout << "Loading objects..." << std::endl;
 		drawables = drawable_object_read(SAVE_FILE_LOCATION);
 		std::cout << "Loading objects completed" << std::endl;

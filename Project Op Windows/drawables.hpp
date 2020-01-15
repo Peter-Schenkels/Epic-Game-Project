@@ -24,6 +24,7 @@ protected:
 	bool selected;
 	std::string type;
 	std::string color;
+	sf::RectangleShape visual_hitbox; // for debuggen
 
 public:
 	// Constructor for drawable objects that use a size parameter

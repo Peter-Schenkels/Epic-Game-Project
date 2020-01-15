@@ -99,26 +99,28 @@ public:
         //check if a sf::FloatRect collides with the right  or left side of the hitbox
         if (collision_box.leftSideIntersect(object->drawable_get_hitbox()))
         {
-            speed.x = -0.5;
+            speed.x = 0;
             location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
 
         }
         else if (collision_box.rightSideIntersect(object->drawable_get_hitbox()))
         {
-            speed.x = -0;
+            speed.x = 0;
             location.x = object->drawable_get_hitbox().left - drawable_get_size().x;
+
 
         }
         //check if a sf::FloatRect collides with the bottom  or top of the hitbox
-        else if (collision_box.bottomSideIntersect(object->drawable_get_hitbox()) or
-            collision_box.topSideIntersect(object->drawable_get_hitbox()))
+        else if (collision_box.bottomSideIntersect(object->drawable_get_hitbox()))
+
         {
             location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
             speed.y = -0.5;
             on_ground = true;
         }
-        else {
+        else if (collision_box.topSideIntersect(object->drawable_get_hitbox())){
             on_ground = false;
+            speed.y = 1;
         }
 
     }

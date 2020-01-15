@@ -11,8 +11,8 @@
 			},
 			{
 				"color" : "green",
-				"position_x" : 672.0,
-				"position_y" : 217.0,
+				"position_x" : 733.0,
+				"position_y" : 367.0,
 				"radius" : 20.0
 			}
 		],
@@ -30,8 +30,8 @@
 		[
 			{
 				"color" : "red",
-				"position_x" : 636.0,
-				"position_y" : 583.0,
+				"position_x" : 552.0,
+				"position_y" : 192.0,
 				"size_x" : 30.0,
 				"size_y" : 40.0
 			}
