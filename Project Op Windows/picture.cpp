@@ -37,8 +37,14 @@ std::string picture::drawable_get_visual() {
 }
 
 // Update the picture
+<<<<<<< Updated upstream
 void picture::drawable_update() {
 	sprite.setPosition(location);
 	hitbox = sf::FloatRect(location.x, location.y, drawable_get_size().x, drawable_get_size().y);
+=======
+void Picture::drawable_update() {
+	sprite.setPosition(position);
+	hitbox = sf::FloatRect(position.x, position.y, drawable_get_size().x, drawable_get_size().y);
+>>>>>>> Stashed changes
 
 }

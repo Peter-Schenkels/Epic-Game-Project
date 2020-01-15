@@ -96,9 +96,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\Dev\jsoncpp\include;D:\Dev\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>D:\Dev\SFML-2.5.1\lib;D:\Dev\jsoncpp\src\lib_json;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,10 +140,18 @@
     <ClCompile Include="drawable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="picture.cpp" />
+<<<<<<< Updated upstream
     <ClCompile Include="Player_Hitbox.cpp" />
     <ClCompile Include="rectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+=======
+    <ClCompile Include="player_hitbox.cpp" />
+    <ClCompile Include="rectangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="background_tile.hpp" />
+>>>>>>> Stashed changes
     <ClInclude Include="drawables.hpp" />
     <ClInclude Include="factory.hpp" />
     <ClInclude Include="game.hpp" />
@@ -153,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bird.jpg" />
+    <Image Include="C:\Users\Peter\Documents\Wouter sprites\wovo idle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

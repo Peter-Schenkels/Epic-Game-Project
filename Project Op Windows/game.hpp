@@ -7,14 +7,24 @@
 #include "drawables.hpp"
 #include "factory.hpp"
 #include "settings.hpp"
+<<<<<<< Updated upstream
 #include "player.hpp"
 
+=======
+#include "linked_portals.hpp"
+#include "background_tile.hpp"
+>>>>>>> Stashed changes
 
 class game {
 protected:
 	std::vector<drawable*> drawables;
 	sf::RenderWindow & window;
+<<<<<<< Updated upstream
 	std::map<std::string, picture*> textures;
+=======
+	std::map<std::string, Picture*> textures;
+	background_tiles backdrop;
+>>>>>>> Stashed changes
 	Player player;
 
 	// Create a list filled with all drawable objects read from input
@@ -23,15 +33,28 @@ protected:
 public:
 	game(sf::RenderWindow& window) :
 		window(window),
-		player({100,0}, {100,100})
+		player({ 100,0 }, { 46 , 126 })
 	{
 		std::cout << "Loading Textures..." << std::endl;
+<<<<<<< Updated upstream
 		textures["Player Texture"] = new picture({ 10,10}, { 100,100 }, "test3.jpeg");
 		std::cout << "Loading objects..." << std::endl;
 		drawables = drawable_object_read(SAVE_FILE_LOCATION);
 		std::cout << "Loading objects completed" << std::endl;
 
 		player.init(textures["Player Texture"]);
+=======
+		textures["Player Texture"] = new Picture({ 10,10}, { 100,100 }, "img/wovo idle.png");
+		textures["Backdrop 1"] = new Picture({ 10, 10 }, { 100, 100 }, "img/backdrop 1.png");
+		textures["Backdrop 2"] = new Picture({ 10, 10 }, { 100, 100 }, "img/backdrop 2.png");
+		backdrop = background_tiles(textures["Backdrop 1"], { 100,100 });
+		player.player_init(textures["Player Texture"]);
+ 		std::cout << "Loading objects..." << std::endl;
+		drawables = drawable_object_read(SAVE_FILE_LOCATION);
+		std::cout << "Loading objects completed" << std::endl;
+
+
+>>>>>>> Stashed changes
 
 	}
 	
@@ -137,6 +160,7 @@ public:
 
 	void draw() {
 		window.clear();
+		backdrop.draw(window);
 		player.drawable_draw(window);
 		for (auto Drawable : drawables) {
 

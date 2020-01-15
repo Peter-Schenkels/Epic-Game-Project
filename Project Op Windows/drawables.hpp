@@ -19,7 +19,7 @@ class drawable {
 // Superclass for all the of the objects that can be used
 protected:
 	// Location of the object and a bool to remember whether an object has been selected by the user
-	sf::Vector2f location;
+	sf::Vector2f position;
 	sf::FloatRect hitbox;
 	bool selected;
 	std::string type;

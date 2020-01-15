@@ -36,7 +36,13 @@ std::string circle::drawable_get_visual() {
 }
 
 // Update the circle
+<<<<<<< Updated upstream
 void circle::drawable_update() {
 	shape.setPosition(location);
 	hitbox = sf::FloatRect( location.x, location.y, drawable_get_size().x, drawable_get_size().y );
+=======
+void Circle::drawable_update() {
+	shape.setPosition(position);
+	hitbox = sf::FloatRect( position.x, position.y, drawable_get_size().x, drawable_get_size().y );
+>>>>>>> Stashed changes
 }

@@ -34,8 +34,13 @@ public:
     {
         std::cout << "Initialising player..." << std::endl;
         body = sprite;
+<<<<<<< Updated upstream
         body->set_picture_size(drawable_get_size());
         body->drawable_set_position(location);
+=======
+        body->picture_set_size(drawable_get_size());
+        body->drawable_set_position(position);
+>>>>>>> Stashed changes
         std::cout << "Initialising player completed" << std::endl;
     }
 
@@ -48,11 +53,16 @@ public:
     {
         if (!floating) {
             speed.y += gravity;
-            location += speed;
+            position += speed;
         }
+<<<<<<< Updated upstream
 
         collision_box.update(location);
         body->drawable_set_position(location);
+=======
+        collision_box.Player_Hitbox_update(position);
+        body->drawable_set_position(position);
+>>>>>>> Stashed changes
         body->drawable_update();
     }
 
@@ -100,12 +110,17 @@ public:
         if (collision_box.leftSideIntersect(object->drawable_get_hitbox()))
         {
             speed.x = 0;
+<<<<<<< Updated upstream
             location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
 
+=======
+            position.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
+>>>>>>> Stashed changes
         }
         else if (collision_box.rightSideIntersect(object->drawable_get_hitbox()))
         {
             speed.x = 0;
+<<<<<<< Updated upstream
             location.x = object->drawable_get_hitbox().left - drawable_get_size().x;
 
 
@@ -115,6 +130,13 @@ public:
 
         {
             location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
+=======
+            position.x = object->drawable_get_hitbox().left - drawable_get_size().x;
+        }
+        // Check if a sf::FloatRect collides with the bottom  or top of the hitbox
+        else if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox())){
+            position.y = object->drawable_get_hitbox().top - drawable_get_size().y;
+>>>>>>> Stashed changes
             speed.y = -0.5;
             on_ground = true;
         }
