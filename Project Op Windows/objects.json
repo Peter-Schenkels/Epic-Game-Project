@@ -5,9 +5,9 @@
 		[
 			{
 				"color" : "blue",
-				"position_x" : 10.0,
-				"position_y" : 10.0,
-				"radius" : 50.0
+				"position_x" : 288.0,
+				"position_y" : 417.0,
+				"radius" : 10.0
 			},
 			{
 				"color" : "green",
@@ -20,9 +20,9 @@
 		[
 			{
 				"link" : "bird.jpg",
-				"position_x" : 177.0,
-				"position_y" : 125.0,
-				"size_x" : 100.0,
+				"position_x" : 20.0,
+				"position_y" : 461.0,
+				"size_x" : 1000.0,
 				"size_y" : 100.0
 			}
 		],
@@ -30,10 +30,10 @@
 		[
 			{
 				"color" : "red",
-				"position_x" : 10.0,
-				"position_y" : 100.0,
-				"size_x" : 50.0,
-				"size_y" : 50.0
+				"position_x" : 552.0,
+				"position_y" : 192.0,
+				"size_x" : 30.0,
+				"size_y" : 40.0
 			}
 		]
 	}

@@ -24,7 +24,6 @@ protected:
 	bool selected;
 	std::string type;
 	std::string color;
-	std::map<sf::Keyboard::Key, bool> angle;
 
 public:
 	// Constructor for drawable objects that use a size parameter
@@ -69,66 +68,6 @@ public:
 
 	// Update the object
 	virtual void drawable_update() = 0;
-};
-
-
-class game {
-protected:
-	std::vector<drawable*> drawables;
-	sf::RenderWindow& window;
-	bool edit;
-
-public:
-	game(std::vector<drawable*> vec, sf::RenderWindow& window) :
-		drawables(vec),
-		window(window),
-		edit(false)
-	{}
-
-	void set_edit(bool setting) {
-		edit = setting;
-		sf::sleep(sf::milliseconds(90));
-	}
-
-	bool get_edit() {
-		return edit;
-	}
-
-	void select(sf::Vector2f location) {
-		std::cout << "selected\n";
-		bool selected = false;
-		for (auto drawing : drawables) {
-			if (drawing->drawable_hitbox_contains_point(location) && selected == false) {
-				drawing->drawable_select();
-				selected = true;
-			}
-			else {
-				drawing->drawable_deselect();
-			}
-		}
-		sf::sleep(sf::milliseconds(90));
-	}
-
-	void move_mouse(sf::Vector2f location) {
-		for (auto& drawing : drawables) {
-			if (drawing->drawable_get_selected()) {
-				drawing->drawable_set_position(location);
-			}
-		}
-	}
-
-	std::vector<drawable*> get_drawables() {
-		return drawables;
-	}
-
-	void draw() {
-		window.clear();
-		for (auto drawing : drawables) {
-			drawing->drawable_update();
-			drawing->drawable_draw(window);
-		}
-		window.display();
-	}
 };
 
 
@@ -190,7 +129,7 @@ protected:
 public:
 	// Constructor that stores the given location and link to the texture
 	picture(sf::Vector2f location, sf::Vector2f size, std::string link);
-
+  
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;

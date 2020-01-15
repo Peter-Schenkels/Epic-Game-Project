@@ -39,4 +39,6 @@ std::string rectangle::drawable_get_visual() {
 // Update the rectangle
 void rectangle::drawable_update() {
 	shape.setPosition(location);
+	hitbox = sf::FloatRect(location.x, location.y, drawable_get_size().x, drawable_get_size().y);
+
 }
