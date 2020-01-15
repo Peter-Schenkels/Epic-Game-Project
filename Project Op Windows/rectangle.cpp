@@ -25,26 +25,6 @@ rectangle::rectangle(sf::Vector2f location, sf::Vector2f size, std::string color
 	}
 }
 
-// Constructor for rectangle using drawable pointer
-rectangle::rectangle(drawable* input) :
-	drawable(input->drawable_get_location(), sf::Vector2f(input->drawable_get_hitbox().width,
-		input->drawable_get_hitbox().height), "RECTANGLE", input->drawable_get_visual())
-{
-	// Sets size, position and color of the rectangle to those that have been received through the constructor
-	// COLORS EVERYWHERE NEED TO BE REPLACE BY TEXTURES - XXX DONIOL
-	shape.setSize(size);
-	shape.setPosition(location);
-	if (color == "red") {
-		shape.setFillColor({ 255, 0, 0 });
-	}
-	else if (color == "green") {
-		shape.setFillColor({ 0, 255, 0 });
-	}
-	else if (color == "blue") {
-		shape.setFillColor({ 0, 0, 255 });
-	}
-}
-
 
 // Function that draws the rectangle
 void rectangle::drawable_draw(sf::RenderWindow& window) {

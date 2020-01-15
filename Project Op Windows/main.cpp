@@ -37,14 +37,6 @@ int main(int argc, char* argv[]) {
 				// Change in and out of edit mode
 				platformer.set_edit(!platformer.get_edit());
 			}
-			else if (key_press.type == sf::Event::KeyPressed) {
-				// Move something with WASD
-				auto key = key_press.key.code;
-				if (key == sf::Keyboard::W || key == sf::Keyboard::A || key == sf::Keyboard::S ||
-					key == sf::Keyboard::D) {
-					platformer.move_key(key_press);
-				}
-			}
 		}
 
 		// Draw all objects
