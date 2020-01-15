@@ -14,6 +14,8 @@ drawable::drawable(sf::Vector2f location, sf::Vector2f size, std::string type, s
 	color(color)
 {}
 
+
+
 // Constructor for drawable objects that use a radius parameter
 drawable::drawable(sf::Vector2f location, float radius, std::string type, std::string color) :
 	location(location),

@@ -24,6 +24,7 @@ protected:
 	bool selected;
 	std::string type;
 	std::string color;
+	sf::RectangleShape visual_hitbox; // for debuggen
 
 public:
 	// Constructor for drawable objects that use a size parameter
@@ -71,80 +72,6 @@ public:
 };
 
 
-class game {
-protected:
-	std::vector<drawable*> drawables;
-	sf::RenderWindow& window;
-	bool edit;
-
-public:
-	game(std::vector<drawable*> vec, sf::RenderWindow& window) :
-		drawables(vec),
-		window(window),
-		edit(false)
-	{}
-
-	void set_edit(bool setting) {
-		edit = setting;
-		sf::sleep(sf::milliseconds(90));
-	}
-
-	bool get_edit() {
-		return edit;
-	}
-
-	void select(sf::Vector2f location) {
-		std::cout << "selected\n";
-		bool selected = false;
-		for (auto drawing : drawables) {
-			if (drawing->drawable_hitbox_contains_point(location) && selected == false) {
-				drawing->drawable_select();
-				selected = true;
-			}
-			else {
-				drawing->drawable_deselect();
-			}
-		}
-		sf::sleep(sf::milliseconds(90));
-	}
-
-	void move_mouse(sf::Vector2f location) {
-		for (auto& drawing : drawables) {
-			if (drawing->drawable_get_selected()) {
-				drawing->drawable_set_position(location);
-			}
-		}
-	}
-
-	void move_key(sf::Event& entry) {
-		std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::W, sf::Vector2f{ 0, 1 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::A, sf::Vector2f{ -1, 0 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::S, sf::Vector2f{ 0, -1 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::D, sf::Vector2f{ 1, 0 }));
-
-		for (auto& drawing : drawables) {
-			if (drawing->drawable_get_selected()) {
-				drawing->drawable_move(moves[entry.key.code]);
-			}
-		}
-	}
-
-	std::vector<drawable*> get_drawables() {
-		return drawables;
-	}
-
-	void draw() {
-		window.clear();
-		for (auto drawing : drawables) {
-			drawing->drawable_update();
-			drawing->drawable_draw(window);
-		}
-		window.display();
-	}
-};
-
-
 class circle : public drawable {
 // Subclass of drawable for circle objects
 protected:
@@ -155,9 +82,6 @@ protected:
 public:
 	// Constructor for circle that stores the given location, radius and color of the circle
 	circle(sf::Vector2f location, float radius, std::string color);
-
-	// Constructor for circle using a drawable pointer
-	circle(drawable* input);
 
 
 	// Function that draws the circle
@@ -181,9 +105,6 @@ protected:
 public:
 	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
 	rectangle(sf::Vector2f location, sf::Vector2f size, std::string color);
-
-	// Constructor for rectangle using drawable pointer
-	rectangle(drawable* input);
 
 
 	// Function that draws the rectangle
@@ -210,9 +131,6 @@ public:
 	// Constructor that stores the given location and link to the texture
 	picture(sf::Vector2f location, sf::Vector2f size, std::string link);
 
-	// Constructor that uses a drawable pointer
-	picture(drawable* input);
-
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -222,6 +140,72 @@ public:
 
 	// Update the picture
 	void drawable_update() override;
+
+	// Sets picture size
+	void set_picture_size(sf::Vector2f new_size);
+};
+
+
+class portal : public picture {
+protected:
+	std::string orientation;
+	std::string doorway;
+
+public:
+	portal(sf::Vector2f location, sf::Vector2f size, std::string link, std::string orientation) :
+		picture(location, size, link),
+		orientation(orientation)
+	{
+		float rotation;
+		std::array<std::string, 4> orientations{ "TOP", "RIGHT", "BOTTOM", "LEFT" };
+		
+		for (unsigned int i = 0; i < 4; i++) {
+			if (orientations[i] == orientation) {
+				rotation = float(i * 90);
+				if (i <= 1) {
+					doorway = orientations[i + 2];
+				}
+				else {
+					doorway = orientations[i - 2];
+				}
+			}
+		}
+		sprite.setRotation(rotation);
+	}
+};
+
+
+class linked_portals {
+protected:
+	portal& void_world;
+	portal& over_world;
+
+public:
+	linked_portals(portal& void_world, portal& over_world):
+		void_world(void_world),
+		over_world(over_world)
+	{}
+
+
+	void portal_set(portal& given, std::string world) {
+		if (world == "OVERWORLD") {
+			over_world = given;
+		}
+		else {
+			void_world = given;
+		}
+	}
+
+	void teleport(drawable* player, std::string destination_world) {
+		if (destination_world == "OVERWORLD") {
+			player->drawable_set_position(over_world.drawable_get_location());
+		}
+		else {
+			player->drawable_set_position(void_world.drawable_get_location());
+		}
+		// Change player momentum
+		// Teleport next to other portal, not inside of it
+	}
 };
 
 #endif
