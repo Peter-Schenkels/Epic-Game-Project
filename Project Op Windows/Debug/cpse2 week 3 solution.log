@@ -1,0 +1,8 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(459,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (cpse2 week 2 solution.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.cpp
+<<<<<<< Updated upstream
+  cpse2 week 3 solution.vcxproj -> D:\Dev\Epic-Game-Project\Project Op Windows\Debug\cpse2 week 3 solution.exe
+=======
+main.obj : error LNK2019: unresolved external symbol "public: __thiscall background_tiles::background_tiles(void)" (??0background_tiles@@QAE@XZ) referenced in function "public: __thiscall Game::Game(class sf::RenderWindow &)" (??0Game@@QAE@AAVRenderWindow@sf@@@Z)
+D:\Dev\Epic-Game-Project\Project Op Windows\Debug\cpse2 week 3 solution.exe : fatal error LNK1120: 1 unresolved externals
+>>>>>>> Stashed changes
