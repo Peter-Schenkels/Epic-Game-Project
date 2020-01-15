@@ -24,6 +24,7 @@ protected:
 	bool selected;
 	std::string type;
 	std::string color;
+	std::map<sf::Keyboard::Key, bool> angle;
 
 public:
 	// Constructor for drawable objects that use a size parameter
@@ -116,12 +117,6 @@ public:
 		}
 	}
 
-	void move_key(sf::Event& entry) {
-		/*std::map<sf::Keyboard, sf::Vector2f> moves{};
-		moves.insert(std::pair<sf::Keyboard, sf::Vector2f>(sf::Keyboard::W, sf::Vector2f{ 1, 1 }));*/
-
-	}
-
 	std::vector<drawable*> get_drawables() {
 		return drawables;
 	}
@@ -148,9 +143,6 @@ public:
 	// Constructor for circle that stores the given location, radius and color of the circle
 	circle(sf::Vector2f location, float radius, std::string color);
 
-	// Constructor for circle using a drawable pointer
-	circle(drawable* input);
-
 
 	// Function that draws the circle
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -173,9 +165,6 @@ protected:
 public:
 	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
 	rectangle(sf::Vector2f location, sf::Vector2f size, std::string color);
-
-	// Constructor for rectangle using drawable pointer
-	rectangle(drawable* input);
 
 
 	// Function that draws the rectangle
@@ -202,9 +191,6 @@ public:
 	// Constructor that stores the given location and link to the texture
 	picture(sf::Vector2f location, sf::Vector2f size, std::string link);
 
-	// Constructor that uses a drawable pointer
-	picture(drawable* input);
-
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -214,6 +200,60 @@ public:
 
 	// Update the picture
 	void drawable_update() override;
+};
+
+
+class portal : public picture {
+protected:
+	std::string orientation;
+	std::string doorway;
+
+public:
+	portal(sf::Vector2f location, sf::Vector2f size, std::string link, std::string orientation) :
+		picture(location, size, link),
+		orientation(orientation)
+	{
+		float rotation;
+		std::array<std::string, 4> orientations{ "TOP", "RIGHT", "BOTTOM", "LEFT" };
+		
+		for (unsigned int i = 0; i < 4; i++) {
+			if (orientations[i] == orientation) {
+				rotation = i * 90;
+				if (i <= 1) {
+					doorway = orientations[i + 2];
+				}
+				else {
+					doorway = orientations[i - 2];
+				}
+			}
+		}
+		sprite.setRotation(rotation);
+	}
+};
+
+
+class linked_portals {
+protected:
+	std::map<std::string, portal&> portals = {};
+
+public:
+	linked_portals(){}
+
+
+	void portal_set(portal& given, std::string world) {
+		if (portals.count(world) > 0) {
+			portals[world] = given;
+		}
+		else {
+			portals.insert(std::pair<std::string, portal&>(world, given));
+		}
+	}
+
+	void teleport(drawable* player, std::string destination_world) {
+		player->drawable_set_position(portals[destination_world].drawable_get_location());
+		// Change player momentum
+		// Teleport next to other portal, not inside of it
+	}
 };
 
 #endif

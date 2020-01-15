@@ -12,7 +12,12 @@ drawable::drawable(sf::Vector2f location, sf::Vector2f size, std::string type, s
 	type(type),
 	selected(false),
 	color(color)
-{}
+{
+	angle.insert(std::pair<sf::Keyboard::Key, bool>(sf::Keyboard::W, false));
+	angle.insert(std::pair<sf::Keyboard::Key, bool>(sf::Keyboard::A, false));
+	angle.insert(std::pair<sf::Keyboard::Key, bool>(sf::Keyboard::S, false));
+	angle.insert(std::pair<sf::Keyboard::Key, bool>(sf::Keyboard::D, false));
+}
 
 // Constructor for drawable objects that use a radius parameter
 drawable::drawable(sf::Vector2f location, float radius, std::string type, std::string color) :
@@ -52,9 +57,10 @@ void drawable::drawable_move(sf::Vector2f delta) {
 
 // Set position
 void drawable::drawable_set_position(sf::Vector2f position) {
-	hitbox.left = position.x;
-	hitbox.top = position.y;
-	location = position;
+	auto new_position = sf::Vector2f(float(int(position.x / 30.0) * 30.0), float(int(position.y / 30.0) * 30.0));
+	hitbox.left = new_position.x;
+	hitbox.top = new_position.y;
+	location = new_position;
 }
 
 // Return the drawable type
