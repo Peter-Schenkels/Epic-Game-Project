@@ -38,4 +38,5 @@ std::string circle::drawable_get_visual() {
 // Update the circle
 void circle::drawable_update() {
 	shape.setPosition(location);
+	hitbox = sf::FloatRect( location.x, location.y, drawable_get_size().x, drawable_get_size().y );
 }
