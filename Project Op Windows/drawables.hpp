@@ -71,6 +71,66 @@ public:
 };
 
 
+class game {
+protected:
+	std::vector<drawable*> drawables;
+	sf::RenderWindow& window;
+	bool edit;
+
+public:
+	game(std::vector<drawable*> vec, sf::RenderWindow& window) :
+		drawables(vec),
+		window(window),
+		edit(false)
+	{}
+
+	void set_edit(bool setting) {
+		edit = setting;
+		sf::sleep(sf::milliseconds(90));
+	}
+
+	bool get_edit() {
+		return edit;
+	}
+
+	void select(sf::Vector2f location) {
+		std::cout << "selected\n";
+		bool selected = false;
+		for (auto drawing : drawables) {
+			if (drawing->drawable_hitbox_contains_point(location) && selected == false) {
+				drawing->drawable_select();
+				selected = true;
+			}
+			else {
+				drawing->drawable_deselect();
+			}
+		}
+		sf::sleep(sf::milliseconds(90));
+	}
+
+	void move_mouse(sf::Vector2f location) {
+		for (auto& drawing : drawables) {
+			if (drawing->drawable_get_selected()) {
+				drawing->drawable_set_position(location);
+			}
+		}
+	}
+
+	std::vector<drawable*> get_drawables() {
+		return drawables;
+	}
+
+	void draw() {
+		window.clear();
+		for (auto drawing : drawables) {
+			drawing->drawable_update();
+			drawing->drawable_draw(window);
+		}
+		window.display();
+	}
+};
+
+
 class circle : public drawable {
 // Subclass of drawable for circle objects
 protected:
@@ -129,7 +189,7 @@ protected:
 public:
 	// Constructor that stores the given location and link to the texture
 	picture(sf::Vector2f location, sf::Vector2f size, std::string link);
-  
+
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -157,7 +217,7 @@ public:
 		
 		for (unsigned int i = 0; i < 4; i++) {
 			if (orientations[i] == orientation) {
-				rotation = i * 90;
+				rotation = float(i * 90);
 				if (i <= 1) {
 					doorway = orientations[i + 2];
 				}
@@ -173,23 +233,32 @@ public:
 
 class linked_portals {
 protected:
-	std::map<std::string, portal&> portals = {};
+	portal& void_world;
+	portal& over_world;
 
 public:
-	linked_portals(){}
+	linked_portals(portal& void_world, portal& over_world):
+		void_world(void_world),
+		over_world(over_world)
+	{}
 
 
 	void portal_set(portal& given, std::string world) {
-		if (portals.count(world) > 0) {
-			portals[world] = given;
+		if (world == "OVERWORLD") {
+			over_world = given;
 		}
 		else {
-			portals.insert(std::pair<std::string, portal&>(world, given));
+			void_world = given;
 		}
 	}
 
 	void teleport(drawable* player, std::string destination_world) {
-		player->drawable_set_position(portals[destination_world].drawable_get_location());
+		if (destination_world == "OVERWORLD") {
+			player->drawable_set_position(over_world.drawable_get_location());
+		}
+		else {
+			player->drawable_set_position(void_world.drawable_get_location());
+		}
 		// Change player momentum
 		// Teleport next to other portal, not inside of it
 	}
