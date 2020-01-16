@@ -19,7 +19,7 @@ class Drawable {
 // Superclass for all the of the objects that can be used
 protected:
 	// Location of the object and a bool to remember whether an object has been selected by the user
-	sf::Vector2f location;
+	sf::Vector2f position;
 	sf::FloatRect hitbox;
 	bool selected;
 	std::string type;
@@ -29,16 +29,16 @@ protected:
 
 public:
 	// Constructor for drawable objects that use a size parameter
-	Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, std::string color);
+	Drawable(sf::Vector2f position, sf::Vector2f size, std::string type, std::string color);
 
 	// Constructor for drawable objects that use a radius parameter
-	Drawable(sf::Vector2f location, float radius, std::string type, std::string color);
+	Drawable(sf::Vector2f position, float radius, std::string type, std::string color);
 
 	// Returns whether the object has been selected by the user or not
 	bool drawable_get_selected();
 
 	// Returns the location of the object
-	sf::Vector2f drawable_get_location();
+	sf::Vector2f drawable_get_position();
 
 	// Select/Deselect the drawable object
 	void drawable_select();
@@ -88,7 +88,7 @@ protected:
 
 public:
 	// Constructor for circle that stores the given location, radius and color of the circle
-	Circle(sf::Vector2f location, float radius, std::string color);
+	Circle(sf::Vector2f position, float radius, std::string color);
 
 
 	// Function that draws the circle
@@ -111,7 +111,7 @@ protected:
 
 public:
 	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
-	Rectangle(sf::Vector2f location, sf::Vector2f size, std::string color);
+	Rectangle(sf::Vector2f position, sf::Vector2f size, std::string color);
 
 
 	// Function that draws the rectangle
@@ -136,8 +136,9 @@ protected:
 
 public:
 	// Constructor that stores the given location and link to the texture
-	Picture(sf::Vector2f location, sf::Vector2f size, std::string link);
+	Picture(sf::Vector2f position, sf::Vector2f size, std::string link);
 
+	Picture(sf::Vector2f position, sf::Vector2f size, std::string link, std::string name);
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -153,14 +154,16 @@ public:
 };
 
 
+// Class for each of the portals
 class Portal : public Picture {
 protected:
 	std::string orientation;
 	std::string doorway;
 
 public:
-	Portal(sf::Vector2f location, sf::Vector2f size, std::string link, std::string orientation) :
-		Picture(location, size, link),
+	// Constructor
+	Portal(sf::Vector2f position, sf::Vector2f size, std::string link, std::string orientation) :
+		Picture(position, size, link, "PORTAL"),
 		orientation(orientation)
 	{
 		float rotation;
@@ -178,6 +181,17 @@ public:
 			}
 		}
 		sprite.setRotation(rotation);
+	}
+
+
+	// Return doorway
+	std::string portal_get_doorway() {
+		return doorway;
+	}
+
+	// Return orientation
+	std::string portal_get_orientation() {
+		return orientation;
 	}
 };
 

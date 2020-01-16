@@ -28,6 +28,7 @@ public:
 		textures["Player Texture"] = new Picture({ 10,10}, { 100,100 }, "test3.jpeg");
 		std::cout << "Loading objects..." << std::endl;
 		drawables = drawable_object_read(SAVE_FILE_LOCATION);
+
 		std::cout << "Loading objects completed" << std::endl;
 
 		player.player_init(textures["Player Texture"]);

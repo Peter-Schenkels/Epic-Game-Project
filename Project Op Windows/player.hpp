@@ -30,11 +30,22 @@ public:
         player_init(sprite);
     }
 
+
+    // Set player speed
+    void player_set_speed(sf::Vector2f new_speed) {
+        speed = new_speed;
+    }
+
+    // Get player speed
+    sf::Vector2f player_get_speed() {
+        return speed;
+    }
+
     void player_init(Picture* sprite) {
         std::cout << "Initialising player..." << std::endl;
         body = sprite;
         body->picture_set_size(drawable_get_size());
-        body->drawable_set_position(location);
+        body->drawable_set_position(position);
         std::cout << "Initialising player completed" << std::endl;
     }
 
@@ -45,10 +56,10 @@ public:
     void drawable_update() override {
         if (!floating) {
             speed.y += gravity;
-            location += speed;
+            position += speed;
         }
-        collision_box.Player_Hitbox_update(location);
-        body->drawable_set_position(location);
+        collision_box.Player_Hitbox_update(position);
+        body->drawable_set_position(position);
         body->drawable_update();
     }
 
@@ -60,14 +71,13 @@ public:
         floating = boolean;
     }
 
-
-    //handles all input events
+    // Handles all input events
     void player_input(sf::Event event) {
-        //if key up is pressed: jump!
+        // If key up is pressed: jump!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && speed.y == -0.5) {
             speed.y = float(-1 * (jump_speed + 0.01));
         }
-        //if key left is pressed: move left!
+        // If key left is pressed: move left!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
             speed.x = -7;
         }
@@ -89,20 +99,20 @@ public:
         }
     }
 
-    //collision detection between a player and a sf::FloatRect
+    // Collision detection between a player and a sf::FloatRect
     void player_collision(Drawable* object) {
-        //check if a sf::FloatRect collides with the right  or left side of the hitbox
+        // Check if a sf::FloatRect collides with the right  or left side of the hitbox
         if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
-            location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
+            position.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
         }
         else if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
-            location.x = object->drawable_get_hitbox().left - drawable_get_size().x;
+            position.x = object->drawable_get_hitbox().left - drawable_get_size().x;
         }
-        //check if a sf::FloatRect collides with the bottom  or top of the hitbox
+        // Check if a sf::FloatRect collides with the bottom  or top of the hitbox
         else if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox())){
-            location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
+            position.y = object->drawable_get_hitbox().top - drawable_get_size().y;
             speed.y = -0.5;
             on_ground = true;
         }
