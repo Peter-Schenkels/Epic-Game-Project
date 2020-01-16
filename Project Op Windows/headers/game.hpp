@@ -7,6 +7,7 @@
 #include "factory.hpp"
 #include "settings.hpp"
 #include "linked_portals.hpp"
+#include "background_tile.hpp"
 
 
 class Game {
@@ -14,6 +15,7 @@ protected:
 	std::vector<Drawable*> drawables;
 	sf::RenderWindow & window;
 	std::map<std::string, Picture*> textures;
+	random_background_tiles backdrop;
 	Player player;
 
 
@@ -27,10 +29,12 @@ public:
 	{
 		std::cout << "Loading Textures..." << std::endl;
 		textures["Player Texture"] = new Picture({ 10,10}, { 100,100 }, "img/wovo idle.png");
+		textures["backdrop 1"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 1.png");
+		textures["backdrop 2"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 2.png");
 		std::cout << "Loading objects..." << std::endl;
 		drawables = drawable_object_read(SAVE_FILE_LOCATION);
 		std::cout << "Loading objects completed" << std::endl;
-
+		backdrop = random_background_tiles(textures, { 100, 100 }, { "backdrop 1", "backdrop 2" });
 		player.player_init(textures["Player Texture"]);
 
 	}
@@ -140,6 +144,7 @@ public:
 
 	void game_draw() {
 		window.clear();
+		backdrop.draw(window);
 		player.drawable_draw(window);
 		for (auto Drawable : drawables) {
 

@@ -79,13 +79,7 @@ public:
     }
 
 
-    void direction() {
 
-        if (speed.x > 0.5 && speed.x < -0.5 &&
-            speed.y > 0.5 && speed.y < -0.5 )
-
-
-    }
 
     // Handles all input events
     void player_input(sf::Event event) {

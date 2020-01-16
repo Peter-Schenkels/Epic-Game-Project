@@ -2,6 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\jsoncpp\dist\jsoncpp.cpp">
+      <Filter>Json</Filter>
+    </ClCompile>
     <ClCompile Include="cpp\circle.cpp">
       <Filter>Additional cpp</Filter>
     </ClCompile>
@@ -16,9 +19,6 @@
     </ClCompile>
     <ClCompile Include="cpp\rectangle.cpp">
       <Filter>Additional cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jsoncpp\dist\jsoncpp.cpp">
-      <Filter>Json</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
