@@ -19,7 +19,7 @@ class Drawable {
 // Superclass for all the of the objects that can be used
 protected:
 	// Location of the object and a bool to remember whether an object has been selected by the user
-	sf::Vector2f location;
+	sf::Vector2f position;
 	sf::FloatRect hitbox;
 	bool selected;
 	std::string type;
@@ -29,16 +29,16 @@ protected:
 
 public:
 	// Constructor for drawable objects that use a size parameter
-	Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, std::string color);
+	Drawable(sf::Vector2f position, sf::Vector2f size, std::string type, std::string color);
 
 	// Constructor for drawable objects that use a radius parameter
-	Drawable(sf::Vector2f location, float radius, std::string type, std::string color);
+	Drawable(sf::Vector2f position, float radius, std::string type, std::string color);
 
 	// Returns whether the object has been selected by the user or not
 	bool drawable_get_selected();
 
 	// Returns the location of the object
-	sf::Vector2f drawable_get_location();
+	sf::Vector2f drawable_get_position();
 
 	// Select/Deselect the drawable object
 	void drawable_select();
@@ -88,7 +88,7 @@ protected:
 
 public:
 	// Constructor for circle that stores the given location, radius and color of the circle
-	Circle(sf::Vector2f location, float radius, std::string color);
+	Circle(sf::Vector2f position, float radius, std::string color);
 
 
 	// Function that draws the circle
@@ -108,9 +108,10 @@ protected:
 	// Shape, size and color of the rectangle
 	sf::RectangleShape shape;
 	sf::Vector2f size;
+
 public:
 	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
-	Rectangle(sf::Vector2f location, sf::Vector2f size, std::string color);
+	Rectangle(sf::Vector2f position, sf::Vector2f size, std::string color);
 
 
 	// Function that draws the rectangle
@@ -133,13 +134,11 @@ protected:
 	sf::Vector2f size;
 	std::string link;
 
-	// How much the the sprite differs from his initial position
-	sf::Vector2f offset = { 0,0 };
-
 public:
 	// Constructor that stores the given location and link to the texture
-	Picture(sf::Vector2f location, sf::Vector2f size, std::string link);
+	Picture(sf::Vector2f position, sf::Vector2f size, std::string link);
 
+	Picture(sf::Vector2f position, sf::Vector2f size, std::string link, std::string name);
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -152,15 +151,6 @@ public:
 
 	// Sets picture size
 	void picture_set_size(sf::Vector2f new_size);
-
-	// Sets picture scale
-	void picture_set_scale(sf::Vector2f scale) { sprite.setScale(scale); }
-
-	// Returns pciture scale
-	sf::Vector2f picture_get_scale() { return sprite.getScale(); }
-
-	void picture_set_offset(sf::Vector2f new_offset) { offset = new_offset; };
-
 };
 
 
@@ -172,8 +162,8 @@ protected:
 
 public:
 	// Constructor
-	Portal(sf::Vector2f location, sf::Vector2f size, std::string link, std::string orientation) :
-		Picture(location, size, link),
+	Portal(sf::Vector2f position, sf::Vector2f size, std::string link, std::string orientation) :
+		Picture(position, size, link, "PORTAL"),
 		orientation(orientation)
 	{
 		float rotation;
