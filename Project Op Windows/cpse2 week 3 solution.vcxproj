@@ -23,6 +23,7 @@
     <ProjectGuid>{C312D56B-7975-4A43-8C50-0298E9794352}</ProjectGuid>
     <RootNamespace>cpse2week2solution</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>project gaming on windows(v4)</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -76,7 +77,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\dev\Epic-Game-Project\Project Op Windows\headers;D:\dev\Epic-Game-Project\Project Op Windows\cpp;D:\dev\jsoncpp\include;D:\dev\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Users\noaht\Documents\jsoncpp\include;D:\Users\noaht\Documents\SFML-2.5.1\include;C:\Users\noaht\source\repos\project gaming on windows(v4)\cpp;C:\Users\noaht\source\repos\project gaming on windows(v4)\headers;C:\Users\noaht\source\repos\project gaming on windows(v4)\img;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableLanguageExtensions>true</DisableLanguageExtensions>
@@ -86,7 +87,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>D:\dev\SFML-2.5.1\lib;D:\dev\jsoncpp\src\lib_json;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Users\noaht\Documents\jsoncpp\src\lib_json;D:\Users\noaht\Documents\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -132,19 +133,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\jsoncpp\dist\jsoncpp.cpp" />
     <ClCompile Include="cpp\circle.cpp" />
     <ClCompile Include="cpp\drawable.cpp" />
     <ClCompile Include="cpp\picture.cpp" />
     <ClCompile Include="cpp\Player_Hitbox.cpp" />
     <ClCompile Include="cpp\rectangle.cpp" />
+    <ClCompile Include="D:\Users\noaht\Documents\jsoncpp\dist\jsoncpp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="objects.json" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bird.jpg" />
     <Image Include="img\backdrop 1.png" />
     <Image Include="img\backdrop 2.png" />
     <Image Include="img\bird.jpg" />

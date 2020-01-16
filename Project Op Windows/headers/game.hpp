@@ -9,7 +9,6 @@
 #include "linked_portals.hpp"
 #include "background_tile.hpp"
 
-
 class Game {
 protected:
 	std::vector<Drawable*> drawables;
@@ -34,7 +33,7 @@ public:
 		std::cout << "Loading objects..." << std::endl;
 		drawables = drawable_object_read(SAVE_FILE_LOCATION);
 		std::cout << "Loading objects completed" << std::endl;
-		backdrop = random_background_tiles(textures, { 100, 100 }, { "backdrop 1", "backdrop 2" });
+		backdrop = random_background_tiles(textures, { 100, 100 }, { "backdrop 1", "backdrop 2", "backdrop 1" });
 		player.player_init(textures["Player Texture"]);
 
 	}

@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\..\jsoncpp\dist\jsoncpp.cpp">
+    <ClCompile Include="D:\Users\noaht\Documents\jsoncpp\dist\jsoncpp.cpp">
       <Filter>Json</Filter>
     </ClCompile>
     <ClCompile Include="cpp\circle.cpp">
@@ -44,7 +44,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bird.jpg" />
     <Image Include="img\backdrop 1.png">
       <Filter>img</Filter>
     </Image>
