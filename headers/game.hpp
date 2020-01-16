@@ -16,7 +16,8 @@ protected:
 	std::map<std::string, Picture*> textures;
 	random_background_tiles backdrop;
 	Player player;
-
+	Portal p1;
+	Portal p2;
 
 	// Create a list filled with all drawable objects read from input
 	bool edit = false;
@@ -30,11 +31,16 @@ public:
 		textures["Player Texture"] = new Picture({ 10,10}, { 100,100 }, "img/wovo idle.png");
 		textures["backdrop 1"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 1.png");
 		textures["backdrop 2"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 2.png");
+		textures["Portal 1"] = new Picture({ 0,0 }, { 100,100 }, "img/test2.jpg");
+		textures["Portal 2"] = new Picture({ 0,0 }, { 100,100 }, "img/test3.jpeg");
+
 		std::cout << "Loading objects..." << std::endl;
 		drawables = drawable_object_read(SAVE_FILE_LOCATION);
 		std::cout << "Loading objects completed" << std::endl;
 		backdrop = random_background_tiles(textures, { 100, 100 }, { "backdrop 1", "backdrop 2", "backdrop 1" });
 		player.player_init(textures["Player Texture"]);
+		p1 = Portal({ 50, 50 }, { 50, 50 }, textures["Portal 1"], "TOP");
+		p2 = Portal({ 200, 150 }, { 75, 75 }, textures["Portal 2"], "TOP");
 
 	}
 	
@@ -138,6 +144,10 @@ public:
 			Drawable->drawable_update();
 			player.player_collision(Drawable);
 		}
+		p1.drawable_update();
+		p2.drawable_update();
+
+
 	}
 
 
@@ -149,6 +159,9 @@ public:
 
 			Drawable->drawable_draw(window);
 		}
+
+		p1.drawable_draw(window);
+		p2.drawable_draw(window);
 		window.display();
 	}
 };

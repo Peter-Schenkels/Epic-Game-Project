@@ -28,6 +28,8 @@ protected:
 	sf::RectangleShape visual_hitbox; // for debuggen
 
 public:
+	// Default Constructor
+	Drawable(){}
 	// Constructor for drawable objects that use a size parameter
 	Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, std::string color);
 
@@ -140,6 +142,8 @@ public:
 	// Constructor that stores the given location and link to the texture
 	Picture(sf::Vector2f location, sf::Vector2f size, std::string link);
 
+	Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name);
+
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -161,24 +165,31 @@ public:
 
 	void picture_set_offset(sf::Vector2f new_offset) { offset = new_offset; };
 
+	void picture_set_rotation(float rotation) { sprite.setRotation(rotation); }
+
 };
 
 
 // Class for each of the portals
-class Portal : public Picture {
+class Portal : public Drawable {
 protected:
+	Picture* body;
 	std::string orientation;
 	std::string doorway;
 
 public:
+	// Default constructor
+	Portal() {}
+
 	// Constructor
-	Portal(sf::Vector2f location, sf::Vector2f size, std::string link, std::string orientation) :
-		Picture(location, size, link),
+	Portal(sf::Vector2f position, sf::Vector2f size, Picture* sprite, std::string orientation) :
+		Drawable(position, size, "Portal", "White"),
+		body(sprite),
 		orientation(orientation)
 	{
 		float rotation;
 		std::array<std::string, 4> orientations{ "TOP", "RIGHT", "BOTTOM", "LEFT" };
-		
+
 		for (unsigned int i = 0; i < 4; i++) {
 			if (orientations[i] == orientation) {
 				rotation = float(i * 90);
@@ -190,7 +201,20 @@ public:
 				}
 			}
 		}
-		sprite.setRotation(rotation);
+		body->picture_set_size(size);
+		body->picture_set_rotation(rotation);
+		
+	}
+
+	void drawable_draw(sf::RenderWindow & window) override{
+		body->drawable_draw(window);
+	}
+
+	std::string drawable_get_visual() { return color; }
+
+	void drawable_update() { 
+		body->drawable_set_position(location); 
+		body->drawable_update();
 	}
 
 

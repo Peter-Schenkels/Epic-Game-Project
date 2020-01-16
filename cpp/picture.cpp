@@ -17,6 +17,18 @@ Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 
 }
 
+	Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name) :
+		Drawable(location, size, name, "none"),
+		size(size),
+		link(link)
+	{
+		// Loads the texture from the given link, sets the texture for the sprite and sets the sprites position
+		texture.loadFromFile(link);
+		sprite.setTexture(texture);
+		sprite.setPosition(location);
+	}
+
+
 // Sets picture size
 void Picture::picture_set_size(sf::Vector2f new_size) {
 	size = sf::Vector2f( float(texture.getSize().x), float(texture.getSize().y) );
