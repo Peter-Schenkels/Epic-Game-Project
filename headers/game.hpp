@@ -4,10 +4,15 @@
 #define GAME_HPP
 
 #include <iostream>
+#include <exception>
+#include "drawables.hpp"
 #include "factory.hpp"
 #include "settings.hpp"
 #include "linked_portals.hpp"
 #include "background_tile.hpp"
+#include "player.hpp"
+#include "portal_error.hpp"
+#include "portal_bullet.hpp"
 
 class Game {
 protected:
@@ -111,6 +116,22 @@ public:
 			sf::Vector2f location{ float(int(sf::Mouse::getPosition(window).x / 50) * 50), 
 				float(int(sf::Mouse::getPosition(window).y / 50) * 50)};
 			game_move_mouse(location);
+		}
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			// Shoot portal when button left mouse is pressed
+			sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
+			sf::Vector2f playerPos = player.drawable_get_location();
+			playerPos.x += player.drawable_get_size().x / 2;
+			playerPos.y += player.drawable_get_size().y / 2;
+			Portal_bullet bullet(playerPos, window.getSize(), mousePos);
+			try {
+
+				bullet.portal_bullet_impact_calc(drawables, window);
+			}
+			catch (const std::exception & e) {
+				std::cerr << e.what();
+			}
 		}
 		
 		sf::Event key_press;
