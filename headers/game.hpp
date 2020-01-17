@@ -37,7 +37,9 @@ public:
 		std::cout << "Loading objects..." << std::endl;
 		drawables = drawable_object_read(SAVE_FILE_LOCATION);
 		std::cout << "Loading objects completed" << std::endl;
-		backdrop = random_background_tiles(textures, { 100, 100 }, { "backdrop 1", "backdrop 2", "backdrop 1" });
+		tile_priority t1("backdrop 1", 2);
+		tile_priority t2("backdrop 2", 1);
+		backdrop = random_background_tiles(textures, { 100, 100 }, { t1, t2 });
 		player.player_init(textures["Player Texture"]);
 		p1 = Portal({ 50, 50 }, { 50, 50 }, textures["Portal 1"], "TOP");
 		p2 = Portal({ 200, 150 }, { 75, 75 }, textures["Portal 2"], "TOP");
