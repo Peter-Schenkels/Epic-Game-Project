@@ -14,7 +14,7 @@ protected:
 public:
 	Player_Hitbox(sf::Vector2f position, sf::Vector2f size);
 
-	void Player_Hitbox_update(sf::Vector2f new_position);
+	void Player_Hitbox_update(sf::Vector2f pposition);
 
 	void Player_Hitbox_draw(sf::RenderWindow& window);
 

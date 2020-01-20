@@ -19,7 +19,7 @@ class Drawable {
 // Superclass for all the of the objects that can be used
 protected:
 	// Location of the object and a bool to remember whether an object has been selected by the user
-	sf::Vector2f position;
+	sf::Vector2f location;
 	sf::FloatRect hitbox;
 	bool selected;
 	std::string type;
@@ -28,17 +28,19 @@ protected:
 	sf::RectangleShape visual_hitbox; // for debuggen
 
 public:
+	// Default Constructor
+	Drawable(){}
 	// Constructor for drawable objects that use a size parameter
-	Drawable(sf::Vector2f position, sf::Vector2f size, std::string type, std::string color);
+	Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, std::string color);
 
 	// Constructor for drawable objects that use a radius parameter
-	Drawable(sf::Vector2f position, float radius, std::string type, std::string color);
+	Drawable(sf::Vector2f location, float radius, std::string type, std::string color);
 
 	// Returns whether the object has been selected by the user or not
 	bool drawable_get_selected();
 
 	// Returns the location of the object
-	sf::Vector2f drawable_get_position();
+	sf::Vector2f drawable_get_location();
 
 	// Select/Deselect the drawable object
 	void drawable_select();
@@ -88,7 +90,7 @@ protected:
 
 public:
 	// Constructor for circle that stores the given location, radius and color of the circle
-	Circle(sf::Vector2f position, float radius, std::string color);
+	Circle(sf::Vector2f location, float radius, std::string color);
 
 
 	// Function that draws the circle
@@ -108,10 +110,9 @@ protected:
 	// Shape, size and color of the rectangle
 	sf::RectangleShape shape;
 	sf::Vector2f size;
-
 public:
 	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
-	Rectangle(sf::Vector2f position, sf::Vector2f size, std::string color);
+	Rectangle(sf::Vector2f location, sf::Vector2f size, std::string color);
 
 
 	// Function that draws the rectangle
@@ -134,11 +135,15 @@ protected:
 	sf::Vector2f size;
 	std::string link;
 
+	// How much the the sprite differs from his initial position
+	sf::Vector2f offset = { 0,0 };
+
 public:
 	// Constructor that stores the given location and link to the texture
-	Picture(sf::Vector2f position, sf::Vector2f size, std::string link);
+	Picture(sf::Vector2f location, sf::Vector2f size, std::string link);
 
-	Picture(sf::Vector2f position, sf::Vector2f size, std::string link, std::string name);
+	Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name);
+
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -151,24 +156,40 @@ public:
 
 	// Sets picture size
 	void picture_set_size(sf::Vector2f new_size);
+
+	// Sets picture scale
+	void picture_set_scale(sf::Vector2f scale) { sprite.setScale(scale); }
+
+	// Returns pciture scale
+	sf::Vector2f picture_get_scale() { return sprite.getScale(); }
+
+	void picture_set_offset(sf::Vector2f new_offset) { offset = new_offset; };
+
+	void picture_set_rotation(float rotation) { sprite.setRotation(rotation); }
+
 };
 
 
 // Class for each of the portals
-class Portal : public Picture {
+class Portal : public Drawable {
 protected:
+	Picture* body;
 	std::string orientation;
 	std::string doorway;
 
 public:
+	// Default constructor
+	Portal() {}
+
 	// Constructor
-	Portal(sf::Vector2f position, sf::Vector2f size, std::string link, std::string orientation) :
-		Picture(position, size, link, "PORTAL"),
+	Portal(sf::Vector2f position, sf::Vector2f size, Picture* sprite, std::string orientation) :
+		Drawable(position, size, "Portal", "White"),
+		body(sprite),
 		orientation(orientation)
 	{
 		float rotation;
 		std::array<std::string, 4> orientations{ "TOP", "RIGHT", "BOTTOM", "LEFT" };
-		
+
 		for (unsigned int i = 0; i < 4; i++) {
 			if (orientations[i] == orientation) {
 				rotation = float(i * 90);
@@ -180,7 +201,20 @@ public:
 				}
 			}
 		}
-		sprite.setRotation(rotation);
+		body->picture_set_size(size);
+		body->picture_set_rotation(rotation);
+		
+	}
+
+	void drawable_draw(sf::RenderWindow & window) override{
+		body->drawable_draw(window);
+	}
+
+	std::string drawable_get_visual() { return color; }
+
+	void drawable_update() { 
+		body->drawable_set_position(location); 
+		body->drawable_update();
 	}
 
 

@@ -8,39 +8,39 @@
 // Constructor that stores the given location and link to the texture
 Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 	Drawable(location, size, "PICTURE", "none"),
-	size(size),
 	link(link)
 {
 	// Loads the texture from the given link, sets the texture for the sprite and sets the sprites position
 	texture.loadFromFile(link);
 	sprite.setTexture(texture);
 	sprite.setPosition(location);
+
 }
 
-Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name) :
-	Drawable(location, size, name, "none"),
-	size(size),
-	link(link)
-{
-	// Loads the texture from the given link, sets the texture for the sprite and sets the sprites position
-	texture.loadFromFile(link);
-	sprite.setTexture(texture);
-	sprite.setPosition(location);
-}
+	Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name) :
+		Drawable(location, size, name, "none"),
+		size(size),
+		link(link)
+	{
+		// Loads the texture from the given link, sets the texture for the sprite and sets the sprites position
+		texture.loadFromFile(link);
+		sprite.setTexture(texture);
+		sprite.setPosition(location);
+	}
+
 
 // Sets picture size
 void Picture::picture_set_size(sf::Vector2f new_size) {
-
-	sf::Vector2f current_factor = sprite.getScale();
-	sf::Vector2f new_factor(current_factor.x * (new_size.x / texture.getSize().x),
-	current_factor.y * (new_size.y / texture.getSize().y));
-
+	size = sf::Vector2f( float(texture.getSize().x), float(texture.getSize().y) );
+	sf::Vector2f new_factor((new_size.x / size.x),
+	(new_size.y / size.y));
 	sprite.setScale(new_factor);
 
 }
 
 // Draws the picture
 void Picture::drawable_draw(sf::RenderWindow& window) {
+	sprite.setPosition(location + offset);
 	window.draw(sprite);
 }
 
@@ -51,7 +51,7 @@ std::string Picture::drawable_get_visual() {
 
 // Update the picture
 void Picture::drawable_update() {
-	sprite.setPosition(position);
-	hitbox = sf::FloatRect(position.x, position.y, drawable_get_size().x, drawable_get_size().y);
+	sprite.setPosition(location);
+	hitbox = sf::FloatRect(location.x, location.y, drawable_get_size().x, drawable_get_size().y);
 
 }

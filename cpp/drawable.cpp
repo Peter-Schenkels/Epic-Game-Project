@@ -7,7 +7,7 @@
 
 // Constructor for drawable objects that use a size parameter
 Drawable::Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, std::string color) :
-	position(location),
+	location(location),
 	hitbox({ location.x, location.y, size.x, size.y }),
 	type(type),
 	selected(false),
@@ -16,9 +16,10 @@ Drawable::Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, s
 {}
 
 
+
 // Constructor for drawable objects that use a radius parameter
 Drawable::Drawable(sf::Vector2f location, float radius, std::string type, std::string color) :
-	position(location),
+	location(location),
 	hitbox({ location.x, location.y, radius * 2, radius * 2 }),
 	type(type),
 	selected(false),
@@ -33,8 +34,8 @@ bool Drawable::drawable_get_selected() {
 }
 
 // Returns the location of the object
-sf::Vector2f Drawable::drawable_get_position() {
-	return position;
+sf::Vector2f Drawable::drawable_get_location() {
+	return location;
 }
 
 // Select/deselect a drawable object
@@ -50,14 +51,14 @@ void Drawable::drawable_deselect() {
 void Drawable::drawable_move(sf::Vector2f delta) {
 	hitbox.left += delta.x;
 	hitbox.top += delta.y;
-	position += delta;
+	location += delta;
 }
 
 // Set position
-void Drawable::drawable_set_position(sf::Vector2f delta) {
-	hitbox.left = delta.x;
-	hitbox.top = delta.y;
-	position = delta;
+void Drawable::drawable_set_position(sf::Vector2f position) {
+	hitbox.left = position.x;
+	hitbox.top = position.y;
+	location = position;
 }
 
 // Return the drawable type

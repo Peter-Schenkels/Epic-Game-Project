@@ -77,7 +77,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Users\noaht\Documents\jsoncpp\include;D:\Users\noaht\Documents\SFML-2.5.1\include;C:\Users\noaht\source\repos\project gaming on windows(v4)\cpp;C:\Users\noaht\source\repos\project gaming on windows(v4)\headers;C:\Users\noaht\source\repos\project gaming on windows(v4)\img;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\jsoncpp\include;D:\dev\SFML-2.5.1\include;D:\dev\Epic-Game-Project\img;D:\dev\Epic-Game-Project\headers;D:\dev\Epic-Game-Project\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableLanguageExtensions>true</DisableLanguageExtensions>
@@ -87,7 +87,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>D:\Users\noaht\Documents\jsoncpp\src\lib_json;D:\Users\noaht\Documents\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\dev\jsoncpp\src\lib_json;D:\dev\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -133,12 +133,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\jsoncpp\dist\jsoncpp.cpp" />
     <ClCompile Include="cpp\circle.cpp" />
     <ClCompile Include="cpp\drawable.cpp" />
     <ClCompile Include="cpp\picture.cpp" />
     <ClCompile Include="cpp\Player_Hitbox.cpp" />
+    <ClCompile Include="cpp\portal_bullet.cpp" />
     <ClCompile Include="cpp\rectangle.cpp" />
-    <ClCompile Include="D:\Users\noaht\Documents\jsoncpp\dist\jsoncpp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,8 @@
     <ClInclude Include="headers\linked_portals.hpp" />
     <ClInclude Include="headers\player.hpp" />
     <ClInclude Include="headers\player_hitbox.hpp" />
+    <ClInclude Include="headers\portal_bullet.hpp" />
+    <ClInclude Include="headers\portal_error.hpp" />
     <ClInclude Include="headers\settings.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

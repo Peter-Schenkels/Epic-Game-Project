@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="D:\Users\noaht\Documents\jsoncpp\dist\jsoncpp.cpp">
+    <ClCompile Include="..\jsoncpp\dist\jsoncpp.cpp">
       <Filter>Json</Filter>
     </ClCompile>
     <ClCompile Include="cpp\circle.cpp">
@@ -15,6 +15,9 @@
       <Filter>Additional cpp</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Player_Hitbox.cpp">
+      <Filter>Additional cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\portal_bullet.cpp">
       <Filter>Additional cpp</Filter>
     </ClCompile>
     <ClCompile Include="cpp\rectangle.cpp">
@@ -86,6 +89,12 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\player_hitbox.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\portal_bullet.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\portal_error.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\settings.hpp">

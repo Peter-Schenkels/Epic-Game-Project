@@ -4,17 +4,25 @@
 #define GAME_HPP
 
 #include <iostream>
+#include <exception>
+#include "drawables.hpp"
 #include "factory.hpp"
 #include "settings.hpp"
 #include "linked_portals.hpp"
-
+#include "background_tile.hpp"
+#include "player.hpp"
+#include "portal_error.hpp"
+#include "portal_bullet.hpp"
 
 class Game {
 protected:
 	std::vector<Drawable*> drawables;
 	sf::RenderWindow & window;
 	std::map<std::string, Picture*> textures;
+	random_background_tiles backdrop;
 	Player player;
+	Portal p1;
+	Portal p2;
 
 	// Create a list filled with all drawable objects read from input
 	bool edit = false;
@@ -22,16 +30,24 @@ protected:
 public:
 	Game(sf::RenderWindow& window) :
 		window(window),
-		player({100,0}, {100,100})
+		player({ 100,0 }, { 46 , 126 })
 	{
 		std::cout << "Loading Textures..." << std::endl;
-		textures["Player Texture"] = new Picture({ 10,10}, { 100,100 }, "test3.jpeg");
+		textures["Player Texture"] = new Picture({ 10,10}, { 100,100 }, "img/wovo idle.png");
+		textures["backdrop 1"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 1.png");
+		textures["backdrop 2"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 2.png");
+		textures["Portal 1"] = new Picture({ 0,0 }, { 100,100 }, "img/test2.jpg");
+		textures["Portal 2"] = new Picture({ 0,0 }, { 100,100 }, "img/test3.jpeg");
+
 		std::cout << "Loading objects..." << std::endl;
 		drawables = drawable_object_read(SAVE_FILE_LOCATION);
-
 		std::cout << "Loading objects completed" << std::endl;
-
+		tile_priority t1("backdrop 1", 2);
+		tile_priority t2("backdrop 2", 1);
+		backdrop = random_background_tiles(textures, { 100, 100 }, { t1, t2 });
 		player.player_init(textures["Player Texture"]);
+		p1 = Portal({ 50, 50 }, { 50, 50 }, textures["Portal 1"], "TOP");
+		p2 = Portal({ 200, 150 }, { 75, 75 }, textures["Portal 2"], "TOP");
 
 	}
 	
@@ -101,6 +117,22 @@ public:
 				float(int(sf::Mouse::getPosition(window).y / 50) * 50)};
 			game_move_mouse(location);
 		}
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			// Shoot portal when button left mouse is pressed
+			sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
+			sf::Vector2f playerPos = player.drawable_get_location();
+			playerPos.x += player.drawable_get_size().x / 2;
+			playerPos.y += player.drawable_get_size().y / 2;
+			Portal_bullet bullet(playerPos, window.getSize(), mousePos);
+			try {
+
+				bullet.portal_bullet_impact_calc(drawables, window);
+			}
+			catch (const std::exception & e) {
+				std::cerr << e.what();
+			}
+		}
 		
 		sf::Event key_press;
 		if (window.pollEvent(key_press)) {
@@ -135,16 +167,24 @@ public:
 			Drawable->drawable_update();
 			player.player_collision(Drawable);
 		}
+		p1.drawable_update();
+		p2.drawable_update();
+
+
 	}
 
 
 	void game_draw() {
 		window.clear();
+		backdrop.draw(window);
 		player.drawable_draw(window);
 		for (auto Drawable : drawables) {
 
 			Drawable->drawable_draw(window);
 		}
+
+		p1.drawable_draw(window);
+		p2.drawable_draw(window);
 		window.display();
 	}
 };

@@ -61,23 +61,23 @@ void drawable_object_write(std::string link, std::vector<Drawable*> drawables) {
 	for (auto object : drawables) {
 		auto type = object->drawable_get_type();
 		if (type == "CIRCLE") {
-			event["Drawables"]["Circles"][count[0]]["position_x"] = object->drawable_get_position().x;
-			event["Drawables"]["Circles"][count[0]]["position_y"] = object->drawable_get_position().y;
+			event["Drawables"]["Circles"][count[0]]["position_x"] = object->drawable_get_location().x;
+			event["Drawables"]["Circles"][count[0]]["position_y"] = object->drawable_get_location().y;
 			event["Drawables"]["Circles"][count[0]]["color"] = object->drawable_get_visual();
 			event["Drawables"]["Circles"][count[0]]["radius"] = object->drawable_get_size().x / 2;
 			count[0]++;
 		}
 		else if (type == "RECTANGLE") {
-			event["Drawables"]["Rectangles"][count[1]]["position_x"] = object->drawable_get_position().x;
-			event["Drawables"]["Rectangles"][count[1]]["position_y"] = object->drawable_get_position().y;
+			event["Drawables"]["Rectangles"][count[1]]["position_x"] = object->drawable_get_location().x;
+			event["Drawables"]["Rectangles"][count[1]]["position_y"] = object->drawable_get_location().y;
 			event["Drawables"]["Rectangles"][count[1]]["color"] = object->drawable_get_visual();
 			event["Drawables"]["Rectangles"][count[1]]["size_x"] = object->drawable_get_size().x;
 			event["Drawables"]["Rectangles"][count[1]]["size_y"] = object->drawable_get_size().y;
 			count[1]++;
 		}
 		else if (type == "PICTURE") {
-			event["Drawables"]["Pictures"][count[2]]["position_x"] = object->drawable_get_position().x;
-			event["Drawables"]["Pictures"][count[2]]["position_y"] = object->drawable_get_position().y;
+			event["Drawables"]["Pictures"][count[2]]["position_x"] = object->drawable_get_location().x;
+			event["Drawables"]["Pictures"][count[2]]["position_y"] = object->drawable_get_location().y;
 			event["Drawables"]["Pictures"][count[2]]["link"] = object->drawable_get_visual();
 			event["Drawables"]["Pictures"][count[2]]["size_x"] = object->drawable_get_size().x;
 			event["Drawables"]["Pictures"][count[2]]["size_y"] = object->drawable_get_size().y;

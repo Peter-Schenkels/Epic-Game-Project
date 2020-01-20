@@ -13,7 +13,7 @@ protected:
 
 public:
 	// Constructor
-	Linked_Portals(Portal void_world, Portal over_world) :
+	Linked_Portals(Portal& void_world, Portal& over_world) :
 		void_world(void_world),
 		over_world(over_world)
 	{
@@ -26,12 +26,12 @@ public:
 		std::array<std::string, 4> orientations = { "TOP", "LEFT", "BOTTOM", "RIGHT" };
 		for (unsigned int i = 0; i < 4; i++) {
 			for (unsigned int j = 0; j < 4; j++) {
-				// Select the correct multiplier for the combination of orientations
+				// Select the correct multiplorientationsier for the combination of 
 				// 0 = TOP, 1 = LEFT, 2 = BOTTOM, 3 = RIGHT
 				sf::Vector2f multipliers;
 				// Combinations that invert the y-speed:
 				// TOP > LEFT, LEFT > BOTTOM, BOTTOM > RIGHT, RIGHT > TOP
-				if ((i <= 2 && j - 1 == i) || (i == 3 && j == 0)){
+				if ((i <= 2 && j - 1 == i) || (i == 3 && j == 0)) {
 					multipliers = { 1, -1 };
 				}
 				// Combinations that invert the x-speed:
@@ -72,7 +72,7 @@ public:
 
 		// Change player location
 		if (world) {
-			player.drawable_set_position(void_world.drawable_get_position());
+			player.drawable_set_position(void_world.drawable_get_location());
 
 			// Change momentum
 			change_momentum[over_world.portal_get_doorway()][void_world.portal_get_doorway()](player);
@@ -82,7 +82,7 @@ public:
 			std::string doorway = void_world.portal_get_doorway();
 		}
 		else {
-			player.drawable_set_position(over_world.drawable_get_position());
+			player.drawable_set_position(over_world.drawable_get_location());
 
 			// Change momentum
 			change_momentum[void_world.portal_get_doorway()][over_world.portal_get_doorway()](player);
