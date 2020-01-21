@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="objects.json" />
+    <None Include="void.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\backdrop 1.png" />
@@ -152,6 +153,13 @@
     <Image Include="img\test.jpg" />
     <Image Include="img\test2.jpg" />
     <Image Include="img\test3.jpeg" />
+    <Image Include="img\walking1.png" />
+    <Image Include="img\walking2.png" />
+    <Image Include="img\walking3.png" />
+    <Image Include="img\walking4.png" />
+    <Image Include="img\walking5.png" />
+    <Image Include="img\walking6.png" />
+    <Image Include="img\walking7.png" />
     <Image Include="img\wovo idle.png" />
   </ItemGroup>
   <ItemGroup>

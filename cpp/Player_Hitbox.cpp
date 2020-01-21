@@ -8,18 +8,21 @@ Player_Hitbox::Player_Hitbox(sf::Vector2f position, sf::Vector2f size) :
     right{ sf::Vector2f{0, size.y / 2} },
     top({ size.x - size.x / 8, 0 }),
     bottom({ size.x - size.x / 8, 0 }),
+    core({size.x / 2, size.y / 2}),
     box(size)
 {
     left.setPosition({ position.x, position.y + size.y / 4 });
     right.setPosition({ position.x + 1 + size.x, position.y + size.y / 4 });
     top.setPosition(position);
     bottom.setPosition({ position.x + 1, position.y + size.y });
+    core.setPosition({ position.x + size.x / 4, position.y + size.y / 4 });
     box.setPosition(position);
 
     left.setOutlineThickness(1.f);
     right.setOutlineThickness(1.f);
     top.setOutlineThickness(1.f);
     bottom.setOutlineThickness(1.f);
+    core.setOutlineThickness(1.f);
 }
 
 void Player_Hitbox::Player_Hitbox_update(sf::Vector2f new_position) {
@@ -28,6 +31,7 @@ void Player_Hitbox::Player_Hitbox_update(sf::Vector2f new_position) {
     right.setPosition({ position.x + 1 + size.x, position.y + size.y / 4 });
     top.setPosition(position);
     bottom.setPosition({ position.x + 1, position.y + size.y });
+    core.setPosition({ position.x + size.x / 4, position.y + size.y / 4 });
     box.setPosition(position);
 }
 
@@ -36,6 +40,7 @@ void Player_Hitbox::Player_Hitbox_draw(sf::RenderWindow& window) {
     window.draw(right);
     window.draw(top);
     window.draw(bottom);
+    window.draw(core);
 }
 
 bool Player_Hitbox::Player_Hitbox_left_side_intersect(sf::FloatRect collider) {
@@ -52,6 +57,11 @@ bool Player_Hitbox::Player_Hitbox_top_side_intersect(sf::FloatRect collider) {
 
 bool Player_Hitbox::Player_Hitbox_bottom_side_intersect(sf::FloatRect collider) {
     return bottom.getGlobalBounds().intersects(collider);
+}
+
+
+bool Player_Hitbox::Player_Hitbox_core_intersect(sf::FloatRect collider) {
+    return core.getGlobalBounds().intersects(collider);
 }
 
 sf::FloatRect Player_Hitbox::Player_Hitbox_get_outerbounds() {

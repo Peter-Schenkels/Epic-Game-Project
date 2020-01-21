@@ -45,6 +45,9 @@
     <None Include="objects.json">
       <Filter>Resources</Filter>
     </None>
+    <None Include="void.json">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\backdrop 1.png">
@@ -66,6 +69,27 @@
       <Filter>img</Filter>
     </Image>
     <Image Include="img\wovo idle.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\walking4.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\walking5.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\walking6.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\walking7.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\walking1.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\walking2.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\walking3.png">
       <Filter>img</Filter>
     </Image>
   </ItemGroup>

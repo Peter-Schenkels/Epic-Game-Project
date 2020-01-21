@@ -22,7 +22,6 @@ public:
 	{
 		sf::Vector2f aimdir = pos_mouse - pos_player;
 		angle = aimdir / sqrt(pow(aimdir.x, 2) + pow(aimdir.y, 2));
-		std::cout << std::to_string(angle.x) << " " << std::to_string(angle.y) << "\n";
 	}
 
 	// Function that draws the bullet

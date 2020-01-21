@@ -1,10 +1,2 @@
-﻿  jsoncpp.cpp
-  circle.cpp
-  drawable.cpp
-  picture.cpp
-  Player_Hitbox.cpp
-  portal_bullet.cpp
-  rectangle.cpp
-  main.cpp
-  Generating Code...
+﻿  main.cpp
   cpse2 week 3 solution.vcxproj -> D:\dev\Epic-Game-Project\Debug\project gaming on windows(v4).exe

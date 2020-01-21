@@ -9,7 +9,8 @@
 //#define WINDOW_SIZE_Y 750
 #define WINDOW_SIZE_X 1920
 #define WINDOW_SIZE_Y 1080
-#define SAVE_FILE_LOCATION "objects.json"
+#define SAVE_FILE_LOCATION_OVERWORLD "objects.json"
+#define SAVE_FILE_LOCATION_VOID "void.json"
 
 #define FRAME_RATE 60
 

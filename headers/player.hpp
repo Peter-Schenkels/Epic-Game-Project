@@ -12,6 +12,7 @@ private:
     sf::Vector2f speed = { 0, 0 };
     Picture* body;
     Player_Hitbox collision_box;
+    sf::Vector2f respawn_location = { 0, 0 } ;
     float gravity = 0.5;
     float resistance = 2;
     bool floating = false;
@@ -19,11 +20,11 @@ private:
     int jump_speed = 15; /// amount of pixels per update 
     sf::Vector2f static_scale; // shouldn't be changed is used for flipping the body
 
-
 public:
     Player(sf::Vector2f position, sf::Vector2f size) :
         Drawable(position, size, "player", "White"),
-        collision_box(position, size)
+        collision_box(position, size) 
+       
     {}
 
     Player(sf::Vector2f position, sf::Vector2f size, Picture* sprite) :
@@ -31,6 +32,7 @@ public:
         collision_box(position, size)
     {
         player_init(sprite);
+        respawn_location = position;
 
        
     }
@@ -115,8 +117,13 @@ public:
 
     // Collision detection between a player and a sf::FloatRect
     void player_collision(Drawable* object) {
+
+
+        if (collision_box.Player_Hitbox_core_intersect(object->drawable_get_hitbox())) {
+            drawable_set_position(respawn_location);
+        }
         // Check if a sf::FloatRect collides with the right  or left side of the hitbox
-        if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
+        else if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
             location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
         }

@@ -177,6 +177,7 @@ protected:
 	std::string orientation;
 	std::string doorway;
 
+
 public:
 	// Default constructor
 	Portal() {}
