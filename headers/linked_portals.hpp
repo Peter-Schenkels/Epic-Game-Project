@@ -6,90 +6,116 @@
 
 class Linked_Portals {
 protected:
-	Portal& void_world;
-	Portal& over_world;
+	Portal& portal_1;
+	Portal& portal_2;
+
+	// The first std::string keys are the orientations of the entry portal
+	// The second std::string keys are the orientations of the exit portal
 	std::map<std::string, std::map<std::string, std::function< void(Player&) >>> change_momentum;
-	std::map<std::array<int, 2>, std::array<int, 2>> variables;
 
 public:
 	// Constructor
-	Linked_Portals(Portal& void_world, Portal& over_world) :
-		void_world(void_world),
-		over_world(over_world)
+	Linked_Portals(Portal& first, Portal& second) :
+		portal_1(first),
+		portal_2(second)
 	{
-		// Lambda function for changing the players momentum
-		std::function< void(Player&, sf::Vector2f) > edit_momentum = [](Player& player, sf::Vector2f momentum)
-		{player.player_set_speed(sf::Vector2f(player.player_get_speed().x * momentum.x,
-			player.player_get_speed().y * momentum.y)); };
-
 		// Loop for creating a different effect on the momentum depending on the portals orientation
 		std::array<std::string, 4> orientations = { "TOP", "LEFT", "BOTTOM", "RIGHT" };
 		for (unsigned int i = 0; i < 4; i++) {
 			for (unsigned int j = 0; j < 4; j++) {
 				// Select the correct multiplorientationsier for the combination of 
 				// 0 = TOP, 1 = LEFT, 2 = BOTTOM, 3 = RIGHT
-				sf::Vector2f multipliers;
+				sf::Vector2f multiplier;
 				// Combinations that invert the y-speed:
 				// TOP > LEFT, LEFT > BOTTOM, BOTTOM > RIGHT, RIGHT > TOP
 				if ((i <= 2 && j - 1 == i) || (i == 3 && j == 0)) {
-					multipliers = { 1, -1 };
+					multiplier = { 1, -1 };
 				}
 				// Combinations that invert the x-speed:
 				// TOP > RIGHT, LEFT > TOP, BOTTOM > LEFT, RIGHT > BOTTOM
 				else if ((i >= 1 && j + 1 == i) || (i == 0 && j == 3)) {
-					multipliers = { -1, 1 };
+					multiplier = { -1, 1 };
 				}
 				// Combinations that invert both the y- and x-speeds:
 				// TOP > TOP, LEFT > LEFT, BOTTOM > BOTTOM, RIGHT > RIGHT
 				else if (i == j) {
-					multipliers = { -1, -1 };
+					multiplier = { -1, -1 };
 				}
 				// Combinations that do not change the y- and x-speeds:
 				// TOP > BOTTOM, LEFT > RIGHT, BOTTOM > TOP, RIGHT > LEFT
 				else {
-					multipliers = { 1, 1 };
+					multiplier = { 1, 1 };
 				}
 				// Save a lambda function that passes the correct player and multipliers to the edit_momentum function
-				change_momentum[orientations[i]][orientations[j]] = std::function< void(Player&) >([&edit_momentum, multipliers]
-				(Player& player) {edit_momentum(player, multipliers); });
+				change_momentum[orientations[i]][orientations[j]] = std::function< void(Player&) >([multiplier]
+				(Player& player) { player.player_set_speed(sf::Vector2f(player.player_get_speed().x * multiplier.x, 
+					player.player_get_speed().y * multiplier.y)); });
 			}
 		}
 	}
 
-
 	// Set a new portal in a given world
-	void portal_set(Portal& given, std::string world) {
-		if (world == "OVERWORLD") {
-			over_world = given;
+	void linked_portals_portal_set(sf::Vector2f loc, std::string entrance, bool order) {
+		if (order) {
+			portal_1.drawable_set_position(loc);
+			portal_1.portal_set_entrance(entrance);
 		}
 		else {
-			void_world = given;
+			portal_2.drawable_set_position(loc);
+			portal_2.portal_set_entrance(entrance);
 		}
 	}
 
-	void teleport(Player& player) {
-		bool world = player.drawable_get_dimension();
+	// Prints all portals coordinates
+	void linked_portals_print_portals() {
+		auto void_loc = portal_1.drawable_get_location();
+		auto over_loc = portal_2.drawable_get_location();
+		std::cout << void_loc.x << ", " << void_loc.y << " : " << over_loc.x << ", " << over_loc.y << "\n";
+	}
 
-		// Change player location
-		if (world) {
-			player.drawable_set_position(void_world.drawable_get_location());
+	//  Make sure the player doesn't teleport inside the portal
+	void linked_portals_set_offset(Player& player, Portal exit) {
+		std::string exit_entrance = exit.portal_get_entrance();
 
-			// Change momentum
-			change_momentum[over_world.portal_get_doorway()][void_world.portal_get_doorway()](player);
-
-			// Teleport next to destination instead of inside of the other portal
-			sf::Vector2f size = void_world.drawable_get_size();
-			std::string doorway = void_world.portal_get_doorway();
+		if (exit_entrance == "TOP") {
+			player.drawable_move(sf::Vector2f{ 0, -player.drawable_get_size().y - 100 });
+		}
+		else if (exit_entrance == "LEFT") {
+			player.drawable_move(sf::Vector2f{ -player.drawable_get_size().x - 100, 0 });
+		}
+		else if (exit_entrance == "BOTTOM") {
+			player.drawable_move(sf::Vector2f{ 0, 100 });
 		}
 		else {
-			player.drawable_set_position(over_world.drawable_get_location());
+			player.drawable_move(sf::Vector2f{ 100, 0 });
+		}
+		std::cout << exit_entrance << "\n";
+	}
+
+	void linked_portals_teleport(Player& player, Portal entry) {
+		bool world = player.drawable_get_dimension();
+		bool portal = entry.portal_get_order();
+		std::string exit_orientation;
+
+		// Change player location
+		if (portal) { // Player teleports from p1 to p2
+			player.drawable_set_position(portal_2.drawable_get_location());
+			
+			// Change momentum
+			change_momentum[portal_1.portal_get_entrance()][portal_2.portal_get_entrance()](player);
+
+			// Teleport next to destination instead of inside of the other portal
+			linked_portals_set_offset(player, portal_2);
+		}
+		else { // Player teleports from p2 to p1
+			player.drawable_set_position(portal_1.drawable_get_location());
 
 			// Change momentum
-			change_momentum[void_world.portal_get_doorway()][over_world.portal_get_doorway()](player);
-		}
-		player.drawable_set_dimension(!world);
+			change_momentum[portal_2.portal_get_entrance()][portal_1.portal_get_entrance()](player);
 
-		// Teleport next to destination instead of inside
+			// Teleport next to destination instead of inside of the other portal
+			linked_portals_set_offset(player, portal_1);
+		}
 	}
 };
 

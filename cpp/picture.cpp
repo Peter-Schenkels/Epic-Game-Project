@@ -14,7 +14,7 @@ Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 	texture.loadFromFile(link);
 	sprite.setTexture(texture);
 	sprite.setPosition(location);
-
+	picture_set_size(size);
 }
 
 	Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name) :
@@ -26,6 +26,7 @@ Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 		texture.loadFromFile(link);
 		sprite.setTexture(texture);
 		sprite.setPosition(location);
+		picture_set_size(size);
 	}
 
 
@@ -34,8 +35,8 @@ void Picture::picture_set_size(sf::Vector2f new_size) {
 	size = sf::Vector2f( float(texture.getSize().x), float(texture.getSize().y) );
 	sf::Vector2f new_factor((new_size.x / size.x),
 	(new_size.y / size.y));
+	drawable_set_size(new_size);
 	sprite.setScale(new_factor);
-
 }
 
 // Draws the picture
@@ -53,5 +54,9 @@ std::string Picture::drawable_get_visual() {
 void Picture::drawable_update() {
 	sprite.setPosition(location);
 	hitbox = sf::FloatRect(location.x, location.y, drawable_get_size().x, drawable_get_size().y);
+}
 
+// Returns sprite
+sf::Sprite Picture::picture_get_sprite() {
+	return sprite;
 }

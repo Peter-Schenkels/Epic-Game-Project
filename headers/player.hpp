@@ -19,7 +19,6 @@ private:
     int jump_speed = 15; /// amount of pixels per update 
     sf::Vector2f static_scale; // shouldn't be changed is used for flipping the body
 
-
 public:
     Player(sf::Vector2f position, sf::Vector2f size) :
         Drawable(position, size, "player", "White"),
@@ -31,8 +30,6 @@ public:
         collision_box(position, size)
     {
         player_init(sprite);
-
-       
     }
 
 
@@ -46,6 +43,7 @@ public:
         return speed;
     }
 
+    // Initializes player with a picture pointer
     void player_init(Picture* sprite) {
         std::cout << "Initialising player..." << std::endl;
         body = sprite;
@@ -55,11 +53,13 @@ public:
         std::cout << "Initialising player completed" << std::endl;
     }
 
+    // Draws the player
     void drawable_draw(sf::RenderWindow& window) override {
         collision_box.Player_Hitbox_draw(window);
         body->drawable_draw(window);
     }
 
+    // Updates the player location and sprite according to speed
     void drawable_update() override {
         if (!floating) {
             speed.y += gravity;
@@ -70,16 +70,15 @@ public:
         body->drawable_update();
     }
 
+    // Returns visual data from player
     std::string drawable_get_visual() override {
         return color;
     };
 
+    // Sets the player not to obey the laws of physics (HERESY)
     void player_set_static(bool boolean) {
         floating = boolean;
     }
-
-
-
 
     // Handles all input events
     void player_input(sf::Event event) {
@@ -114,26 +113,32 @@ public:
     }
 
     // Collision detection between a player and a sf::FloatRect
-    void player_collision(Drawable* object) {
+    bool player_collision(Drawable* object) {
+        bool collide = false;
         // Check if a sf::FloatRect collides with the right  or left side of the hitbox
         if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
             location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
+            collide = true;
         }
         else if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
             location.x = object->drawable_get_hitbox().left - drawable_get_size().x;
+            collide = true;
         }
         // Check if a sf::FloatRect collides with the bottom  or top of the hitbox
         else if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox())){
             location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
             speed.y = -0.5;
             on_ground = true;
+            collide = true;
         }
         else if (collision_box.Player_Hitbox_top_side_intersect(object->drawable_get_hitbox())){
             on_ground = false;
             speed.y = 1;
+            collide = true;
         }
+        return collide;
     }
 };
 

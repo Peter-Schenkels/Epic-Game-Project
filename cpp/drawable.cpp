@@ -16,7 +16,6 @@ Drawable::Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, s
 {}
 
 
-
 // Constructor for drawable objects that use a radius parameter
 Drawable::Drawable(sf::Vector2f location, float radius, std::string type, std::string color) :
 	location(location),
@@ -27,6 +26,11 @@ Drawable::Drawable(sf::Vector2f location, float radius, std::string type, std::s
 	in_over_world(true)
 {}
 
+
+// Sets the drawable size
+void Drawable::drawable_set_size(sf::Vector2f new_size) {
+	hitbox = { location.x, location.y, new_size.x, new_size.y };
+}
 
 // Returns whether the object has been selected by the user or not
 bool Drawable::drawable_get_selected() {
