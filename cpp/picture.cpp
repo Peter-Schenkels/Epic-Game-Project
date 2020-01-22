@@ -8,12 +8,14 @@
 // Constructor that stores the given location and link to the texture
 Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 	Drawable(location, size, "PICTURE", "none"),
+	size(size),
 	link(link)
 {
 	// Loads the texture from the given link, sets the texture for the sprite and sets the sprites position
 	texture.loadFromFile(link);
 	sprite.setTexture(texture);
 	sprite.setPosition(location);
+	picture_set_size(size);
 
 }
 
@@ -26,6 +28,7 @@ Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 		texture.loadFromFile(link);
 		sprite.setTexture(texture);
 		sprite.setPosition(location);
+		picture_set_size(size);
 	}
 
 
@@ -37,6 +40,7 @@ void Picture::picture_set_size(sf::Vector2f new_size) {
 	sprite.setScale(new_factor);
 
 }
+
 
 // Draws the picture
 void Picture::drawable_draw(sf::RenderWindow& window) {
@@ -55,3 +59,4 @@ void Picture::drawable_update() {
 	hitbox = sf::FloatRect(location.x, location.y, drawable_get_size().x, drawable_get_size().y);
 
 }
+

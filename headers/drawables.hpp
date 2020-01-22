@@ -139,6 +139,9 @@ protected:
 	sf::Vector2f offset = { 0,0 };
 
 public:
+
+	// Default constructor
+	Picture() {}
 	// Constructor that stores the given location and link to the texture
 	Picture(sf::Vector2f location, sf::Vector2f size, std::string link);
 
@@ -165,69 +168,18 @@ public:
 
 	void picture_set_offset(sf::Vector2f new_offset) { offset = new_offset; };
 
+	// Sets picture color
+	void picture_set_color(sf::Color color) { sprite.setColor(color); }
+
+	// Sets rotation of picture
 	void picture_set_rotation(float rotation) { sprite.setRotation(rotation); }
 
+	// Sets origin of picture
+	void picture_set_origin(sf::Vector2f origin) { sprite.setOrigin(origin); }
+
 };
 
 
-// Class for each of the portals
-class Portal : public Drawable {
-protected:
-	Picture* body;
-	std::string orientation;
-	std::string doorway;
-
-public:
-	// Default constructor
-	Portal() {}
-
-	// Constructor
-	Portal(sf::Vector2f position, sf::Vector2f size, Picture* sprite, std::string orientation) :
-		Drawable(position, size, "Portal", "White"),
-		body(sprite),
-		orientation(orientation)
-	{
-		float rotation;
-		std::array<std::string, 4> orientations{ "TOP", "RIGHT", "BOTTOM", "LEFT" };
-
-		for (unsigned int i = 0; i < 4; i++) {
-			if (orientations[i] == orientation) {
-				rotation = float(i * 90);
-				if (i <= 1) {
-					doorway = orientations[i + 2];
-				}
-				else {
-					doorway = orientations[i - 2];
-				}
-			}
-		}
-		body->picture_set_size(size);
-		body->picture_set_rotation(rotation);
-		
-	}
-
-	void drawable_draw(sf::RenderWindow & window) override{
-		body->drawable_draw(window);
-	}
-
-	std::string drawable_get_visual() { return color; }
-
-	void drawable_update() { 
-		body->drawable_set_position(location); 
-		body->drawable_update();
-	}
-
-
-	// Return doorway
-	std::string portal_get_doorway() {
-		return doorway;
-	}
-
-	// Return orientation
-	std::string portal_get_orientation() {
-		return orientation;
-	}
-};
 
 
 #endif
