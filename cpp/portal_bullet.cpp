@@ -28,36 +28,39 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 	// While the bullet is in the view check for collision
 	while (location.x > 0 && location.x < window.x && location.y >0 && location.y < window.y)
 	{
-		std::cout << std::to_string(location.x) << " " << std::to_string(location.y) << "\n";
 		// Check every rectangle object
 		for (auto object : drawables) {
 			if (object->drawable_get_type() == std::string("RECTANGLE")) {
-				std::cout << "checking object ";
 				// Check if a sf::FloatRect collides with the right or left side of the hitbox
-				if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox()))
-				{
-					std::cout << "collision detected left\n";
-					return  std::pair<sf::Vector2f, std::string> {location, "RIGHT"};
-				}
-				else if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox()))
-				{
-					std::cout << "collision detected right\n";
-					return  std::pair<sf::Vector2f, std::string> {location, "LEFT"};
-				}
-				// Check if a sf::FloatRect collides with the bottom or top of the hitbox
-				else if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox()))
-				{
-					std::cout << "collision detected bot\n";
-					return  std::pair<sf::Vector2f, std::string> {location, "TOP"};
-				}
-				else if (collision_box.Player_Hitbox_top_side_intersect(object->drawable_get_hitbox())) {
-					std::cout << "collision detected top\n";
-					return  std::pair<sf::Vector2f, std::string> {location, "BOTTOM"};
+
+				if (object->drawable_get_hitbox().intersects(hitbox)) {
+					if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox()))
+					{
+						std::cout << "collision detected left\n";
+							return  std::pair<sf::Vector2f, std::string> {location, "RIGHT"};
+					}
+					else if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox()))
+					{
+						std::cout << "collision detected right\n";
+							return  std::pair<sf::Vector2f, std::string> {location, "LEFT"};
+					}
+					// Check if a sf::FloatRect collides with the bottom or top of the hitbox
+					else if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox()))
+					{
+						std::cout << "collision detected bot\n";
+						return  std::pair<sf::Vector2f, std::string> {location, "TOP"};
+					}
+					else if (collision_box.Player_Hitbox_top_side_intersect(object->drawable_get_hitbox())) {
+						std::cout << "collision detected top\n";
+						return  std::pair<sf::Vector2f, std::string> {location, "BOTTOM"};
+					}
 				}
 			}
 		}
 		// Change the location of the hitbox and the location of the bullet
 		location += angle;
+		hitbox.left = location.x;
+		hitbox.top = location.y;
 		collision_box.Player_Hitbox_update(location);
 		collision_box.Player_Hitbox_draw(windowref);
 	}

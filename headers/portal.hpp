@@ -37,13 +37,17 @@ public:
 		animation_controller.animation_set_size("Idle", size);
 		animation_controller.set_origin_of_animation("Idle", {size.x/4, size.y/4});
 		body = animation_controller.get_frame();
-		body->picture_set_size(size);
+		
 	}
 
 	// Draw portal
 	void drawable_draw(sf::RenderWindow& window) override {
 		body = animation_controller.get_frame();
 		body->drawable_draw(window);
+		sf::RectangleShape hitbox_draw(sf::Vector2f(hitbox.width, hitbox.height));
+		hitbox_draw.setPosition(sf::Vector2f(hitbox.left, hitbox.top));
+		hitbox_draw.setFillColor(sf::Color::White);
+		window.draw(hitbox_draw);
 	}
 
 	// Return visual
@@ -54,6 +58,9 @@ public:
 		animation_controller.update();
 		body->drawable_set_position(location);
 		body->drawable_update();
+		std::cout << location.x << " " << location.y << std::endl;
+		hitbox = sf::FloatRect(location.x -16 , location.y -16 , 32 , 32);
+
 	}
 
 	// Set entrance

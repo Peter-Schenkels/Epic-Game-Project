@@ -9,7 +9,7 @@
 #include "factory.hpp"
 #include "settings.hpp"
 #include "linked_portals.hpp"
-#include "background_tile.hpp"
+#include "tilemap.hpp"
 #include "player.hpp"
 #include "portal_error.hpp"
 #include "portal_bullet.hpp"
@@ -23,7 +23,7 @@ protected:
 	std::vector<Drawable*> void_drawables;
 	sf::RenderWindow & window;
 	std::map<std::string, Picture*> textures;
-	random_background_tiles backdrop;
+	TileMap map;
 	Player player;
 	Portal p1;
 	Portal p2;
@@ -126,10 +126,17 @@ public:
 		void_drawables = drawable_object_read(SAVE_FILE_LOCATION_VOID);
 		std::cout << "Loading objects completed" << std::endl;
 
-		tile_priority t1("backdrop 1", 2);
-		tile_priority t2("backdrop 2", 1);
+		std::random_device rd; // obtain a random number from hardware
+		std::mt19937 eng(rd()); // seed the generator
+		std::uniform_int_distribution<> distr(0, 255); // define the range
 
-		backdrop = random_background_tiles(textures, { 100, 100 }, { t1, t2 });
+		int level[8160];
+		for (unsigned int i = 0; i < 8160; i++) {
+			level[i] = distr(eng);
+		}
+
+		//TileMap map;
+		map.load("img/backdrops3.png", sf::Vector2u(128, 128), level, 120, 68);
 
 		player = Player({ 100,100 }, { 46 , 126 }, textures["Player Texture"], { walking_animation_right, walking_animation_left, idle_animation });
 		
@@ -263,7 +270,7 @@ public:
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 			// Shoot portal when button left mouse is pressed
-			sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
+			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 			sf::Vector2f playerPos = player.drawable_get_location();
 			playerPos.x += player.drawable_get_size().x / 2;
 			playerPos.y += player.drawable_get_size().y / 2;
@@ -299,15 +306,15 @@ public:
 					drawing->drawable_deselect();
 				}
 			}
-			else if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::LControl) {
-				// Switch dimensions
-				overworld = !overworld;
-				if (overworld) {
-					backdrop.set_color({ 255,255,255,255 });
-				} else {
-					backdrop.set_color({ 100,255,100,255 });
-				}
-			}
+			//else if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::LControl) {
+			//	// Switch dimensions
+			//	overworld = !overworld;
+			//	if (overworld) {
+			//		map.set_color({ 255,255,255,255 });
+			//	} else {
+			//		map.set_color({ 100,255,100,255 });
+			//	}
+			//}
 			else if (key_press.type == sf::Event::KeyPressed) {
 				// Move something with WASD
 				auto key = key_press.key.code;
@@ -320,7 +327,6 @@ public:
 	}
 
 	void game_update() {
-		sf::Vector2f delta = player.drawable_get_location();
 		player.drawable_update();
 
 		// Update Overworld or Void depending one overworld boolean
@@ -336,8 +342,7 @@ public:
 				player.player_collision(drawable);
 			}
 		}
-		delta = player.drawable_get_location() - delta;
-		player_view.move(delta);
+		player_view.setCenter(player.drawable_get_location());
 		
 		if (!edit) {
 			window.setView(player_view);	
@@ -361,7 +366,7 @@ public:
 
 	void game_draw() {
 		window.clear();
-		backdrop.draw(window);
+		window.draw(map);
 
 		// Draw Overworld or Void depending one overworld boolean
 
