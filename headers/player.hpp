@@ -177,6 +177,11 @@ public:
         }
         return false;
     }
+
+	//check if player hitbox intersect with object mainly used for portal detection
+	bool player_intersect(sf::FloatRect collide){
+		return collision_box.Player_Hitbox_core_intersect(collide) || collision_box.Player_Hitbox_left_side_intersect(collide) || collision_box.Player_Hitbox_right_side_intersect(collide) || collision_box.Player_Hitbox_top_side_intersect(collide) || collision_box.Player_Hitbox_bottom_side_intersect(collide);
+	}
 };
 
 

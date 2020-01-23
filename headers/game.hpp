@@ -276,18 +276,34 @@ public:
 			playerPos.y += player.drawable_get_size().y / 2;
 			Portal_Bullet bullet(playerPos, window.getSize(), mousePos);
 			bool order = false;
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				order = true;
+			if (overworld) {
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					order = true;
+				}
+				try {
+					auto data = bullet.portal_bullet_impact_calc(drawables, window);
+					std::cout << data.second;
+					portal_set.linked_portals_portal_set(data.first, data.second, order, overworld);
+					//portal_set.linked_portals_print_portals();
+				}
+				catch (const std::exception & e) {
+					std::cerr << e.what();
+				}
 			}
-			try {
-				auto data = bullet.portal_bullet_impact_calc(drawables, window);
-				std::cout << data.second;
-				portal_set.linked_portals_portal_set(data.first, data.second, order);
-				//portal_set.linked_portals_print_portals();
+			else {
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					order = true;
+				}
+				try {
+					auto data = bullet.portal_bullet_impact_calc(void_drawables, window);
+					std::cout << data.second;
+					portal_set.linked_portals_portal_set(data.first, data.second, order, overworld);
+				}
+				catch (const std::exception & e) {
+					std::cerr << e.what();
+				}
 			}
-			catch (const std::exception & e) {
-				std::cerr << e.what();
-			}
+			
 		}
 		
 		sf::Event key_press;
@@ -306,15 +322,11 @@ public:
 					drawing->drawable_deselect();
 				}
 			}
-			//else if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::LControl) {
-			//	// Switch dimensions
-			//	overworld = !overworld;
-			//	if (overworld) {
-			//		map.set_color({ 255,255,255,255 });
-			//	} else {
-			//		map.set_color({ 100,255,100,255 });
-			//	}
-			//}
+			else if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::LControl) {
+				// switch dimensions
+				overworld = !overworld;
+	
+			}
 			else if (key_press.type == sf::Event::KeyPressed) {
 				// Move something with WASD
 				auto key = key_press.key.code;
@@ -351,13 +363,17 @@ public:
 			window.setView(game_edit_view);
 		}
 
-		// Collide with portals
-		if (player.player_collision(&p1)) {
+		
+		// Intersect with portals and swap to the correct dimension
+		if (player.player_intersect(p1.drawable_get_hitbox()) && overworld == p1.drawable_get_dimension()) {
 			portal_set.linked_portals_teleport(player, p1);
-
+			std::cout << p1.drawable_get_dimension();
+			overworld = p2.drawable_get_dimension();
 		}
-		else if (player.player_collision(&p2)) {
+		else if (player.player_intersect(p2.drawable_get_hitbox()) && overworld == p2.drawable_get_dimension()) {
 			portal_set.linked_portals_teleport(player, p2);
+			std::cout << p2.drawable_get_dimension();
+			overworld = p1.drawable_get_dimension();
 		}
 		p1.drawable_update();
 		p2.drawable_update();

@@ -56,12 +56,15 @@ public:
 	}
 
 	// Set a new portal in a given world
-	void linked_portals_portal_set(sf::Vector2f loc, std::string entrance, bool order) {
+	void linked_portals_portal_set(sf::Vector2f loc, std::string entrance, bool order, bool overworld) {
+		std::cout << "overworld = "<< overworld << "\n";
 		if (order) {
+			portal_1.drawable_set_dimension(overworld);
 			portal_1.drawable_set_position(loc);
 			portal_1.portal_set_entrance(entrance);
 		}
 		else {
+			portal_2.drawable_set_dimension(overworld);
 			portal_2.drawable_set_position(loc);
 			portal_2.portal_set_entrance(entrance);
 		}
@@ -101,7 +104,6 @@ public:
 		// Change player location
 		if (portal) { // Player teleports from p1 to p2
 			player.drawable_set_position(portal_2.drawable_get_location());
-			
 			// Change momentum
 			change_momentum[portal_1.portal_get_entrance()][portal_2.portal_get_entrance()](player);
 

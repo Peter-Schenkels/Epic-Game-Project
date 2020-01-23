@@ -58,7 +58,7 @@ public:
 		animation_controller.update();
 		body->drawable_set_position(location);
 		body->drawable_update();
-		std::cout << location.x << " " << location.y << std::endl;
+		//std::cout << location.x << " " << location.y << std::endl;
 		hitbox = sf::FloatRect(location.x -16 , location.y -16 , 32 , 32);
 
 	}
