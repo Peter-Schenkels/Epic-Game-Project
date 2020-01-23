@@ -3,6 +3,7 @@
 #define LINKED_TELEPORTERS_HPP
 
 #include "player.hpp"
+#include "portal.hpp"
 
 class Linked_Portals {
 protected:
@@ -19,50 +20,49 @@ public:
 		portal_1(first),
 		portal_2(second)
 	{
-		// Loop for creating a different effect on the momentum depending on the portals orientation
 		std::array<std::string, 4> orientations = { "TOP", "LEFT", "BOTTOM", "RIGHT" };
 		for (unsigned int i = 0; i < 4; i++) {
 			for (unsigned int j = 0; j < 4; j++) {
-				// Select the correct multiplorientationsier for the combination of 
+				// Select the correct multiplier for all possible combinations of 
 				// 0 = TOP, 1 = LEFT, 2 = BOTTOM, 3 = RIGHT
 				sf::Vector2f multiplier;
-				// Combinations that invert the y-speed:
-				// TOP > LEFT, LEFT > BOTTOM, BOTTOM > RIGHT, RIGHT > TOP
-				if ((i <= 2 && j - 1 == i) || (i == 3 && j == 0)) {
-					multiplier = { 1, -1 };
-				}
 				// Combinations that invert the x-speed:
-				// TOP > RIGHT, LEFT > TOP, BOTTOM > LEFT, RIGHT > BOTTOM
-				else if ((i >= 1 && j + 1 == i) || (i == 0 && j == 3)) {
+				// TOP to LEFT, LEFT to LEFT, BOTTOM to LEFT, RIGHT to RIGHT
+				if ((i >= 1 && i <= 3 && j == 2) || (i == 0 && j == 0)) {
 					multiplier = { -1, 1 };
 				}
-				// Combinations that invert both the y- and x-speeds:
-				// TOP > TOP, LEFT > LEFT, BOTTOM > BOTTOM, RIGHT > RIGHT
-				else if (i == j) {
-					multiplier = { -1, -1 };
+				// Combinations that invert the y-speed:
+				// TOP to TOP, LEFT to BOTTOM, BOTTOM to BOTTOM, RIGHT to BOTTOM
+				else if ((i >= 0 && i <= 2 && j == 1) || (i == 3 && j == 3)) {
+					multiplier = { 1, -1 };
 				}
-				// Combinations that do not change the y- and x-speeds:
-				// TOP > BOTTOM, LEFT > RIGHT, BOTTOM > TOP, RIGHT > LEFT
+				// Combinations that don't change the x- or y-axis
+				// All the other ones
 				else {
 					multiplier = { 1, 1 };
 				}
 				// Save a lambda function that passes the correct player and multipliers to the edit_momentum function
 				change_momentum[orientations[i]][orientations[j]] = std::function< void(Player&) >([multiplier]
-				(Player& player) { player.player_set_speed(sf::Vector2f(player.player_get_speed().x * multiplier.x, 
+				(Player& player) { player.player_set_speed(sf::Vector2f(player.player_get_speed().x * multiplier.x,
 					player.player_get_speed().y * multiplier.y)); });
 			}
 		}
 	}
 
 	// Set a new portal in a given world
-	void linked_portals_portal_set(sf::Vector2f loc, std::string entrance, bool order) {
+	void linked_portals_portal_set(sf::Vector2f loc, std::string entrance, bool order, bool overworld) {
+		std::cout << "overworld = "<< overworld << "\n";
 		if (order) {
+			portal_1.drawable_set_dimension(overworld);
 			portal_1.drawable_set_position(loc);
 			portal_1.portal_set_entrance(entrance);
+			portal_1.portal_align();
 		}
 		else {
+			portal_2.drawable_set_dimension(overworld);
 			portal_2.drawable_set_position(loc);
 			portal_2.portal_set_entrance(entrance);
+			portal_2.portal_align();
 		}
 	}
 
@@ -78,16 +78,16 @@ public:
 		std::string exit_entrance = exit.portal_get_entrance();
 
 		if (exit_entrance == "TOP") {
-			player.drawable_move(sf::Vector2f{ 0, -player.drawable_get_size().y - 100 });
+			player.drawable_move(sf::Vector2f{ 0, -player.drawable_get_size().y - 50 });
 		}
 		else if (exit_entrance == "LEFT") {
-			player.drawable_move(sf::Vector2f{ -player.drawable_get_size().x - 100, 0 });
+			player.drawable_move(sf::Vector2f{ -player.drawable_get_size().x - 50, -64 });
 		}
 		else if (exit_entrance == "BOTTOM") {
-			player.drawable_move(sf::Vector2f{ 0, 100 });
+			player.drawable_move(sf::Vector2f{ 0, exit.drawable_get_hitbox().height + 50 });
 		}
 		else {
-			player.drawable_move(sf::Vector2f{ 100, 0 });
+			player.drawable_move(sf::Vector2f{ exit.drawable_get_hitbox().width + 50, -64 });
 		}
 		std::cout << exit_entrance << "\n";
 	}
@@ -100,7 +100,6 @@ public:
 		// Change player location
 		if (portal) { // Player teleports from p1 to p2
 			player.drawable_set_position(portal_2.drawable_get_location());
-			
 			// Change momentum
 			change_momentum[portal_1.portal_get_entrance()][portal_2.portal_get_entrance()](player);
 
