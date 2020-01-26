@@ -1,4 +1,4 @@
-#pragma once
+
 
 #ifndef GAME_HPP
 #define GAME_HPP
@@ -16,6 +16,7 @@
 #include "animation_controller.hpp"
 #include "portal.hpp"
 #include "load_textures.cpp"
+#include "level editor.hpp"
 
 class Game {
 protected:
@@ -47,6 +48,8 @@ protected:
 	std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
 	// Boolean that shows whether the user can currently edit the world
 	bool edit = false;
+	// Level editor
+	Level_Editor level_editor = Level_Editor(textures, {});
 
 public:
 	// Constructor
@@ -102,6 +105,17 @@ public:
 		player = Player({ 100,100 }, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation });
 		p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
 		p2 = Portal({ 200, 150 }, { 64, 128 }, "RIGHT", { portal_animation_green }, false);
+
+		player_view.setCenter(100, 100);
+		window.setView(player_view);
+		level_editor = Level_Editor(textures,
+			{
+				"filling", "floor down","corner left down","corner left",
+				"corner right down", "corner right", "corner down left",
+				"corner left in", "corner rigth in down", "corner right in",
+				"floor", "wall left", "wall right"
+			});
+		level_editor.set_position(player_view.getCenter());
 	}
 
 	// Changes whether the user can edit the level
@@ -215,6 +229,10 @@ public:
 				drawing->drawable_deselect();
 			}
 		}
+		else if (key_event.type == sf::Event::MouseButtonReleased && key_event.key.code == sf::Mouse::Left) {
+			// Add objects to level via level editor
+			level_editor.get_input(drawables, drawables, overworld, window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::LControl) {
 			// Switch between dimensions
 			overworld = !overworld;
@@ -231,12 +249,13 @@ public:
 
 	// Checks for certain inputs and acts accordingly
 	void game_get_input() {
+		sf::Vector2f mouse_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 		// Left Pressed && edit: create location and game_select(window.mapPixeToCoords(location));
 		// Right Pressed && edit: game_move_mouse(window.mapPixelToCoords(location));
 		// Right/Left Pressed && !edit: Shoot portal
 		// Check event: Closed, K = editmode, Ctrl = dimension, arrow-keys = move screen for edit
 
-		if (edit) {
+		if (edit && !level_editor.get_hitbox().contains(mouse_position)) {
 			// Select object when editing
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				auto location = sf::Mouse::getPosition(window);
@@ -247,6 +266,8 @@ public:
 				auto location = sf::Mouse::getPosition(window);
 				game_select(window.mapPixelToCoords(location));
 			}
+
+			
 		}
 
 		// Shoot the portal
@@ -330,6 +351,11 @@ public:
 		}
 
 		player.drawable_draw(window);
+		// Draw level editor if in edit mode 
+		if (edit) {
+			level_editor.set_position(game_edit_view.getCenter());
+			level_editor.draw(window);
+		}
 		window.display();
 	}
 };
