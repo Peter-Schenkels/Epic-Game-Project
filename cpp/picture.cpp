@@ -1,7 +1,6 @@
 #include "drawables.hpp"
 
 // picture.cpp
-// Daniel van Eijk-Bos Bulkowski, 02-Dec-19, Version 1
 
 // Contains all functions for the picture subclass
 
@@ -19,17 +18,18 @@ Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 
 }
 
-	Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name) :
-		Drawable(location, size, name, "none"),
-		size(size),
-		link(link)
-	{
-		// Loads the texture from the given link, sets the texture for the sprite and sets the sprites position
-		texture.loadFromFile(link);
-		sprite.setTexture(texture);
-		sprite.setPosition(location);
-		picture_set_size(size);
-	}
+// Constructor that stores the given location and link to the texture and specific name
+Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name) :
+	Drawable(location, size, name, "none"),
+	size(size),
+	link(link)
+{
+	// Loads the texture from the given link, sets the texture for the sprite and sets the sprites position
+	texture.loadFromFile(link);
+	sprite.setTexture(texture);
+	sprite.setPosition(location);
+	picture_set_size(size);
+}
 
 
 // Sets picture size
@@ -40,7 +40,6 @@ void Picture::picture_set_size(sf::Vector2f new_size) {
 	sprite.setScale(new_factor);
 
 }
-
 
 // Draws the picture
 void Picture::drawable_draw(sf::RenderWindow& window) {

@@ -5,20 +5,22 @@
 #include <math.h>
 
 
-//class to calculate the trajectory of the bullet and the orientation the portal should have
-class Portal_bullet : public Drawable {
+// Class to calculate the trajectory of the bullet and the orientation the portal should have
+class Portal_Bullet : public Drawable {
 private:
 	sf::Vector2f start_pos;
 	sf::Vector2u window;
 	Player_Hitbox collision_box;
 	sf::Vector2f angle;
+	sf::FloatRect hitbox;
 
 public:
-	Portal_bullet(sf::Vector2f& pos_player, sf::Vector2u windowSize, sf::Vector2f& pos_mouse) :
-		Drawable(pos_player, sf::Vector2f( 20.00, 20.00 ), "BULLET", "white"),
+	Portal_Bullet(sf::Vector2f& pos_player, sf::Vector2u windowSize, sf::Vector2f& pos_mouse) :
+		Drawable(pos_player, sf::Vector2f( 1.00, 1.00 ), "BULLET", "white"),
 		start_pos(pos_player),
 		window(windowSize),
-		collision_box(pos_player, sf::Vector2f(20.00, 20.00))
+		collision_box(pos_player, sf::Vector2f(1.00, 1.00)),
+		hitbox( sf::FloatRect( pos_player, sf::Vector2f(1.00, 1.00)))
 	{
 		sf::Vector2f aimdir = pos_mouse - pos_player;
 		angle = aimdir / sqrt(pow(aimdir.x, 2) + pow(aimdir.y, 2));

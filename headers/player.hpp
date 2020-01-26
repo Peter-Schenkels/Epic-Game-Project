@@ -7,8 +7,8 @@
 #include "animation_controller.hpp"
 
 
+// Class for the player character
 class Player : public Drawable {
-
 private:
     sf::Vector2f speed = { 0, 0 };
     Picture* body;
@@ -18,31 +18,25 @@ private:
     float resistance = 2;
     bool floating = false;
     bool on_ground = false;
-    int jump_speed = 15; /// amount of pixels per update 
+    int jump_speed = 15; // amount of pixels per update 
     sf::Vector2f static_scale; // shouldn't be changed is used for flipping the body
     Animation_Controller animation_controller;
 
 public:
-
+    // Default contructor
     Player() {}
 
-    Player(sf::Vector2f position, sf::Vector2f size) :
-        Drawable(position, size, "player", "White"),
-        collision_box(position, size) 
-       
-    {}
-
-    Player(sf::Vector2f position, sf::Vector2f size, Picture* sprite, std::vector<Animation> animations) :
+    // Constructor 
+    Player(sf::Vector2f position, sf::Vector2f size, std::vector<Animation> animations) :
         Drawable(position, size, "player", "White"),
         collision_box(position, size)
        
     {
+        // Load the set of sprites as an animation
         animation_controller = Animation_Controller(animations);
-        player_init(sprite);
+        // Set starting location and sprite
         respawn_location = position;
         animation_controller.animation_controller_set_state("Idle");
-
-       
     }
 
 
@@ -56,49 +50,43 @@ public:
         return speed;
     }
 
-    void player_init(Picture* sprite) {
-        std::cout << "Initialising player..." << std::endl;
-        body = sprite;
-        body->picture_set_size(drawable_get_size());
-        body->drawable_set_position(location);
-        static_scale = sprite->picture_get_scale();
-        std::cout << "Initialising player completed" << std::endl;
-    }
-
+    // Sets the displayed picture to a new sprite
     void set_picture(Picture* sprite) {
-
         if (sprite != body) {
             body = sprite;
-            body->drawable_set_position(location);
         }
     }
 
+    // Draw the player
     void drawable_draw(sf::RenderWindow& window) override {
         body->drawable_draw(window);
     }
 
+    // Update the player
     void drawable_update() override {
+        // Set picture to the next one in line from the animation
         set_picture(animation_controller.get_frame());
         animation_controller.update();
+        // Apply gravity and speed
         if (!floating) {
             speed.y += gravity;
             location += speed;
         }
+        // Update the player hitbox and the picture
         collision_box.Player_Hitbox_update(location);
         body->drawable_set_position(location);
         body->drawable_update();
     }
 
+    // Return visual
     std::string drawable_get_visual() override {
         return color;
     };
 
+    // Set gravity (for debugging)
     void player_set_static(bool boolean) {
         floating = boolean;
     }
-
-
-
 
     // Handles all input events
     void player_input(sf::Event event) {
@@ -145,32 +133,43 @@ public:
     }
 
     // Collision detection between a player and a sf::FloatRect
-    void player_collision(Drawable* object) {
+    bool player_collision(Drawable* object) {
 
 
         if (collision_box.Player_Hitbox_core_intersect(object->drawable_get_hitbox())) {
             drawable_set_position(respawn_location);
+            return true;
         }
         // Check if a sf::FloatRect collides with the right  or left side of the hitbox
         else if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
             location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
+            return true;
         }
         else if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
             location.x = object->drawable_get_hitbox().left - drawable_get_size().x;
+            return true;
         }
         // Check if a sf::FloatRect collides with the bottom  or top of the hitbox
         else if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox())){
             location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
             speed.y = -0.5;
             on_ground = true;
+            return true;
         }
         else if (collision_box.Player_Hitbox_top_side_intersect(object->drawable_get_hitbox())){
             on_ground = false;
             speed.y = 1;
+            return true;
         }
+        return false;
     }
+
+	//check if player hitbox intersect with object mainly used for portal detection
+	bool player_intersect(sf::FloatRect collide){
+		return collision_box.Player_Hitbox_core_intersect(collide) || collision_box.Player_Hitbox_left_side_intersect(collide) || collision_box.Player_Hitbox_right_side_intersect(collide) || collision_box.Player_Hitbox_top_side_intersect(collide) || collision_box.Player_Hitbox_bottom_side_intersect(collide);
+	}
 };
 
 

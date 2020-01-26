@@ -11,25 +11,15 @@
 			},
 			{
 				"color" : "red",
-				"position_x" : 550.0,
-				"position_y" : 250.0,
+				"position_x" : 1350.0,
+				"position_y" : 150.0,
 				"radius" : 100.0
-			}
-		],
-		"Pictures" : 
-		[
-			{
-				"link" : "img/bird.jpg",
-				"position_x" : 0.0,
-				"position_y" : 600.0,
-				"size_x" : 2048.0,
-				"size_y" : 1352.0
 			}
 		],
 		"Rectangles" : 
 		[
 			{
-				"color" : " blue",
+				"name" : "backdrop 1",
 				"position_x" : 91.0,
 				"position_y" : 400.0,
 				"size_x" : 30.0,

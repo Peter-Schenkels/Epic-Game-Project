@@ -9,100 +9,52 @@
 #include "factory.hpp"
 #include "settings.hpp"
 #include "linked_portals.hpp"
-#include "background_tile.hpp"
+#include "tilemap.hpp"
 #include "player.hpp"
 #include "portal_error.hpp"
 #include "portal_bullet.hpp"
 #include "animation_controller.hpp"
 #include "portal.hpp"
+#include "load_textures.cpp"
 
 class Game {
 protected:
+	// Which dimension is currently being displayed
 	bool overworld = true;
+	// Lists of drawable objects for each of the dimensions
 	std::vector<Drawable*> drawables;
 	std::vector<Drawable*> void_drawables;
 	sf::RenderWindow & window;
+	// Textures for the in-game sprites
 	std::map<std::string, Picture*> textures;
-	random_background_tiles backdrop;
+	// The background for the 2d map
+	TileMap map;
 	Player player;
-	Portal p1;
-	Portal p2;
+	// The field of view for the player
 	sf::View player_view = { { 960,540 },  { 1920, 1080 } };
 	sf::View game_edit_view = { { 960,540 },  { 1920, 1080 } };
+	// The in-game animations
 	Animation walking_animation_left;
 	Animation walking_animation_right;
 	Animation idle_animation;
 	Animation portal_animation_purple;
 	Animation portal_animation_green;
-	
-
-
-	// Create a list filled with all drawable objects read from input
+	// The portals
+	Portal p1;
+	Portal p2;
+	Linked_Portals portal_set{ p1, p2 };
+	// A map filled with keys and their effects
+	std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
+	// Boolean that shows whether the user can currently edit the world
 	bool edit = false;
 
 public:
+	// Constructor
 	Game(sf::RenderWindow& window) :
 		window(window)
 	{
-		std::cout << "Loading Textures..." << std::endl;
-		{
-			textures["Player Texture"] = new Picture({ 10,10 }, { 100,100 }, "img/wovo idle.png");
-			{
-				textures["backdrop 1"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 1.png");
-				textures["backdrop 2"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 2.png");
-			}
-			{
-				textures["Portal 1"] = new Picture({ 0,0 }, { 100,100 }, "img/test2.jpg");
-				textures["Portal 2"] = new Picture({ 0,0 }, { 100,100 }, "img/test3.jpeg");
-			}
-			{
-				textures["walk1"] = new Picture({ {0,0}, {46, 126}, "img/walking1.png" });
-				textures["walk2"] = new Picture({ {0,0}, {46, 126}, "img/walking2.png" });
-				textures["walk3"] = new Picture({ {0,0}, {46, 126}, "img/walking3.png" });
-				textures["walk4"] = new Picture({ {0,0}, {46, 126}, "img/walking4.png" });
-				textures["walk5"] = new Picture({ {0,0}, {46, 126}, "img/walking5.png" });
-				textures["walk6"] = new Picture({ {0,0}, {46, 126}, "img/walking6.png" });
-				textures["walk7"] = new Picture({ {0,0}, {46, 126}, "img/walking7.png" });
-			}
-			{
-				textures["left1"] = new Picture({ {0,0}, {46, 126}, "img/left1.png" });
-				textures["left2"] = new Picture({ {0,0}, {46, 126}, "img/left2.png" });
-				textures["left3"] = new Picture({ {0,0}, {46, 126}, "img/left3.png" });
-				textures["left4"] = new Picture({ {0,0}, {46, 126}, "img/left4.png" });
-				textures["left5"] = new Picture({ {0,0}, {46, 126}, "img/left5.png" });
-				textures["left6"] = new Picture({ {0,0}, {46, 126}, "img/left6.png" });
-				textures["left7"] = new Picture({ {0,0}, {46, 126}, "img/left7.png" });
-			}
-				
-			{
-				textures["green1"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green1.png" });
-				textures["green2"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green2.png" });
-				textures["green3"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green3.png" });
-				textures["green4"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green4.png" });
-				textures["green5"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green5.png" });
-				textures["green6"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green6.png" });
-				textures["green7"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green7.png" });
-				textures["green8"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green8.png" });
-				textures["green9"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green9.png" });
-				textures["green10"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green10.png" });
-				textures["green11"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green11.png" });
-				textures["green12"] = new Picture({ {0,0}, {46, 126}, "img/portals/Portal sprite green12.png" });
-			}
-			{
-				textures["purple1"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple1.png" });
-				textures["purple2"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple2.png" });
-				textures["purple3"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple3.png" });
-				textures["purple4"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple4.png" });
-				textures["purple5"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple5.png" });
-				textures["purple6"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple6.png" });
-				textures["purple7"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple7.png" });
-				textures["purple8"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple8.png" });
-				textures["purple9"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple9.png" });
-				textures["purple10"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple10.png" });
-				textures["purple11"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple11.png" });
-				textures["purple12"] = new Picture({ {0,0}, {46, 126}, "img/portals/purple12.png" });
-			}
-		}
+		// Load all textures and animations
+		load_textures(textures);
 		{
 			portal_animation_purple = Animation(textures, { 64, 128 },
 				{ "purple1", "purple2", "purple3", "purple4", "purple5", "purple6", "purple7", "purple8", "purple9", "purple10", "purple11", "purple12" },
@@ -120,43 +72,54 @@ public:
 
 		}
 
-
+		// Load all drawable objects
 		std::cout << "Loading objects..." << std::endl;
-		drawables = drawable_object_read(SAVE_FILE_LOCATION_OVERWORLD);
-		void_drawables = drawable_object_read(SAVE_FILE_LOCATION_VOID);
+		drawables = drawable_object_read(SAVE_FILE_LOCATION_OVERWORLD, textures);
+		void_drawables = drawable_object_read(SAVE_FILE_LOCATION_VOID, textures);
 		std::cout << "Loading objects completed" << std::endl;
 
-		tile_priority t1("backdrop 1", 2);
-		tile_priority t2("backdrop 2", 1);
+		// Create a random seed and set a range for the amount of different background textures
+		std::random_device rd;
+		std::mt19937 eng(rd());
+		std::uniform_int_distribution<> distr(0, 255);
 
-		backdrop = random_background_tiles(textures, { 100, 100 }, { t1, t2 });
+		// Create a list filled with random numbers using the previously defined seed and range
+		int level[8160];
+		for (unsigned int i = 0; i < 8160; i++) {
+			level[i] = distr(eng);
+		}
 
-		player = Player({ 100,100 }, { 46 , 126 }, textures["Player Texture"], { walking_animation_right, walking_animation_left, idle_animation });
-		p1 = Portal({ 50, 50 }, { 64, 128 }, textures["Portal 1"], "TOP", { portal_animation_purple });
-		p2 = Portal({ 200, 150 }, { 64, 128 }, textures["Portal 2"], "TOP", { portal_animation_green });
+		// Loads map with textures using the random numbers from level
+		map.load("img/backdrops3.png", sf::Vector2u(128, 128), level, 120, 68);
 
-		sf::Vector2f player_position = player.drawable_get_location();
-
-		player_view.setCenter(player_position);
-		window.setView(player_view);
-
+		// Fill the moves map with the correct keys
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Down, sf::Vector2f{ 0, 10 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Left, sf::Vector2f{ -10, 0 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Up, sf::Vector2f{ 0, -10 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Right, sf::Vector2f{ 10, 0 }));
+		
+		// Creates a player and the portals
+		player = Player({ 100,100 }, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation });
+		p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
+		p2 = Portal({ 200, 150 }, { 64, 128 }, "RIGHT", { portal_animation_green }, false);
 	}
 
-	
+	// Changes whether the user can edit the level
 	void game_set_edit(bool setting) {
 		edit = setting;
-		sf::sleep(sf::milliseconds(90));
 	}
 
+	// Returns whether the user can edit the level
 	bool game_get_edit() {
 		return edit;
 	}
 
+	// Selects which drawable item has to be moved by the level editor
 	void game_select(sf::Vector2f location) {
 		std::cout << "selected\n";
 		bool selected = false;
 
-		// Edit overworld or Void depending on which dimension is displayed
+		// Select a drawable item from the overworld or the void depending on which dimension is currently displayed
 		if (overworld) {
 			for (auto drawable : drawables) {
 				if (drawable->drawable_hitbox_contains_point(location) && selected == false) {
@@ -179,9 +142,9 @@ public:
 				}
 			}
 		}
-		sf::sleep(sf::milliseconds(90));
 	}
 
+	// Move the selected drawable object along with where the mouse is
 	void game_move_mouse(sf::Vector2f location) {
 		if (overworld) {
 			for (auto& drawable : drawables) {
@@ -199,125 +162,110 @@ public:
 
 		}
 	}
-		
 
-	void game_move_key(sf::Event& entry) {
-
-		std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::W, sf::Vector2f{ 0, 1 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::A, sf::Vector2f{ -1, 0 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::S, sf::Vector2f{ 0, -1 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::D, sf::Vector2f{ 1, 0 }));
-
-		if (overworld) {
-			for (auto& drawable : drawables) {
-				if (drawable->drawable_get_selected()) {
-					drawable->drawable_move(moves[entry.key.code]);
-				}
-			}
-		}
-		else {
-			for (auto& drawables : void_drawables) {
-				if (drawables->drawable_get_selected()) {
-					drawables->drawable_move(moves[entry.key.code]);
-				}
-			}
-		}
-	}
-
-	// Move the edit camera using labda's
+	// Move the edit camera using lambdas for the arrow-keys
 	void view_move_key(sf::Event& entry) {
-		std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Down, sf::Vector2f{ 0, 10 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Left, sf::Vector2f{ -10, 0 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Up, sf::Vector2f{ 0, -10 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Right, sf::Vector2f{ 10, 0 }));
-
 		game_edit_view.move(moves[entry.key.code]);
 	}
 
+	// Return the list of drawables
 	std::vector<Drawable*> game_get_drawables() {
 		return drawables;
 	}
 
-	void game_get_input() {
+	// Shoots portals
+	void game_shoot_portal(bool order) {
+		sf::Vector2f mouse_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+		sf::Vector2f player_position = player.drawable_get_location();
+		// Change player_position so it's equal to the middle of the player
+		player_position += {player.drawable_get_size().x / 2, player.drawable_get_size().y / 2};
+		// Create a bullet to calculate the path and orientation for the new portal
+		Portal_Bullet bullet(player_position, window.getSize(), mouse_position);
 
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && edit) {
-			// Select the object the mouse left-clicks on
-			sf::Vector2i location{
-				int(sf::Mouse::getPosition(window).x),
-				int(sf::Mouse::getPosition(window).y) };
-			game_select(window.mapPixelToCoords(location));
+		// Calculate the position and orientation of the portal or catch an exception if something goes wrong
+		try {
+			std::pair<sf::Vector2f, std::string> data;
+			// Run the calculation with the drawables from the current world
+			if (overworld) {
+				data = bullet.portal_bullet_impact_calc(drawables, window);
+			}
+			else {
+				data = bullet.portal_bullet_impact_calc(void_drawables, window);
+			}
+			portal_set.linked_portals_portal_set(data.first, data.second, order, overworld);
 		}
-
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && edit) {
-			// If an object has been selected by left-clicking, right-clicking will move this object
-			// to where right-click has been pressed
-			sf::Vector2i location{ 
-				int(int(sf::Mouse::getPosition(window).x / 50) * 50), 
-				int(int(sf::Mouse::getPosition(window).y / 50) * 50)};
-
-		
-			game_move_mouse(window.mapPixelToCoords(location));
+		catch (const std::exception & e) {
+			std::cerr << e.what();
 		}
-
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			// Shoot portal when button left mouse is pressed
-			sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
-			sf::Vector2f playerPos = player.drawable_get_location();
-			playerPos.x += player.drawable_get_size().x / 2;
-			playerPos.y += player.drawable_get_size().y / 2;
-			Portal_bullet bullet(playerPos, window.getSize(), mousePos);
-	/*		try {
-
-				bullet.portal_bullet_impact_calc(drawables, window);
-			}
-			catch (const std::exception & e) {
-				std::cerr << e.what();
-			}*/
-		}
-		
-		sf::Event key_press;
-		if (window.pollEvent(key_press)) {
-			player.player_input(key_press);
-			if (key_press.type == sf::Event::Closed) {
-				// If the window has been close, save the new objects to a file
-				drawable_object_write(SAVE_FILE_LOCATION_OVERWORLD, drawables);
-				drawable_object_write(SAVE_FILE_LOCATION_VOID, void_drawables);
-				window.close();
-			} 
-			else if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::K) {
-				// Change in and out of edit mode
-				edit = !edit;
-				for (auto& drawing : drawables) {
-					drawing->drawable_deselect();
-				}
-			}
-			else if (key_press.type == sf::Event::KeyReleased && key_press.key.code == sf::Keyboard::LControl) {
-				// Switch dimensions
-				overworld = !overworld;
-				if (overworld) {
-					backdrop.set_color({ 255,255,255,255 });
-				} else {
-					backdrop.set_color({ 100,255,100,255 });
-				}
-			}
-			else if (key_press.type == sf::Event::KeyPressed) {
-				// Move something with WASD
-				auto key = key_press.key.code;
-				if (key == sf::Keyboard::Up || key == sf::Keyboard::Left|| key == sf::Keyboard::Down ||
-					key == sf::Keyboard::Right) {
-					view_move_key(key_press);
-				}
-			}
-		}	
 	}
 
+	// Act upon closed and key events
+	void game_act_on_key(sf::Event key_event) {
+		player.player_input(key_event);
+		if (key_event.type == sf::Event::Closed) {
+			// If the window has been close, save the new objects to a file
+			drawable_object_write(SAVE_FILE_LOCATION_OVERWORLD, drawables);
+			drawable_object_write(SAVE_FILE_LOCATION_VOID, void_drawables);
+			window.close();
+		}
+		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::K) {
+			// Change in and out of edit mode and deselect all objects
+			edit = !edit;
+			for (auto& drawing : drawables) {
+				drawing->drawable_deselect();
+			}
+		}
+		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::LControl) {
+			// Switch between dimensions
+			overworld = !overworld;
+		}
+		else if (key_event.type == sf::Event::KeyPressed && edit) {
+			// Move around the editing view with the arrow keys
+			auto key = key_event.key.code;
+			if (key == sf::Keyboard::Up || key == sf::Keyboard::Left || key == sf::Keyboard::Down ||
+				key == sf::Keyboard::Right) {
+				view_move_key(key_event);
+			}
+		}
+	}
+
+	// Checks for certain inputs and acts accordingly
+	void game_get_input() {
+		// Left Pressed && edit: create location and game_select(window.mapPixeToCoords(location));
+		// Right Pressed && edit: game_move_mouse(window.mapPixelToCoords(location));
+		// Right/Left Pressed && !edit: Shoot portal
+		// Check event: Closed, K = editmode, Ctrl = dimension, arrow-keys = move screen for edit
+
+		if (edit) {
+			// Select object when editing
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				auto location = sf::Mouse::getPosition(window);
+				game_select(window.mapPixelToCoords(location));
+			}
+			// Move selected object around
+			else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+				auto location = sf::Mouse::getPosition(window);
+				game_select(window.mapPixelToCoords(location));
+			}
+		}
+
+		// Shoot the portal
+		if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) && !edit) {
+			game_shoot_portal(sf::Mouse::isButtonPressed(sf::Mouse::Left));
+		}
+		
+		// Check for all other events
+		sf::Event key_event;
+		if (window.pollEvent(key_event)) {
+			game_act_on_key(key_event);
+		}
+	}
+
+	// Updates the game staete
 	void game_update() {
-		sf::Vector2f delta = player.drawable_get_location();
 		player.drawable_update();
 
-		// Update Overworld or Void depending one overworld boolean
+		// Update overworld or void depending on which one the player finds themselves currently in
 		if (overworld) {
 			for (auto drawable : drawables) {
 				drawable->drawable_update();
@@ -330,57 +278,61 @@ public:
 				player.player_collision(drawable);
 			}
 		}
-		delta = player.drawable_get_location() - delta;
-		p1.drawable_update();
-		p2.drawable_update();
-		player_view.move(delta);
+		// Set the player_view
+		player_view.setCenter(player.drawable_get_location());
 		
+		// Set the view to the one centered on the player when not editing
+		// Otherwise set the view to whatever the editor is doing
 		if (!edit) {
-
 			window.setView(player_view);	
 		}
 		else {
 			window.setView(game_edit_view);
 		}
+		
+		// Intersect with portals and swap to the correct dimension
+		if (player.player_intersect(p1.drawable_get_hitbox()) && overworld == p1.drawable_get_dimension()) {
+			portal_set.linked_portals_teleport(player, p1);
+			overworld = p2.drawable_get_dimension();
+		}
+		else if (player.player_intersect(p2.drawable_get_hitbox()) && overworld == p2.drawable_get_dimension()) {
+			portal_set.linked_portals_teleport(player, p2);
+			overworld = p1.drawable_get_dimension();
+		}
+		p1.drawable_update();
+		p2.drawable_update();
 	}
 
-
+	// Draw the current game state
 	void game_draw() {
+
 		window.clear();
-		backdrop.draw(window);
+		// Draw the background first
 
-		// Draw Overworld or Void depending one overworld boolean
 
+		// Draw the drawable objects in the overworld or the void depending one which one the player finds themselves in
 		if (overworld) {
 			for (auto Drawable : drawables) {
 				Drawable->drawable_draw(window);
-			}
-
-			if (p1.drawable_get_dimension() == true) {
-				p1.drawable_draw(window);
-			} 
-
-			if (p2.drawable_get_dimension() == true) {
-				p2.drawable_draw(window);
 			}
 		} else {
 			for (auto Drawable : void_drawables) {
 				Drawable->drawable_draw(window);
 			}
-			if (p1.drawable_get_dimension() == false) {
-				p1.drawable_draw(window);
-			}
+		}
 
-			if (p2.drawable_get_dimension() == false) {
-				p2.drawable_draw(window);
-			}
+		// Draw the currently visible portals
+		if (p1.drawable_get_dimension() == overworld) {
+			p1.drawable_draw(window);
+		}
+		if (p2.drawable_get_dimension() == overworld) {
+			p2.drawable_draw(window);
 		}
 
 		player.drawable_draw(window);
 		window.display();
 	}
 };
-
 
 
 #endif
