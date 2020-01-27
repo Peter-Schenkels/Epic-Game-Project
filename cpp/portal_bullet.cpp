@@ -33,7 +33,7 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 			if (object->drawable_get_type() == std::string("RECTANGLE")) {
 				// Check if a sf::FloatRect collides with the right or left side of the hitbox
 
-				if (object->drawable_get_hitbox().intersects(hitbox)) {
+				//if (object->drawable_get_hitbox().intersects(hitbox)) {
 					if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox()))
 					{
 						std::cout << "collision detected left\n";
@@ -54,7 +54,7 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 						std::cout << "collision detected top\n";
 						return  std::pair<sf::Vector2f, std::string> {location, "BOTTOM"};
 					}
-				}
+				//}
 			}
 		}
 		// Change the location of the hitbox and the location of the bullet

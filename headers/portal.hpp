@@ -13,6 +13,7 @@ protected:
 	Animation_Controller animation_controller;
 	float rotation = 0;
 	bool order;
+	sf::Vector2f portal_size;
 	
 public:
 	// Default constructor
@@ -23,31 +24,21 @@ public:
 		Drawable(position, size, "Portal", "White"),
 		entrance(entrance),
 		animation_controller(animations),
-		order(order)
+		order(order),
+		portal_size(size)
 	{
-		float rotation;
-		std::array<std::string, 4> orientations{ "TOP", "RIGHT", "BOTTOM", "LEFT" };
-
-		for (unsigned int i = 0; i < 4; i++) {
-			if (orientations[i] == entrance) {
-				rotation = float(i * 90);
-			}
-		}
-		animation_controller.animation_controller_set_state("Idle");
-		animation_controller.animation_set_size("Idle", size);
-		animation_controller.set_origin_of_animation("Idle", {size.x/4, size.y/4});
-		body = animation_controller.get_frame();
-		
+		portal_align();
 	}
 
 	// Draw portal
 	void drawable_draw(sf::RenderWindow& window) override {
 		body = animation_controller.get_frame();
 		body->drawable_draw(window);
-		sf::RectangleShape hitbox_draw(sf::Vector2f(hitbox.width, hitbox.height));
+		// The commented part is for debugging: showing the portals' hitbox
+		/*sf::RectangleShape hitbox_draw(sf::Vector2f(hitbox.width, hitbox.height));
 		hitbox_draw.setPosition(sf::Vector2f(hitbox.left, hitbox.top));
 		hitbox_draw.setFillColor(sf::Color::White);
-		window.draw(hitbox_draw);
+		window.draw(hitbox_draw);*/
 	}
 
 	// Return visual
@@ -76,6 +67,22 @@ public:
 	// Return order
 	bool portal_get_order() {
 		return order;
+	}
+
+	void portal_align() {
+		float rotation;
+		std::array<std::string, 4> orientations{ "RIGHT", "BOTTOM", "LEFT", "TOP" };
+
+		for (unsigned int i = 0; i < 4; i++) {
+			if (orientations[i] == entrance) {
+				rotation = float(i * 90);
+			}
+		}
+		animation_controller.animation_controller_set_state("Idle");
+		animation_controller.animation_set_size("Idle", portal_size);
+		animation_controller.set_origin_of_animation("Idle", {portal_size.x/4, portal_size.y/4});
+		animation_controller.rotate_animation("Idle", rotation);
+		body = animation_controller.get_frame();
 	}
 };
 
