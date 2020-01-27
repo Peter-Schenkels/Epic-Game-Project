@@ -1,6 +1,6 @@
 #pragma once
-
-
+#define SETTINGS_HPP
+#endif SETTINGS_HPP
 
 
 //#define WINDOW_SIZE_X 1000

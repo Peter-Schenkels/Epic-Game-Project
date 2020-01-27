@@ -93,49 +93,42 @@ public:
         // If key up is pressed: jump!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && speed.y == -0.5) {
             speed.y = float(-1 * (jump_speed + 0.01));
-
             animation_controller.animation_controller_set_state("Idle");
-            
         }
         // If key left is pressed: move left!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
             speed.x = -7;
-
             animation_controller.animation_controller_set_state("Walking left");
-
         }
         else if (speed.x < 0) {
-
             animation_controller.animation_controller_set_state("Idle");
-
-
-            speed.x += 7;
-            if (speed.x > 0) {
+            if (on_ground) {
                 speed.x = 0;
             }
+            else {
+                speed.x += 0.5;
+            }
+            std::cout << speed.x << "\n";
         }
-        //if key right is pressed: move right!
+        // If key right is pressed: move right!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
             speed.x = 7;
-
             animation_controller.animation_controller_set_state("Walking right");
-
         }
         else if (speed.x > 0) {
-
             animation_controller.animation_controller_set_state("Idle");
-
-            speed.x -= 7;
-            if (speed.x < 0) {
+            if (on_ground) {
                 speed.x = 0;
             }
+            else {
+                speed.x -= 0.5;
+            }
+            std::cout << speed.x << "\n";
         }
     }
 
     // Collision detection between a player and a sf::FloatRect
     bool player_collision(Drawable* object) {
-
-
         if (collision_box.Player_Hitbox_core_intersect(object->drawable_get_hitbox())) {
             drawable_set_position(respawn_location);
             return true;
@@ -170,7 +163,11 @@ public:
 
 	//check if player hitbox intersect with object mainly used for portal detection
 	bool player_intersect(sf::FloatRect collide){
-		return collision_box.Player_Hitbox_core_intersect(collide) || collision_box.Player_Hitbox_left_side_intersect(collide) || collision_box.Player_Hitbox_right_side_intersect(collide) || collision_box.Player_Hitbox_top_side_intersect(collide) || collision_box.Player_Hitbox_bottom_side_intersect(collide);
+		return collision_box.Player_Hitbox_core_intersect(collide) || 
+            collision_box.Player_Hitbox_left_side_intersect(collide) || 
+            collision_box.Player_Hitbox_right_side_intersect(collide) || 
+            collision_box.Player_Hitbox_top_side_intersect(collide) || 
+            collision_box.Player_Hitbox_bottom_side_intersect(collide);
 	}
 };
 

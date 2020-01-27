@@ -24,37 +24,55 @@ public:
 		portal_2(second)
 	{
 		std::array<std::string, 4> orientations = { "TOP", "LEFT", "BOTTOM", "RIGHT" };
+		bool swap;
+		sf::Vector2f multiplier;
 		for (unsigned int i = 0; i < 4; i++) {
 			for (unsigned int j = 0; j < 4; j++) {
 				// Select the correct multiplier for all possible combinations of 
 				// 0 = TOP, 1 = LEFT, 2 = BOTTOM, 3 = RIGHT
-				sf::Vector2f multiplier;
-				// Combinations that invert the x-speed:
-				// TOP to LEFT, LEFT to LEFT, BOTTOM to LEFT, RIGHT to RIGHT
-				if ((i >+ 0 && i <= 2 && j == 1) || (i == 3 && j == 3)) {
-					multiplier = { -1, 1 };
-				}
-				// Combinations that invert the y-speed:
-				// TOP to TOP, LEFT to BOTTOM, BOTTOM to BOTTOM, RIGHT to BOTTOM
-				else if ((i >= 1 && i <= 3 && j == 2) || (i == 0 && j == 0)) {
+        
+				// Combinations that invert the Y-axis
+				// TOP > TOP, TOP > LEFT, LEFT > BOTTOM, BOTTOM > BOTTOM
+				if ((i == 0 && (j == 0 || j == 1)) || (j == 2 && (i == 1 || i == 2))) {
 					multiplier = { 1, -1 };
 				}
-				// Combinations that don't change the x- or y-axis
-				// All the other ones
+				// Combinations that invert the X-axis
+				// LEFT > LEFT, BOTTOM > LEFT, RIGHT > RIGHT, RIGHT > BOTTOM
+				else if ((j == 1 && (i == 1 || i == 2)) || (i == 3 && (j == 3 || j == 2))) {
+					multiplier = { -1, 1 };
+				}
+				// Combinations that dont invert the axis
+				// All other combinations
 				else {
 					multiplier = { 1, 1 };
 				}
-				// Save a lambda function that passes the correct player and multipliers to the edit_momentum function
-				change_momentum[orientations[i]][orientations[j]] = std::function< void(Player&) >([multiplier]
-				(Player& player) { player.player_set_speed(sf::Vector2f(player.player_get_speed().x * multiplier.x,
-					player.player_get_speed().y * multiplier.y)); });
+
+				// Combinations that swap the X- and Y-axis
+				// TOP > LEFT, TOP > RIGHT, LEFT > TOP, LEFT > BOTTOM, BOTTOM > LEFT, BOTTOM > RIGHT , RIGHT > TOP, RIGHT > BOTTOM
+				if ((i >= 1 && j == i - 1) || (i <= 2 && j == i + 1) || (i == 0 && j == 3) || (i == 3 && j == 0)) {
+					swap = true;
+				}
+				else {
+					swap = false;
+				}
+
+				// Save a lambda function that uses the correct multiplier to edit the players speed
+				if (!swap) {
+					change_momentum[orientations[i]][orientations[j]] = std::function< void(Player&) >([multiplier]
+					(Player& player) { player.player_set_speed(sf::Vector2f(player.player_get_speed().x * multiplier.x,
+						player.player_get_speed().y * multiplier.y)); });
+				}
+				else {
+					change_momentum[orientations[i]][orientations[j]] = std::function< void(Player&) >([multiplier]
+					(Player& player) { player.player_set_speed(sf::Vector2f(player.player_get_speed().y * multiplier.y,
+						player.player_get_speed().x * multiplier.x)); });
+				}
 			}
 		}
 	}
 
 	// Replace an existing portal
 	void linked_portals_portal_set(sf::Vector2f loc, std::string entrance, bool order, bool overworld) {
-		std::cout << "overworld = "<< overworld << "\n";
 		// Set portal_1 if this is the portal that has changed locations
 		if (order) {
 			portal_1.drawable_set_dimension(overworld);
@@ -98,7 +116,6 @@ public:
 		else {
 			player.drawable_move(sf::Vector2f{ exit.drawable_get_hitbox().width, -64 });
 		}
-		//std::cout << exit_entrance << "\n";
 	}
 
 	// Teleport the player in between portals

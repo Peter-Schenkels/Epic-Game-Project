@@ -59,10 +59,7 @@ std::vector<Drawable*> drawable_object_read(std::string link, std::map<std::stri
 
 	auto object = objects["Positions"]["Player"];
 	start_position = { object["position_x"].asFloat(), object["position_y"].asFloat() };
-	
-
-
-
+  
 	return drawables;
 }
 

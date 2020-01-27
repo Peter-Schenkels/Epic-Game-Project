@@ -270,6 +270,10 @@ public:
 		}
 	}
 
+	// Delete object from the game
+	void game_delete_object(sf::Vector2f location) {
+
+	}
 	// Checks for certain inputs and acts accordingly
 	void game_get_input() {
 		sf::Vector2f mouse_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -278,19 +282,22 @@ public:
 		// Right/Left Pressed && !edit: Shoot portal
 		// Check event: Closed, K = editmode, Ctrl = dimension, arrow-keys = move screen for edit
 
+		// Make sure not to misplace the level editor
 		if (edit && !level_editor.get_hitbox().contains(mouse_position)) {
+			auto location = sf::Mouse::getPosition(window);
 			// Select object when editing
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				auto location = sf::Mouse::getPosition(window);
 				game_select(window.mapPixelToCoords(location));
 			}
 			// Move selected object around
 			else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-				auto location = sf::Mouse::getPosition(window);
 				auto position = window.mapPixelToCoords(location);
 				game_move_mouse({ float(int(position.x / 100) * 100), float(int(position.y / 100) * 100) });
 			}
-
+			// Delete selected object
+			else if (sf::Keyboard::Delete) {
+				game_delete_object(window.mapPixelToCoords(location));
+			}
 		}
 
 		// Shoot the portal
@@ -300,9 +307,8 @@ public:
 		
 		// Check for all other events
 		sf::Event key_event;
-		if (window.pollEvent(key_event)) {
-			game_act_on_key(key_event);
-		}
+		window.pollEvent(key_event);
+		game_act_on_key(key_event);
 	}
 
 	// Updates the game staete
