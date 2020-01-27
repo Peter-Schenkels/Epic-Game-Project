@@ -1,0 +1,73 @@
+{
+	"Drawables" : 
+	{
+		"Circles" : 
+		[
+			{
+				"color" : "red",
+				"position_x" : 288.0,
+				"position_y" : 417.0,
+				"radius" : 10.0
+			},
+			{
+				"color" : "red",
+				"position_x" : 1350.0,
+				"position_y" : 150.0,
+				"radius" : 100.0
+			}
+		],
+		"Rectangles" : 
+		[
+			{
+				"name" : "backdrop 1",
+				"position_x" : 91.0,
+				"position_y" : 400.0,
+				"size_x" : 30.0,
+				"size_y" : 40.0
+			},
+			{
+				"name" : "corner right",
+				"position_x" : 900.0,
+				"position_y" : 500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "corner right down",
+				"position_x" : 900.0,
+				"position_y" : 500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "corner rigth in down",
+				"position_x" : 900.0,
+				"position_y" : 500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 900.0,
+				"position_y" : 500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "corner down left",
+				"position_x" : 900.0,
+				"position_y" : 500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			}
+		]
+	},
+	"Positions" : 
+	{
+		"Player" : 
+		{
+			"position_x" : 2000.0,
+			"position_y" : 0.0
+		}
+	}
+}

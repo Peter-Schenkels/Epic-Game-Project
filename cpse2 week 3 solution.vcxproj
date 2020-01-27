@@ -136,11 +136,11 @@
     <ClCompile Include="..\jsoncpp\dist\jsoncpp.cpp" />
     <ClCompile Include="cpp\circle.cpp" />
     <ClCompile Include="cpp\drawable.cpp" />
+    <ClCompile Include="cpp\load_textures.cpp" />
     <ClCompile Include="cpp\picture.cpp" />
     <ClCompile Include="cpp\Player_Hitbox.cpp" />
     <ClCompile Include="cpp\portal_bullet.cpp" />
     <ClCompile Include="cpp\rectangle.cpp" />
-    <ClCompile Include="load_textures.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +171,7 @@
     <ClInclude Include="headers\settings.hpp" />
     <ClInclude Include="headers\tilemap.hpp" />
     <ClInclude Include="level editor.hpp" />
+    <ClInclude Include="level_selector.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

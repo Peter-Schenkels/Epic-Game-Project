@@ -17,6 +17,7 @@
 #include "portal.hpp"
 #include "load_textures.cpp"
 #include "level editor.hpp"
+#include "level_selector.hpp"
 
 class Game {
 protected:
@@ -31,6 +32,8 @@ protected:
 	// The background for the 2d map
 	TileMap map;
 	Player player;
+	//Start position of player
+	sf::Vector2f start_position; 
 	// The field of view for the player
 	sf::View player_view = { { 960,540 },  { 1920, 1080 } };
 	sf::View game_edit_view = { { 960,540 },  { 1920, 1080 } };
@@ -50,6 +53,12 @@ protected:
 	bool edit = false;
 	// Level editor
 	Level_Editor level_editor = Level_Editor(textures, {});
+	// Level Selector 
+	Level_Selector level_selector = Level_Selector({
+		{LOCATION_OVERWORLD_LEVEL_1, LOCATION_VOID_LEVEL_1 },
+		{LOCATION_OVERWORLD_LEVEL_2, LOCATION_VOID_LEVEL_2 },
+		{LOCATION_OVERWORLD_LEVEL_3, LOCATION_VOID_LEVEL_3 }
+		});
 
 public:
 	// Constructor
@@ -77,8 +86,7 @@ public:
 
 		// Load all drawable objects
 		std::cout << "Loading objects..." << std::endl;
-		drawables = drawable_object_read(SAVE_FILE_LOCATION_OVERWORLD, textures);
-		void_drawables = drawable_object_read(SAVE_FILE_LOCATION_VOID, textures);
+		load_level();
 		std::cout << "Loading objects completed" << std::endl;
 
 		// Create a random seed and set a range for the amount of different background textures
@@ -102,7 +110,7 @@ public:
 		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Right, sf::Vector2f{ 10, 0 }));
 		
 		// Creates a player and the portals
-		player = Player({ 100,100 }, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation });
+		player = Player(start_position, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation });
 		p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
 		p2 = Portal({ 200, 150 }, { 64, 128 }, "RIGHT", { portal_animation_green }, false);
 
@@ -116,6 +124,13 @@ public:
 				"floor", "wall left", "wall right"
 			});
 		level_editor.set_position(player_view.getCenter());
+	}
+
+	// Loads the drawables into the vectors for corresponding level
+	void load_level() {
+		drawables = drawable_object_read(level_selector.get_current_level().overworld, textures, start_position);
+		void_drawables = drawable_object_read(level_selector.get_current_level().voidworld, textures, start_position);
+		player.drawable_set_position(start_position);
 	}
 
 	// Changes whether the user can edit the level
@@ -168,7 +183,7 @@ public:
 			}
 		}
 		else {
-			for (auto& drawable : drawables) {
+			for (auto& drawable : void_drawables) {
 				if (drawable->drawable_get_selected()) {
 					drawable->drawable_set_position(location);
 				}
@@ -218,8 +233,8 @@ public:
 		player.player_input(key_event);
 		if (key_event.type == sf::Event::Closed) {
 			// If the window has been close, save the new objects to a file
-			drawable_object_write(SAVE_FILE_LOCATION_OVERWORLD, drawables);
-			drawable_object_write(SAVE_FILE_LOCATION_VOID, void_drawables);
+			drawable_object_write(level_selector.get_current_level().overworld, drawables, start_position);
+			drawable_object_write(level_selector.get_current_level().voidworld, void_drawables, start_position);
 			window.close();
 		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::K) {
@@ -236,6 +251,14 @@ public:
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::LControl) {
 			// Switch between dimensions
 			overworld = !overworld;
+		}
+		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num9) {
+			level_selector.next_level();
+			load_level();
+		}
+		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num8) {
+			level_selector.previous_level();
+			load_level();
 		}
 		else if (key_event.type == sf::Event::KeyPressed && edit) {
 			// Move around the editing view with the arrow keys

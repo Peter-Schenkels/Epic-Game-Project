@@ -12,7 +12,7 @@
 #include "drawables.hpp"
 
 
-std::vector<Drawable*> drawable_object_read(std::string link, std::map<std::string, Picture*>& textures) {
+std::vector<Drawable*> drawable_object_read(std::string link, std::map<std::string, Picture*>& textures, sf::Vector2f & start_position) {
 	// Reads drawable objects from given file by writing all the text to a string
 	// and afterwards splitting the string into usable parts
 	std::vector<Drawable*> drawables;
@@ -57,13 +57,17 @@ std::vector<Drawable*> drawable_object_read(std::string link, std::map<std::stri
 
 	}
 
+	auto object = objects["Positions"]["Player"];
+	start_position = { object["position_x"].asFloat(), object["position_y"].asFloat() };
+	
+
 
 
 	return drawables;
 }
 
 
-void drawable_object_write(std::string link, std::vector<Drawable*> drawables) {
+void drawable_object_write(std::string link, std::vector<Drawable*> drawables, sf::Vector2f & start_position) {
 	// Writes the drawable objects in drawables to the given json file
 	std::ofstream output(link);
 	Json::Value event;
@@ -99,6 +103,9 @@ void drawable_object_write(std::string link, std::vector<Drawable*> drawables) {
 		}
 
 	}
+
+	event["Positions"]["Player"]["position_x"] = start_position.x;
+	event["Positions"]["Player"]["position_y"] = start_position.y;
 
 	output << event;
 }
