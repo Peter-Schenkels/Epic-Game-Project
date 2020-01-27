@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="objects.json" />
+    <None Include="void.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\backdrop 1.png" />

@@ -162,6 +162,8 @@ public:
             on_ground = false;
             speed.y = 1;
             return true;
+        } else {
+            on_ground = false;
         }
         return false;
     }

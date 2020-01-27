@@ -231,7 +231,7 @@ public:
 		}
 		else if (key_event.type == sf::Event::MouseButtonReleased && key_event.key.code == sf::Mouse::Left) {
 			// Add objects to level via level editor
-			level_editor.get_input(drawables, drawables, overworld, window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+			level_editor.get_input(drawables, void_drawables, overworld, window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::LControl) {
 			// Switch between dimensions
@@ -264,10 +264,10 @@ public:
 			// Move selected object around
 			else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 				auto location = sf::Mouse::getPosition(window);
-				game_select(window.mapPixelToCoords(location));
+				auto position = window.mapPixelToCoords(location);
+				game_move_mouse({ float(int(position.x / 100) * 100), float(int(position.y / 100) * 100) });
 			}
 
-			
 		}
 
 		// Shoot the portal

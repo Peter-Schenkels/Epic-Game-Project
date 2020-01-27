@@ -48,6 +48,9 @@
     <None Include="objects.json">
       <Filter>Resources</Filter>
     </None>
+    <None Include="void.json">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\backdrop 1.png">
