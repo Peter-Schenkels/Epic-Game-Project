@@ -90,3 +90,13 @@ bool Drawable::drawable_get_dimension() {
 void Drawable::drawable_set_dimension(bool set) {
 	in_over_world = set;
 }
+
+// Sets the name
+void Drawable::drawable_set_name(std::string new_name) {
+	name = new_name; 
+}
+
+// Gets the name
+std::string Drawable::drawable_get_name() {
+	return name; 
+}

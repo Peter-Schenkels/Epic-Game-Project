@@ -34,10 +34,11 @@ public:
 	void drawable_draw(sf::RenderWindow& window) override {
 		body = animation_controller.get_frame();
 		body->drawable_draw(window);
-		sf::RectangleShape hitbox_draw(sf::Vector2f(hitbox.width, hitbox.height));
+		// The commented part is for debugging: showing the portals' hitbox
+		/*sf::RectangleShape hitbox_draw(sf::Vector2f(hitbox.width, hitbox.height));
 		hitbox_draw.setPosition(sf::Vector2f(hitbox.left, hitbox.top));
 		hitbox_draw.setFillColor(sf::Color::White);
-		window.draw(hitbox_draw);
+		window.draw(hitbox_draw);*/
 	}
 
 	// Return visual

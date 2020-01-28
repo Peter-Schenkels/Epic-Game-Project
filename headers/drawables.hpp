@@ -26,6 +26,7 @@ protected:
 	std::string color;
 	bool in_over_world;
 	sf::RectangleShape visual_hitbox; // for debuggen
+	std::string name; // optional member if you want to find the object by ID
 
 public:
 	// Default Constructor
@@ -76,55 +77,15 @@ public:
 	// Draw the object
 	virtual void drawable_draw(sf::RenderWindow& window) = 0;
 
+	// Sets the name
+	void drawable_set_name(std::string new_name);
+
+	// Gets the name
+	virtual std::string drawable_get_name();
+
 	// Update the object
 	virtual void drawable_update() = 0;
 };
-
-
-class Circle : public Drawable {
-// Subclass of drawable for circle objects
-protected:
-	// Shape of the circle, radius of the circle and the color of the circle that is read from the file
-	sf::CircleShape shape;
-	float radius;
-
-public:
-	// Constructor for circle that stores the given location, radius and color of the circle
-	Circle(sf::Vector2f location, float radius, std::string color);
-
-
-	// Function that draws the circle
-	void drawable_draw(sf::RenderWindow& window) override;
-
-	// Returns color of circle
-	std::string drawable_get_visual() override;
-
-	// Update the circle
-	void drawable_update() override;
-};
-
-
-class Rectangle : public Drawable {
-// Subclass of drawable for rectangle objects
-protected:
-	// Shape, size and color of the rectangle
-	sf::RectangleShape shape;
-	sf::Vector2f size;
-public:
-	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
-	Rectangle(sf::Vector2f location, sf::Vector2f size, std::string color);
-
-
-	// Function that draws the rectangle
-	void drawable_draw(sf::RenderWindow& window) override;
-
-	// Returns color
-	std::string drawable_get_visual() override;
-
-	// Update the rectangle
-	void drawable_update() override;
-};
-
 
 class Picture : public Drawable {
 // Subclass of drawable for picture objects
@@ -146,7 +107,6 @@ public:
 	Picture(sf::Vector2f location, sf::Vector2f size, std::string link);
 
 	Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name);
-
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -178,6 +138,58 @@ public:
 	void picture_set_origin(sf::Vector2f origin) { sprite.setOrigin(origin); }
 
 };
+
+class Circle : public Drawable {
+// Subclass of drawable for circle objects
+protected:
+	// Shape of the circle, radius of the circle and the color of the circle that is read from the file
+	sf::CircleShape shape;
+	float radius;
+
+public:
+	// Constructor for circle that stores the given location, radius and color of the circle
+	Circle(sf::Vector2f location, float radius, std::string color);
+
+
+	// Function that draws the circle
+	void drawable_draw(sf::RenderWindow& window) override;
+
+	// Returns color of circle
+	std::string drawable_get_visual() override;
+
+	// Update the circle
+	void drawable_update() override;
+};
+
+
+class Rectangle : public Drawable {
+// Subclass of drawable for rectangle objects
+protected:
+	// Shape, size and image of the rectangle
+	sf::RectangleShape shape;
+	sf::Vector2f size;
+	Picture* sprite;
+
+	// Next position of the picture for drawing
+	sf::Vector2f next_position = { 0,0 };
+
+public:
+
+	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
+	Rectangle(sf::Vector2f location, sf::Vector2f size, Picture* sprite);
+
+	// Function that draws the rectangle
+	void drawable_draw(sf::RenderWindow& window) override;
+
+	// Returns color
+	std::string drawable_get_visual() override;
+
+	// Update the rectangle
+	void drawable_update() override;
+
+};
+
+
 
 
 

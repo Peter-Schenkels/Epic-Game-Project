@@ -12,7 +12,7 @@
 #include "drawables.hpp"
 
 
-std::vector<Drawable*> drawable_object_read(std::string link) {
+std::vector<Drawable*> drawable_object_read(std::string link, std::map<std::string, Picture*>& textures, sf::Vector2f & start_position) {
 	// Reads drawable objects from given file by writing all the text to a string
 	// and afterwards splitting the string into usable parts
 	std::vector<Drawable*> drawables;
@@ -37,53 +37,72 @@ std::vector<Drawable*> drawable_object_read(std::string link) {
 	}
 
 	for (auto object : objects["Drawables"]["Pictures"]) {
-		drawables.push_back(new Picture{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
-			sf::Vector2f(object["size_x"].asFloat(), object["size_y"].asFloat()), object["link"].asString()});
+
+		Picture* new_picture = new Picture{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
+		sf::Vector2f(object["size_x"].asFloat(), object["size_y"].asFloat()), object["link"].asString() };
+		drawables.push_back(new_picture);
+		new_picture->drawable_set_name(object["name"].asString());
+		textures[new_picture->drawable_get_name()] = new_picture;
+
 	}
 
 	for (auto object : objects["Drawables"]["Rectangles"]) {
-		drawables.push_back(new Rectangle{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
-			sf::Vector2f(object["size_x"].asFloat(), object["size_y"].asFloat()), object["color"].asString() });
+
+		std::string name = object["name"].asString();
+		Rectangle* new_rectangle = new Rectangle{ sf::Vector2f(object["position_x"].asFloat(), object["position_y"].asFloat()),
+			sf::Vector2f(object["size_x"].asFloat(), object["size_y"].asFloat()), textures[name] };
+		std::cout << name << std::endl;
+		new_rectangle->drawable_set_name(name);
+		drawables.push_back(new_rectangle);
+
 	}
 
+	auto object = objects["Positions"]["Player"];
+	start_position = { object["position_x"].asFloat(), object["position_y"].asFloat() };
+  
 	return drawables;
 }
 
 
-void drawable_object_write(std::string link, std::vector<Drawable*> drawables) {
+void drawable_object_write(std::string link, std::vector<Drawable*> drawables, sf::Vector2f & start_position) {
 	// Writes the drawable objects in drawables to the given json file
 	std::ofstream output(link);
 	Json::Value event;
-	Json::Value vec(Json::arrayValue);
 	std::array<int, 3> count{ 0, 0, 0 };
-	
+
 	// Loop through all the drawable objects and store them with their corresponding keys, afterwards write these to the file
 	for (auto object : drawables) {
 		auto type = object->drawable_get_type();
-		if (type == "CIRCLE") {
-			event["Drawables"]["Circles"][count[0]]["position_x"] = object->drawable_get_location().x;
-			event["Drawables"]["Circles"][count[0]]["position_y"] = object->drawable_get_location().y;
-			event["Drawables"]["Circles"][count[0]]["color"] = object->drawable_get_visual();
-			event["Drawables"]["Circles"][count[0]]["radius"] = object->drawable_get_size().x / 2;
+
+		if (type == "PICTURE") {
+			event["Drawables"]["Pictures"][count[1]]["position_x"] = object->drawable_get_location().x;
+			event["Drawables"]["Pictures"][count[1]]["position_y"] = object->drawable_get_location().y;
+			event["Drawables"]["Pictures"][count[1]]["link"] = object->drawable_get_visual();
+			event["Drawables"]["Pictures"][count[1]]["size_x"] = object->drawable_get_size().x;
+			event["Drawables"]["Pictures"][count[1]]["size_y"] = object->drawable_get_size().y;
+			event["Drawables"]["Pictures"][count[1]]["name"] = object->drawable_get_name();
 			count[0]++;
 		}
-		else if (type == "RECTANGLE") {
-			event["Drawables"]["Rectangles"][count[1]]["position_x"] = object->drawable_get_location().x;
-			event["Drawables"]["Rectangles"][count[1]]["position_y"] = object->drawable_get_location().y;
-			event["Drawables"]["Rectangles"][count[1]]["color"] = object->drawable_get_visual();
-			event["Drawables"]["Rectangles"][count[1]]["size_x"] = object->drawable_get_size().x;
-			event["Drawables"]["Rectangles"][count[1]]["size_y"] = object->drawable_get_size().y;
+		else if (type == "CIRCLE") {
+			event["Drawables"]["Circles"][count[1]]["position_x"] = object->drawable_get_location().x;
+			event["Drawables"]["Circles"][count[1]]["position_y"] = object->drawable_get_location().y;
+			event["Drawables"]["Circles"][count[1]]["color"] = object->drawable_get_visual();
+			event["Drawables"]["Circles"][count[1]]["radius"] = object->drawable_get_size().x / 2;
 			count[1]++;
 		}
-		else if (type == "PICTURE") {
-			event["Drawables"]["Pictures"][count[2]]["position_x"] = object->drawable_get_location().x;
-			event["Drawables"]["Pictures"][count[2]]["position_y"] = object->drawable_get_location().y;
-			event["Drawables"]["Pictures"][count[2]]["link"] = object->drawable_get_visual();
-			event["Drawables"]["Pictures"][count[2]]["size_x"] = object->drawable_get_size().x;
-			event["Drawables"]["Pictures"][count[2]]["size_y"] = object->drawable_get_size().y;
+		else if (type == "RECTANGLE") {
+			event["Drawables"]["Rectangles"][count[2]]["position_x"] = object->drawable_get_location().x;
+			event["Drawables"]["Rectangles"][count[2]]["position_y"] = object->drawable_get_location().y;
+			event["Drawables"]["Rectangles"][count[2]]["name"] = object->drawable_get_name();
+			event["Drawables"]["Rectangles"][count[2]]["size_x"] = object->drawable_get_size().x;
+			event["Drawables"]["Rectangles"][count[2]]["size_y"] = object->drawable_get_size().y;
 			count[2]++;
 		}
+
 	}
+
+	event["Positions"]["Player"]["position_x"] = start_position.x;
+	event["Positions"]["Player"]["position_y"] = start_position.y;
 
 	output << event;
 }
