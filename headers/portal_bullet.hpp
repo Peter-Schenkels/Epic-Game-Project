@@ -37,7 +37,7 @@ public:
 
 
 	//function to calculate if a object will be hit in the bullet's trajectory and returns the coordinates of the impact and the orientation of the portal
-	std::pair<sf::Vector2f, std::string> portal_bullet_impact_calc(const std::vector<Drawable*>& drawables, sf::RenderWindow& windowref);
+	std::pair<sf::Vector2f, std::string> portal_bullet_impact_calc(const std::vector<Drawable*>& drawables);
 
 
 };
