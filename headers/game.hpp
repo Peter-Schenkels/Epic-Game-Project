@@ -16,22 +16,23 @@
 #include "load_textures.cpp"
 #include "level editor.hpp"
 #include "level_selector.hpp"
+#include "screens.hpp"
 
-class Game {
+class Game : public Screens {
 protected:
 	// Which dimension is currently being displayed
 	bool overworld = true;
 	// Lists of drawable objects for each of the dimensions
 	std::vector<Drawable*> drawables;
 	std::vector<Drawable*> void_drawables;
-	sf::RenderWindow& window;
+	sf::RenderWindow & window;
 	// Textures for the in-game sprites
 	std::map<std::string, Picture*> textures;
 	// The background for the 2d map
 	TileMap map;
 	Player player;
 	//Start position of player
-	sf::Vector2f start_position;
+	sf::Vector2f start_position; 
 	// The field of view for the player
 	sf::View player_view = { { 960,540 },  { 1920, 1080 } };
 	sf::View game_edit_view = { { 960,540 },  { 1920, 1080 } };
@@ -57,6 +58,7 @@ protected:
 		{LOCATION_OVERWORLD_LEVEL_2, LOCATION_VOID_LEVEL_2 },
 		{LOCATION_OVERWORLD_LEVEL_3, LOCATION_VOID_LEVEL_3 }
 		});
+	bool esc = false;
 
 public:
 	// Constructor
@@ -106,14 +108,14 @@ public:
 		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Left, sf::Vector2f{ -100, 0 }));
 		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Up, sf::Vector2f{ 0, -100 }));
 		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Right, sf::Vector2f{ 100, 0 }));
-
+		
 		// Creates a player and the portals
 		player = Player(start_position, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation });
 		p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
 		p2 = Portal({ 200, 150 }, { 64, 128 }, "RIGHT", { portal_animation_green }, false);
 
-		player_view.setCenter(100, 100);
-		window.setView(player_view);
+		/*player_view.setCenter(100, 100);
+		window.setView(player_view);*/
 		level_editor = Level_Editor(textures,
 			{
 				"filling", "floor down","corner left down","corner left",
@@ -312,12 +314,15 @@ public:
 				game_delete_object(window.mapPixelToCoords(location));
 			}
 		}
-
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			esc = true;
+			std::cout << "esc pressed" << std::endl;
+		}
 		// Shoot the portal
 		if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) && !edit) {
 			game_shoot_portal(sf::Mouse::isButtonPressed(sf::Mouse::Left));
 		}
-
+		
 		// Check for all other events
 		sf::Event key_event;
 		window.pollEvent(key_event);
@@ -343,7 +348,7 @@ public:
 		}
 		// Set the player_view
 		player_view.setCenter(player.drawable_get_location());
-
+		
 		// Set the view to the one centered on the player when not editing
 		// Otherwise set the view to whatever the editor is doing
 		if (!edit) {
@@ -352,7 +357,7 @@ public:
 		else {
 			window.setView(game_edit_view);
 		}
-
+		
 		// Intersect with portals and swap to the correct dimension
 		if (player.player_intersect(p1.drawable_get_hitbox()) && overworld == p1.drawable_get_dimension()) {
 			portal_set.linked_portals_teleport(player, p1);
@@ -378,8 +383,7 @@ public:
 			for (auto Drawable : drawables) {
 				Drawable->drawable_draw(window);
 			}
-		}
-		else {
+		} else {
 			for (auto Drawable : void_drawables) {
 				Drawable->drawable_draw(window);
 			}
@@ -400,6 +404,21 @@ public:
 			level_editor.draw(window);
 		}
 		window.display();
+	}
+	int Run() {
+		bool Running = true;
+		while (Running) {
+			game_get_input();
+			if (esc == true) {
+				esc = false;
+				std::cout << "to main menu" << std::endl;
+				window.setView(sf::View({ 960,540 }, { 1920, 1080 }));
+				return(0);
+			}
+			game_update();
+			game_draw();
+		}
+		return (-1);
 	}
 };
 
