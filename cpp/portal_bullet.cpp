@@ -27,7 +27,7 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 	sf::Vector2f location = start_pos;
 	
 	// While the bullet is in the view check for collision
-	while (location.x > 0 && location.x < window.x && location.y >0 && location.y < window.y)
+	while (((location.x > start_pos.x - window.x/2) && (location.x < start_pos.x + window.x / 2)) && ((location.y > start_pos.y - window.y / 2) && (location.y < start_pos.y + window.y / 2)))
 	{
 		// Check every rectangle object
 		for (auto object : drawables) {
@@ -60,8 +60,8 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 		}
 		// Change the location of the hitbox and the location of the bullet
 		location += angle;
-		hitbox.left = location.x;
-		hitbox.top = location.y;
+		hitbox.left = location.x*10;
+		hitbox.top = location.y*10;
 		collision_box.Player_Hitbox_update(location);
 	}
 	throw No_impact();
