@@ -121,7 +121,7 @@ public:
 				"filling", "floor down","corner left down","corner left",
 				"corner right down", "corner right", "corner down left",
 				"corner left in", "corner rigth in down", "corner right in",
-				"floor", "wall left", "wall right"
+				"floor", "wall left", "wall right", "void floor", "void floor normal"
 			});
 		level_editor.set_position(player_view.getCenter());
 	}
