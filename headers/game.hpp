@@ -1,5 +1,3 @@
-
-
 #ifndef GAME_HPP
 #define GAME_HPP
 
@@ -26,14 +24,14 @@ protected:
 	// Lists of drawable objects for each of the dimensions
 	std::vector<Drawable*> drawables;
 	std::vector<Drawable*> void_drawables;
-	sf::RenderWindow & window;
+	sf::RenderWindow& window;
 	// Textures for the in-game sprites
 	std::map<std::string, Picture*> textures;
 	// The background for the 2d map
 	TileMap map;
 	Player player;
 	//Start position of player
-	sf::Vector2f start_position; 
+	sf::Vector2f start_position;
 	// The field of view for the player
 	sf::View player_view = { { 960,540 },  { 1920, 1080 } };
 	sf::View game_edit_view = { { 960,540 },  { 1920, 1080 } };
@@ -73,7 +71,7 @@ public:
 				"Idle", 50);
 
 			portal_animation_green = Animation(textures, { 64, 128 },
-				{ "green1", "green2", "green3", "green4", "green5", "green6", "green7", "green8", "green9", "green10", "green11", "green12"},
+				{ "green1", "green2", "green3", "green4", "green5", "green6", "green7", "green8", "green9", "green10", "green11", "green12" },
 				"Idle", 50);
 
 			walking_animation_left = Animation(textures, { 46 , 126 },
@@ -104,11 +102,11 @@ public:
 		map.load("img/backdrops3.png", sf::Vector2u(128, 128), level, 120, 68);
 
 		// Fill the moves map with the correct keys
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Down, sf::Vector2f{ 0, 10 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Left, sf::Vector2f{ -10, 0 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Up, sf::Vector2f{ 0, -10 }));
-		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Right, sf::Vector2f{ 10, 0 }));
-		
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Down, sf::Vector2f{ 0, 100 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Left, sf::Vector2f{ -100, 0 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Up, sf::Vector2f{ 0, -100 }));
+		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Right, sf::Vector2f{ 100, 0 }));
+
 		// Creates a player and the portals
 		player = Player(start_position, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation });
 		p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
@@ -188,7 +186,6 @@ public:
 					drawable->drawable_set_position(location);
 				}
 			}
-
 		}
 	}
 
@@ -216,10 +213,10 @@ public:
 			std::pair<sf::Vector2f, std::string> data;
 			// Run the calculation with the drawables from the current world
 			if (overworld) {
-				data = bullet.portal_bullet_impact_calc(drawables, window);
+				data = bullet.portal_bullet_impact_calc(drawables);
 			}
 			else {
-				data = bullet.portal_bullet_impact_calc(void_drawables, window);
+				data = bullet.portal_bullet_impact_calc(void_drawables);
 			}
 			portal_set.linked_portals_portal_set(data.first, data.second, order, overworld);
 		}
@@ -272,14 +269,30 @@ public:
 
 	// Delete object from the game
 	void game_delete_object(sf::Vector2f location) {
-
+		std::cout << "deleted\n";
+		if (overworld) {
+			for (auto& drawable : drawables) {
+				if (drawable->drawable_get_selected()) {
+					drawables.erase(std::remove(drawables.begin(), drawables.end(), drawable), drawables.end());
+				}
+			}
+		}
+		else {
+			for (auto& drawable : void_drawables) {
+				if (drawable->drawable_get_selected()) {
+					void_drawables.erase(std::remove(void_drawables.begin(), void_drawables.end(), drawable), void_drawables.end());
+				}
+			}
+		}
 	}
+
 	// Checks for certain inputs and acts accordingly
 	void game_get_input() {
 		sf::Vector2f mouse_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-		// Left Pressed && edit: create location and game_select(window.mapPixeToCoords(location));
-		// Right Pressed && edit: game_move_mouse(window.mapPixelToCoords(location));
-		// Right/Left Pressed && !edit: Shoot portal
+		// Left Pressed && edit: select a drawable
+		// Right Pressed && edit: move a drawable around using the mouse
+		// Delete Pressed && edit: delete drawable object
+		// Right/Left Pressed && !edit: shoot portal
 		// Check event: Closed, K = editmode, Ctrl = dimension, arrow-keys = move screen for edit
 
 		// Make sure not to misplace the level editor
@@ -295,7 +308,7 @@ public:
 				game_move_mouse({ float(int(position.x / 100) * 100), float(int(position.y / 100) * 100) });
 			}
 			// Delete selected object
-			else if (sf::Keyboard::Delete) {
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
 				game_delete_object(window.mapPixelToCoords(location));
 			}
 		}
@@ -304,7 +317,7 @@ public:
 		if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) && !edit) {
 			game_shoot_portal(sf::Mouse::isButtonPressed(sf::Mouse::Left));
 		}
-		
+
 		// Check for all other events
 		sf::Event key_event;
 		window.pollEvent(key_event);
@@ -330,16 +343,16 @@ public:
 		}
 		// Set the player_view
 		player_view.setCenter(player.drawable_get_location());
-		
+
 		// Set the view to the one centered on the player when not editing
 		// Otherwise set the view to whatever the editor is doing
 		if (!edit) {
-			window.setView(player_view);	
+			window.setView(player_view);
 		}
 		else {
 			window.setView(game_edit_view);
 		}
-		
+
 		// Intersect with portals and swap to the correct dimension
 		if (player.player_intersect(p1.drawable_get_hitbox()) && overworld == p1.drawable_get_dimension()) {
 			portal_set.linked_portals_teleport(player, p1);
@@ -365,7 +378,8 @@ public:
 			for (auto Drawable : drawables) {
 				Drawable->drawable_draw(window);
 			}
-		} else {
+		}
+		else {
 			for (auto Drawable : void_drawables) {
 				Drawable->drawable_draw(window);
 			}

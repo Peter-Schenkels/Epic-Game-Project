@@ -80,6 +80,8 @@ inline void load_textures(std::map<std::string, Picture*>& textures) {
 			textures["floor"] = new Picture({ {0,0}, {100, 100}, "img/tiles/Floor normal.png" });
 			textures["wall left"] = new Picture({ {0,0}, {100, 100}, "img/tiles/floor wall left.png" });
 			textures["wall right"] = new Picture({ {0,0}, {100, 100}, "img/tiles/floor wall right.png" });
+			textures["void floor"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor.png" });
+			textures["void floor normal"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/Floor normal.png" });
 		}
 	}
 }

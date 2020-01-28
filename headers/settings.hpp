@@ -1,6 +1,5 @@
 #pragma once
-#define SETTINGS_HPP
-#endif SETTINGS_HPP
+
 
 
 //#define WINDOW_SIZE_X 1000
@@ -40,4 +39,3 @@ struct tile_priority {
         p < 0 ? priority = 0 : priority = p;
     }
 };
-

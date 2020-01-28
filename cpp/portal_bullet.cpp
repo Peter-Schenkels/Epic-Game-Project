@@ -20,11 +20,12 @@ void Portal_Bullet::drawable_update() {
 
 
 // Function to calculate if a object will be hit in the bullet's trajectory and returns the coordinates of the impact and the orientation of the portal
-std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(const std::vector<Drawable*>& drawables, sf::RenderWindow& windowref) {
+std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(const std::vector<Drawable*>& drawables) {
 	//check if a sf::FloatRect collides with the right  or left side of the hitbox
 	std::cout << "location " << std::to_string(location.x) + " " + std::to_string(location.y) + "\n";
 	std::cout << "window " << std::to_string(window.x) << " " << std::to_string(window.y) << "\n";
 	sf::Vector2f location = start_pos;
+	
 	// While the bullet is in the view check for collision
 	while (location.x > 0 && location.x < window.x && location.y >0 && location.y < window.y)
 	{
@@ -62,7 +63,6 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 		hitbox.left = location.x;
 		hitbox.top = location.y;
 		collision_box.Player_Hitbox_update(location);
-		collision_box.Player_Hitbox_draw(windowref);
 	}
 	throw No_impact();
 }
