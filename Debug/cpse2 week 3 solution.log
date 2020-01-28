@@ -1,4 +1,0 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(459,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (game solution.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1002,5): warning MSB8027: Two or more files with the name of jsoncpp.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are cpp\jsoncpp.cpp, D:\Users\noaht\Documents\jsoncpp\dist\jsoncpp.cpp.
-  main.cpp
-  cpse2 week 3 solution.vcxproj -> C:\Users\noaht\source\repos\project gaming on windows(v8)\Debug\project gaming on windows(v8).exe
