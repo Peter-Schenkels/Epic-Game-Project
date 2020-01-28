@@ -5,7 +5,7 @@
 #include <math.h>
 
 
-//class to calculate the trajectory of the bullet and the orientation the portal should have
+// Class to calculate the trajectory of the bullet and the orientation the portal should have
 class Portal_Bullet : public Drawable {
 private:
 	sf::Vector2f start_pos;
