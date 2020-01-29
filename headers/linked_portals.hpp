@@ -26,7 +26,7 @@ public:
 		std::array<std::string, 4> orientations = { "TOP", "LEFT", "BOTTOM", "RIGHT" };
 		bool swap;
 		sf::Vector2f multiplier;
-		float factor = float(0.95);
+		float factor = float(0.65);
 		for (unsigned int i = 0; i < 4; i++) {
 			for (unsigned int j = 0; j < 4; j++) {
 				// Select the correct multiplier for all possible combinations of 
@@ -108,7 +108,7 @@ public:
 
 		// Place the player just on top of the portal
 		if (exit_entrance == "TOP") {
-			player.drawable_move(sf::Vector2f{ 0, -player.drawable_get_size().y - 32 });
+			player.drawable_move(sf::Vector2f{ 0, -player.drawable_get_size().y - 64 });
 		}
 		// Place the player just on the left and on the same height as the portal
 		else if (exit_entrance == "LEFT") {
@@ -116,7 +116,7 @@ public:
 		}
 		// Place the player just below the portal
 		else if (exit_entrance == "BOTTOM") {
-			player.drawable_move(sf::Vector2f{ 0, 32 });
+			player.drawable_move(sf::Vector2f{ 0, 32});
 		}
 		// Place the player just on the right and on the same height as the porta;
 		else {

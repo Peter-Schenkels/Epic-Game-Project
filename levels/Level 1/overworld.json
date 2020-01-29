@@ -1521,6 +1521,48 @@
 				"position_y" : -300.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 500.0,
+				"position_y" : 100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 700.0,
+				"position_y" : 100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 600.0,
+				"position_y" : 100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 800.0,
+				"position_y" : -300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 600.0,
+				"position_y" : -300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 700.0,
+				"position_y" : -300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
 			}
 		]
 	},

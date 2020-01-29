@@ -61,6 +61,7 @@ protected:
 	sf::Music level2_background;
 	sf::Music level3_background;
 	std::vector<sf::Music*> musicList;
+	sf::Clock portal_placement_delay; // For portal placement delay
 	// A map filled with keys and their effects
 	std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
 	// Boolean that shows whether the user can currently edit the world
@@ -421,8 +422,9 @@ public:
 		sf::Event key_event;
 		window.pollEvent(key_event);
 		game_act_on_key(key_event);
-		if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) && !edit && key_event.type) {
+		if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) && !edit && portal_placement_delay.getElapsedTime().asMilliseconds() > 400) {
 			game_shoot_portal(sf::Mouse::isButtonPressed(sf::Mouse::Left));
+			portal_placement_delay.restart();
 		}
 
 		
