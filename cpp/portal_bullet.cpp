@@ -25,7 +25,6 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 	std::cout << "location " << std::to_string(location.x) + " " + std::to_string(location.y) + "\n";
 	std::cout << "window " << std::to_string(window.x) << " " << std::to_string(window.y) << "\n";
 	sf::Vector2f location = start_pos;
-	
 	// While the bullet is in the view check for collision
 	while (((location.x > start_pos.x - window.x/2) && (location.x < start_pos.x + window.x / 2)) && ((location.y > start_pos.y - window.y / 2) && (location.y < start_pos.y + window.y / 2)))
 	{

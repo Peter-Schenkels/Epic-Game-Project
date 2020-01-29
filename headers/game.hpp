@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <exception>
+#include "SFML/Audio.hpp"
 #include "drawables.hpp"
 #include "factory.hpp"
 #include "settings.hpp"
@@ -14,7 +15,7 @@
 #include "animation_controller.hpp"
 #include "portal.hpp"
 #include "load_textures.cpp"
-#include "level_editor.hpp"
+#include "level editor.hpp"
 #include "level_selector.hpp"
 #include "screens.hpp"
 
@@ -46,6 +47,19 @@ protected:
 	Portal p1;
 	Portal p2;
 	Linked_Portals portal_set{ p1, p2 };
+	// Sounds and music
+	sf::Sound portal_shoot;
+	sf::SoundBuffer portal_shoot_buffer;
+	sf::Sound dimension_switch;
+	sf::SoundBuffer dimension_switch_buffer;
+	sf::Sound portal_teleport;
+	sf::SoundBuffer portal_teleport_buffer;
+	sf::Sound level_clear;
+	sf::SoundBuffer level_clear_buffer;
+	sf::Music level1_background;
+	sf::Music level2_background;
+	sf::Music level3_background;
+	std::vector<sf::Music*> musicList;
 	// A map filled with keys and their effects
 	std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
 	// Boolean that shows whether the user can currently edit the world
@@ -59,6 +73,7 @@ protected:
 		{LOCATION_OVERWORLD_LEVEL_3, LOCATION_VOID_LEVEL_3 }
 		});
 	bool esc = false;
+	bool new_music = true;
 
 public:
 	// Constructor
@@ -114,6 +129,49 @@ public:
 		p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
 		p2 = Portal({ 200, 150 }, { 64, 128 }, "RIGHT", { portal_animation_green }, false);
 
+		// Creates the sound and music
+		// Shoot sound
+		if (!portal_shoot_buffer.loadFromFile("sounds/portal_shooting.ogg")) {
+			std::cout << "Portal shooting sound not loaded\n";
+		}
+		portal_shoot.setBuffer(portal_shoot_buffer);
+
+		// Portal teleport sound
+		if (!portal_teleport_buffer.loadFromFile("sounds/portal_go_through.ogg")) {
+			std::cout << "Portal teleport sound not loaded\n";
+		}
+		portal_teleport.setBuffer(portal_teleport_buffer);
+
+		// Dimension switch sound
+		if (!dimension_switch_buffer.loadFromFile("sounds/dimension_swap.ogg")) {
+			std::cout << "Dimension switch sound not loaded\n";
+		}
+		dimension_switch.setBuffer(dimension_switch_buffer);
+
+		// Level clear sound
+		if (!level_clear_buffer.loadFromFile("sounds/level_clear.ogg")) {
+			std::cout << "Level clear sound not loaded\n";
+		}
+		level_clear.setBuffer(level_clear_buffer);
+
+		// Level 1 music
+		if (!level1_background.openFromFile("sounds/background_music_1.ogg"))
+			std::cout << "Background music level 1 not loaded";
+		level1_background.setVolume(25);
+		musicList.push_back(&level1_background);
+
+		// Level 2 music
+		if (!level2_background.openFromFile("sounds/background_music_2.ogg"))
+			std::cout << "Background music level 2 not loaded";
+		level2_background.setVolume(25);
+		musicList.push_back(&level2_background);
+
+		// Level 3 music
+		if (!level3_background.openFromFile("sounds/background_music_3.ogg"))
+			std::cout << "Background music level 3 not loaded";
+		level3_background.setVolume(25);
+		musicList.push_back(&level3_background);
+
 		/*player_view.setCenter(100, 100);
 		window.setView(player_view);*/
 		level_editor = Level_Editor(textures,
@@ -121,10 +179,7 @@ public:
 				"filling", "floor down","corner left down","corner left",
 				"corner right down", "corner right", "corner down left",
 				"corner left in", "corner rigth in down", "corner right in",
-				"floor", "wall left", "wall right", 
-				"corner1", "corner2","corner3", "corner4",
-				"floor1", "floor2", "floor3", "floor4",
-				"hook1", "hook2", "hook3", "hook4", "map"
+				"floor", "wall left", "wall right", "void floor", "void floor normal"
 			});
 		level_editor.set_position(player_view.getCenter());
 	}
@@ -144,6 +199,23 @@ public:
 	// Returns whether the user can edit the level
 	bool game_get_edit() {
 		return edit;
+	}
+
+	void pause_music() {
+		for (auto music: musicList) {
+			music->pause();
+		}
+	}
+
+	void stop_music() {
+		for (auto music : musicList) {
+			music->stop();
+		}
+	}
+
+	void change_music(int level) {
+		std::cout << "changing music";
+		musicList[level-1]->play();
 	}
 
 	// Selects which drawable item has to be moved by the level editor
@@ -216,6 +288,7 @@ public:
 		// Calculate the position and orientation of the portal or catch an exception if something goes wrong
 		try {
 			std::pair<sf::Vector2f, std::string> data;
+			portal_shoot.play();
 			// Run the calculation with the drawables from the current world
 			if (overworld) {
 				data = bullet.portal_bullet_impact_calc(drawables);
@@ -252,14 +325,19 @@ public:
 		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::LControl) {
 			// Switch between dimensions
+			dimension_switch.play();
 			overworld = !overworld;
 		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num9) {
+			stop_music();
+			new_music = true;
 			level_selector.next_level();
 			load_level();
 		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num8) {
 			level_selector.previous_level();
+			stop_music();
+			new_music = true;
 			load_level();
 		}
 		else if (key_event.type == sf::Event::KeyPressed && edit) {
@@ -319,6 +397,7 @@ public:
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 			esc = true;
+			pause_music();
 			std::cout << "esc pressed" << std::endl;
 		}
 		// Shoot the portal
@@ -363,15 +442,21 @@ public:
 		
 		// Intersect with portals and swap to the correct dimension
 		if (player.player_intersect(p1.drawable_get_hitbox()) && overworld == p1.drawable_get_dimension()) {
+			portal_teleport.play();
 			portal_set.linked_portals_teleport(player, p1);
 			overworld = p2.drawable_get_dimension();
 		}
 		else if (player.player_intersect(p2.drawable_get_hitbox()) && overworld == p2.drawable_get_dimension()) {
+			portal_teleport.play();
 			portal_set.linked_portals_teleport(player, p2);
 			overworld = p1.drawable_get_dimension();
 		}
 		p1.drawable_update();
 		p2.drawable_update();
+		if (new_music) {
+			change_music(level_selector.get_level_index());
+			new_music = false;
+		}
 	}
 
 	// Draw the current game state
@@ -410,6 +495,8 @@ public:
 	}
 	int Run() {
 		bool Running = true;
+		new_music = true;
+		
 		while (Running) {
 			game_get_input();
 			if (esc == true) {

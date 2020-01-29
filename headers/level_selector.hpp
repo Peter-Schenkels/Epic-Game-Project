@@ -55,6 +55,10 @@ public:
 		}
 	}
 
+	int get_level_index() {
+		return current_level;
+	}
+
 };
 
 #endif
