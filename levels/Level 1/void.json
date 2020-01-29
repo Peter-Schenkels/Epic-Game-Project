@@ -2844,6 +2844,62 @@
 				"position_y" : 900.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3000.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3100.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3200.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3300.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3700.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3600.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3500.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3400.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
 			}
 		]
 	},

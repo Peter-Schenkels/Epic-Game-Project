@@ -461,11 +461,11 @@ public:
 		if (overworld) {
 			for (auto drawable : drawables) {
 				drawable->drawable_update();
-				if (player.player_collision(drawable) & drawable->drawable_get_name() == "fishstick") {
+				if (player.player_collision(drawable, dead) & drawable->drawable_get_name() == "fishstick") {
 					win();
 					break;
 				}
-				if (player.player_collision(drawable) & drawable->drawable_get_name() == "spike") {
+				if (player.player_collision(drawable, dead) & drawable->drawable_get_name() == "spike") {
 					win();
 					break;
 				}
