@@ -51,7 +51,7 @@ public:
 		body->drawable_set_position(location);
 		body->drawable_update();
 		//std::cout << location.x << " " << location.y << std::endl;
-		hitbox = sf::FloatRect(location.x -16 , location.y -16 , 32 , 32);
+		hitbox = sf::FloatRect(location.x -32 , location.y -32 , 64 , 64);
 
 	}
 

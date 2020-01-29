@@ -8,7 +8,7 @@
 class Player_Hitbox {
 protected:
 	sf::Vector2f position, size;
-	sf::RectangleShape left, right, top, bottom, core;
+	sf::RectangleShape left, right, top, bottom, core, touch;
 	sf::RectangleShape box;
 
 public:
@@ -31,6 +31,8 @@ public:
 	bool Player_Hitbox_bottom_side_intersect(sf::FloatRect collider);
 
 	bool Player_Hitbox_core_intersect(sf::FloatRect collider);
+
+	bool Player_Hitbox_touch_intersect(sf::FloatRect collider);
 
 	sf::FloatRect Player_Hitbox_get_outerbounds();
 };

@@ -19,6 +19,7 @@ private:
     float resistance = 2;
     bool floating = false;
     bool on_ground = false;
+    int dead = 0;
     int jump_speed = 10; // amount of pixels per update 
     sf::Vector2f static_scale; // shouldn't be changed is used for flipping the body
     Animation_Controller animation_controller;
@@ -133,19 +134,36 @@ public:
         }
     }
 
+    // Return dead variable
+    int player_get_dead() {
+        return dead;
+    }
+
+    // Set dead variable
+    void player_set_dead(int new_dead) {
+        dead = new_dead;
+    }
+
     // Respawn the player
     void player_respawn() {
         drawable_set_position(respawn_location);
     }
 
     // Collision detection between a player and a sf::FloatRect
-    bool player_collision(Drawable* object, int& dead) {
+    bool player_collision(Drawable* object) {
         if (collision_box.Player_Hitbox_core_intersect(object->drawable_get_hitbox()) && dead == 0) {
             dead = 155;
             return true;
         }
+        // Check if a sf::FloatRect collides with the body of Mr. wo
+        if (collision_box.Player_Hitbox_touch_intersect(object->drawable_get_hitbox())) {
+            // If the object is a spike kill mr wo
+            if (object->drawable_get_name() == "spike") {
+                dead = 155;
+            }
+        }
         // Check if a sf::FloatRect collides with the right  or left side of the hitbox
-        else if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
+        if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
             location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
             return true;
@@ -166,7 +184,9 @@ public:
             on_ground = false;
             speed.y = 1;
             return true;
-        } else {
+        }
+        
+        else {
             on_ground = false;
         }
         return false;
@@ -180,6 +200,9 @@ public:
             collision_box.Player_Hitbox_top_side_intersect(collide) || 
             collision_box.Player_Hitbox_bottom_side_intersect(collide);
 	}
+
+
+
 };
 
 

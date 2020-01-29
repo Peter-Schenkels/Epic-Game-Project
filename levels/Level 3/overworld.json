@@ -1,10 +1,12 @@
 {
+	
+	
 	"Positions" : 
 	{
 		"Player" : 
 		{
-			"position_x" : 100.0,
-			"position_y" : 0.0
+			"position_x" : 2000,
+			"position_y" : 2000
 		}
 	}
 }

@@ -78,6 +78,7 @@ protected:
 	bool new_music = true;
 	int dead = 0;
 	sf::RectangleShape fade_out{ sf::Vector2f{1920, 1080} };
+	
 
 public:
 	// Constructor
@@ -133,6 +134,10 @@ public:
 		player = Player(start_position, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation });
 		p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
 		p2 = Portal({ 200, 150 }, { 64, 128 }, "RIGHT", { portal_animation_green }, false);
+		game_edit_view.setCenter(start_position);
+		game_edit_view.zoom(1.5);
+
+		player_view.zoom(float(0.85));
 
 		// Creates the sound and music
 		// Shoot sound
@@ -190,6 +195,7 @@ public:
 				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike"
 			});
 		level_editor.set_position(player_view.getCenter());
+		portal_set.reset();
 	}
 
 	// Loads the drawables into the vectors for corresponding level
@@ -308,11 +314,15 @@ public:
 			// Run the calculation with the drawables from the current world
 			if (overworld) {
 				data = bullet.portal_bullet_impact_calc(drawables);
+				
 			}
 			else {
 				data = bullet.portal_bullet_impact_calc(void_drawables);
 			}
-			portal_set.linked_portals_portal_set(data.first, data.second, order, overworld);
+			// If collider is not an void filling tile or normal filling tile
+			if (data != std::pair<sf::Vector2f, std::string>{{0, 0}, "NONE" }) {
+				portal_set.linked_portals_portal_set(data.first, data.second, order, overworld);
+			}
 		}
 		catch (const std::exception & e) {
 			std::cerr << e.what();
@@ -463,21 +473,17 @@ public:
 		if (overworld) {
 			for (auto drawable : drawables) {
 				drawable->drawable_update();
-				if (player.player_collision(drawable, dead) & drawable->drawable_get_name() == "fishstick") {
+				if (player.player_collision(drawable) & drawable->drawable_get_name() == "fishstick") {
 					win();
 					break;
 				}
-				if (player.player_collision(drawable, dead) & drawable->drawable_get_name() == "spike") {
-					win();
-					break;
-				}
-				player.player_collision(drawable, dead);
+				player.player_collision(drawable);
 			}
 		}
 		else {
 			for (auto drawable : void_drawables) {
 				drawable->drawable_update();
-				player.player_collision(drawable, dead);
+				player.player_collision(drawable);
 			}
 		}
 		// Set the player_view
@@ -513,6 +519,31 @@ public:
 		}
 	}
 
+
+	void check_player_death() {
+
+		dead = player.player_get_dead();
+
+		if (dead == 155) {
+			player.player_respawn();
+			fade_out.setOrigin(sf::Vector2f{ 960, 540 });
+			overworld = true;
+		}
+
+		if (dead > 0) {
+			fade_out.setPosition(player.drawable_get_location());
+			sf::Uint8 temp = dead + 100;
+			sf::Color filler = { 0, 0, 0, temp };
+			fade_out.setFillColor(filler);
+			dead -= 1;
+			window.draw(fade_out);
+			std::cout << dead << "\n";
+		}
+			
+		player.player_set_dead(dead);
+
+	}
+
 	// Draw the current game state
 	void game_draw() {
 
@@ -528,11 +559,11 @@ public:
 		// Draw the drawable objects in the overworld or the void depending one which one the player finds themselves in
 		if (overworld) {
 			for (auto Drawable : drawables) {
-				Drawable->drawable_draw(window);
+					Drawable->drawable_draw(window);
 			}
 		} else {
 			for (auto Drawable : void_drawables) {
-				Drawable->drawable_draw(window);
+					Drawable->drawable_draw(window);
 			}
 		}
 
@@ -551,21 +582,7 @@ public:
 			level_editor.draw(window);
 		}
 
-		if (dead == 155) {
-			player.player_respawn();
-			fade_out.setOrigin(sf::Vector2f{ 960, 540 });
-			overworld = true;
-		}
-
-		if (dead > 0) {
-			fade_out.setPosition(player.drawable_get_location());
-			sf::Uint8 temp = dead + 100;
-			sf::Color filler = { 0, 0, 0, temp };
-			fade_out.setFillColor(filler);
-			dead -= 1;
-			window.draw(fade_out);
-			std::cout << dead << "\n";
-		}
+		check_player_death();
 
 		window.display();
 	}

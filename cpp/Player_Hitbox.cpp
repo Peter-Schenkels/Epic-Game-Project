@@ -8,7 +8,8 @@ Player_Hitbox::Player_Hitbox(sf::Vector2f position, sf::Vector2f size) :
     right{ sf::Vector2f{0, size.y / 2} },
     top({ size.x - size.x / 8, 0 }),
     bottom({ size.x - size.x / 2, 0 }),
-    core({size.x / 2, size.y / 2}),
+    core({ size.x / 2, size.y / 2 }),
+    touch({ size.x - size.x / 8, size.y }),
     box(size)
 {
     Player_Hitbox_update(position);
@@ -27,6 +28,7 @@ void Player_Hitbox::Player_Hitbox_update(sf::Vector2f new_position) {
     top.setPosition(position);
     bottom.setPosition({ position.x + size.x / 4, position.y + size.y });
     core.setPosition({ position.x + size.x / 4, position.y + size.y / 4 });
+    touch.setPosition({ position.x + size.x / 8, position.y });
     box.setPosition(position);
 }
 
@@ -57,6 +59,10 @@ bool Player_Hitbox::Player_Hitbox_bottom_side_intersect(sf::FloatRect collider) 
 
 bool Player_Hitbox::Player_Hitbox_core_intersect(sf::FloatRect collider) {
     return core.getGlobalBounds().intersects(collider);
+}
+
+bool Player_Hitbox::Player_Hitbox_touch_intersect(sf::FloatRect collider) {
+    return touch.getGlobalBounds().intersects(collider);
 }
 
 sf::FloatRect Player_Hitbox::Player_Hitbox_get_outerbounds() {
