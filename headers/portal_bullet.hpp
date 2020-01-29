@@ -16,11 +16,11 @@ private:
 
 public:
 	Portal_Bullet(sf::Vector2f& pos_player, sf::Vector2u windowSize, sf::Vector2f& pos_mouse) :
-		Drawable(pos_player, sf::Vector2f( 1.00, 1.00 ), "BULLET", "white"),
+		Drawable(pos_player, sf::Vector2f( 8.00, 8.00 ), "BULLET", "white"),
 		start_pos(pos_player),
 		window(windowSize),
-		collision_box(pos_player, sf::Vector2f(1.00, 1.00)),
-		hitbox( sf::FloatRect( pos_player, sf::Vector2f(1.00, 1.00)))
+		collision_box(pos_player, sf::Vector2f(8.00, 8.00)),
+		hitbox( sf::FloatRect( pos_player, sf::Vector2f(8.00, 8.00)))
 	{
 		sf::Vector2f aimdir = pos_mouse - pos_player;
 		angle = aimdir / sqrt(pow(aimdir.x, 2) + pow(aimdir.y, 2));
