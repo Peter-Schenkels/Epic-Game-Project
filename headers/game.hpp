@@ -75,6 +75,8 @@ protected:
 		});
 	bool esc = false;
 	bool new_music = true;
+	int dead = 0;
+	sf::RectangleShape fade_out{ sf::Vector2f{1920, 1080} };
 
 public:
 	// Constructor
@@ -424,13 +426,13 @@ public:
 		if (overworld) {
 			for (auto drawable : drawables) {
 				drawable->drawable_update();
-				player.player_collision(drawable);
+				player.player_collision(drawable, dead);
 			}
 		}
 		else {
 			for (auto drawable : void_drawables) {
 				drawable->drawable_update();
-				player.player_collision(drawable);
+				player.player_collision(drawable, dead);
 			}
 		}
 		// Set the player_view
@@ -501,8 +503,26 @@ public:
 			level_editor.set_position(game_edit_view.getCenter());
 			level_editor.draw(window);
 		}
+
+		if (dead == 155) {
+			player.player_respawn();
+			fade_out.setOrigin(sf::Vector2f{ 960, 540 });
+			overworld = true;
+		}
+
+		if (dead > 0) {
+			fade_out.setPosition(player.drawable_get_location());
+			sf::Uint8 temp = dead + 100;
+			sf::Color filler = { 0, 0, 0, temp };
+			fade_out.setFillColor(filler);
+			dead -= 1;
+			window.draw(fade_out);
+			std::cout << dead << "\n";
+		}
+
 		window.display();
 	}
+
 	int Run() {
 		bool Running = true;
 		new_music = true;
