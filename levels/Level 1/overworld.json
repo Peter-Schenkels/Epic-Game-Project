@@ -165,6 +165,13 @@
 				"size_y" : 100.0
 			},
 			{
+				"name" : "floor",
+				"position_x" : 700.0,
+				"position_y" : 500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
 				"name" : "corner right in",
 				"position_x" : 1000.0,
 				"position_y" : 500.0,
@@ -411,6 +418,20 @@
 			},
 			{
 				"name" : "filling",
+				"position_x" : 0.0,
+				"position_y" : 800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 0.0,
+				"position_y" : 800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
 				"position_x" : 100.0,
 				"position_y" : 800.0,
 				"size_x" : 100.0,
@@ -433,6 +454,13 @@
 			{
 				"name" : "filling",
 				"position_x" : 100.0,
+				"position_y" : 700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 0.0,
 				"position_y" : 700.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
@@ -839,20 +867,6 @@
 			{
 				"name" : "floor",
 				"position_x" : 800.0,
-				"position_y" : 500.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "floor",
-				"position_x" : 700.0,
-				"position_y" : 500.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "corner down left",
-				"position_x" : -1100.0,
 				"position_y" : 500.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
