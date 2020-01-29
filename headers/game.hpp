@@ -30,7 +30,8 @@ protected:
 	// Textures for the in-game sprites
 	std::map<std::string, Picture*> textures;
 	// The background for the 2d map
-	TileMap map;
+	TileMap map_overworld;
+	TileMap map_void;
 	Player player;
 	//Start position of player
 	sf::Vector2f start_position; 
@@ -74,6 +75,8 @@ protected:
 		});
 	bool esc = false;
 	bool new_music = true;
+	int dead = 0;
+	sf::RectangleShape fade_out{ sf::Vector2f{1920, 1080} };
 
 public:
 	// Constructor
@@ -107,7 +110,7 @@ public:
 		// Create a random seed and set a range for the amount of different background textures
 		std::random_device rd;
 		std::mt19937 eng(rd());
-		std::uniform_int_distribution<> distr(0, 255);
+		std::uniform_int_distribution<> distr(0, 5);
 
 		// Create a list filled with random numbers using the previously defined seed and range
 		int level[8160];
@@ -116,7 +119,8 @@ public:
 		}
 
 		// Loads map with textures using the random numbers from level
-		map.load("img/backdrops3.png", sf::Vector2u(128, 128), level, 120, 68);
+		map_overworld.load("img/backdrops2.png", sf::Vector2u(100, 100), level, 120, 68);
+		map_void.load("img/void_backdrops.png", sf::Vector2u(100, 100), level, 120, 68);
 
 		// Fill the moves map with the correct keys
 		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Down, sf::Vector2f{ 0, 100 }));
@@ -465,14 +469,13 @@ public:
 					win();
 					break;
 				}
-				player.player_collision(drawable);
-
+				player.player_collision(drawable, dead);
 			}
 		}
 		else {
 			for (auto drawable : void_drawables) {
 				drawable->drawable_update();
-				player.player_collision(drawable);
+				player.player_collision(drawable, dead);
 			}
 		}
 		// Set the player_view
@@ -513,7 +516,12 @@ public:
 
 		window.clear();
 		// Draw the background first
-
+		if (overworld) {
+			window.draw(map_overworld);
+		}
+		else {
+			window.draw(map_void);
+		}
 
 		// Draw the drawable objects in the overworld or the void depending one which one the player finds themselves in
 		if (overworld) {
@@ -540,13 +548,31 @@ public:
 			level_editor.set_position(game_edit_view.getCenter());
 			level_editor.draw(window);
 		}
+
+		if (dead == 155) {
+			player.player_respawn();
+			fade_out.setOrigin(sf::Vector2f{ 960, 540 });
+			overworld = true;
+		}
+
+		if (dead > 0) {
+			fade_out.setPosition(player.drawable_get_location());
+			sf::Uint8 temp = dead + 100;
+			sf::Color filler = { 0, 0, 0, temp };
+			fade_out.setFillColor(filler);
+			dead -= 1;
+			window.draw(fade_out);
+			std::cout << dead << "\n";
+		}
+
 		window.display();
 	}
+
 	int Run() {
-		bool Running = true;
+		bool running = true;
 		new_music = true;
 		
-		while (Running) {
+		while (running) {
 			game_get_input();
 			if (esc == true) {
 				esc = false;

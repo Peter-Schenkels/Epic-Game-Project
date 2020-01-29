@@ -11,65 +11,54 @@ private:
 	bool playing;
 	sf::Music main_menu_music;
 	sf::RenderWindow& window;
+	sf::Texture texture;
+	sf::Sprite sprite;
+	sf::Font font;
+	sf::Text menu_start;
+	sf::Text menu_exit;
+	sf::Text menu_continue;
+	int menu = 0;
 
 public:
 	main_menu(sf::RenderWindow& window) :
 		window(window)
 	{
 		playing = false;
-		/*if (!main_menu_music.openFromFile("KANABOONSilhouette.wav")) {
-			std::cout << "Main menu theme not loaded\n";
-		}*/
-		/*if (!main_menu_music.openFromFile("Giorno's Theme.wav")) {
-			std::cout << "Main menu theme not loaded\n";
-		}*/
 		if (!main_menu_music.openFromFile("sounds/menu_music.ogg")) {
-			std::cout << "Main menu theme not loaded\n";
+			std::cout << "Main menu theme not loaded" << std::endl;
 		}
 		main_menu_music.setVolume(25);
-		//main_menu_music.setPlayingOffset(sf::seconds(24.f));
-		//main_menu_music.setPlayingOffset(sf::seconds(225.f));
+
+		if (!texture.loadFromFile("img/main_menu_game.png")) {
+			std::cerr << "Main menu background not loaded" << std::endl;
+		}
+
+		sprite.setTexture(texture);
+		sprite.setColor(sf::Color(255, 255, 255));
+
+		if (!font.loadFromFile("VerminVibes1989.ttf")) {
+			std::cerr << "Font not loaded" << std::endl;
+		}
+
+		menu_start.setFont(font);
+		menu_start.setCharacterSize(50);
+		menu_start.setString("Start");
+		menu_start.setPosition({ 915.f, 500.f });
+
+		menu_exit.setFont(font);
+		menu_exit.setCharacterSize(50);
+		menu_exit.setString("Exit");
+		menu_exit.setPosition({ 915.f, 600.f });
+
+		menu_continue.setFont(font);
+		menu_continue.setCharacterSize(50);
+		menu_continue.setString("Continue");
+		menu_continue.setPosition({ 865.f, 500.f });
 	};
 	int Run() {
-		sf::Event Event;
+
 		bool Running = true;
-		sf::Texture Texture;
-		sf::Sprite Sprite;
-		int alpha = 0;
-		sf::Font Font;
-		sf::Text Menu1;
-		sf::Text Menu2;
-		sf::Text Menu3;
-		int menu = 0;
-
-		if (!Texture.loadFromFile("img/main_menu game.png"))
-		{
-			std::cerr << "Error loading menu background" << std::endl;
-			return (-1);
-		}
-
-		Sprite.setTexture(Texture);
-		Sprite.setColor(sf::Color(255, 255, 255));
-
-		if (!Font.loadFromFile("VerminVibes1989.ttf")) {
-			std::cerr << "Error loading ComicSans.ttf" << std::endl;
-			return (-1);
-		}
-
-		Menu1.setFont(Font);
-		Menu1.setCharacterSize(50);
-		Menu1.setString("Play");
-		Menu1.setPosition({ 915.f, 500.f });
-
-		Menu2.setFont(Font);
-		Menu2.setCharacterSize(50);
-		Menu2.setString("Exit");
-		Menu2.setPosition({ 915.f, 600.f });
-
-		Menu3.setFont(Font);
-		Menu3.setCharacterSize(50);
-		Menu3.setString("Continue");
-		Menu3.setPosition({ 865.f, 500.f });
+		sf::Event Event;
 
 		main_menu_music.play();
 
@@ -108,37 +97,27 @@ public:
 					}
 				}
 			}
-			//if (menu == 0) {
-			//	Menu1.setColor(sf::Color(255, 0, 0, 255));	//0, 190, 40
-			//	Menu2.setColor(sf::Color(255, 255, 255, 255)); //255, 0, 215
-			//	Menu3.setColor(sf::Color(255, 0, 0, 255));
-			//}
-			//else {
-			//	Menu1.setColor(sf::Color(255, 255, 255, 255));
-			//	Menu2.setColor(sf::Color(255, 0, 0, 255));
-			//	Menu3.setColor(sf::Color(255, 255, 255, 255));
-			//}
 			if (menu == 0) {
-				Menu1.setColor(sf::Color(0, 190, 40, 255));	//0, 190, 40
-				Menu2.setColor(sf::Color(255, 0, 215, 255)); //255, 0, 215
-				Menu3.setColor(sf::Color(0, 190, 40, 255));
+				menu_start.setColor(sf::Color(0, 190, 40, 255));
+				menu_exit.setColor(sf::Color(255, 0, 215, 255));
+				menu_continue.setColor(sf::Color(0, 190, 40, 255));
 			}
 			else {
-				Menu1.setColor(sf::Color(255, 0, 215, 255));
-				Menu2.setColor(sf::Color(0, 190, 40, 255));
-				Menu3.setColor(sf::Color(255, 0, 215, 255));
+				menu_start.setColor(sf::Color(255, 0, 215, 255));
+				menu_exit.setColor(sf::Color(0, 190, 40, 255));
+				menu_continue.setColor(sf::Color(255, 0, 215, 255));
 			}
 			//Clearing screen
 			window.clear();
 			//Drawing
-			window.draw(Sprite);
+			window.draw(sprite);
 			if (playing) {
-				window.draw(Menu3);
+				window.draw(menu_continue);
 			}
 			else {
-				window.draw(Menu1);
+				window.draw(menu_start);
 			}
-			window.draw(Menu2);
+			window.draw(menu_exit);
 			window.display();
 		}
 		//Never reaching this point normally, but just in case, exit the application

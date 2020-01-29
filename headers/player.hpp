@@ -133,10 +133,15 @@ public:
         }
     }
 
+    // Respawn the player
+    void player_respawn() {
+        drawable_set_position(respawn_location);
+    }
+
     // Collision detection between a player and a sf::FloatRect
-    bool player_collision(Drawable* object) {
-        if (collision_box.Player_Hitbox_core_intersect(object->drawable_get_hitbox())) {
-            drawable_set_position(respawn_location);
+    bool player_collision(Drawable* object, int& dead) {
+        if (collision_box.Player_Hitbox_core_intersect(object->drawable_get_hitbox()) && dead == 0) {
+            dead = 155;
             return true;
         }
         // Check if a sf::FloatRect collides with the right  or left side of the hitbox
