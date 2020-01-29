@@ -18,7 +18,7 @@ private:
     float resistance = 2;
     bool floating = false;
     bool on_ground = false;
-    int jump_speed = 15; // amount of pixels per update 
+    int jump_speed = 10; // amount of pixels per update 
     sf::Vector2f static_scale; // shouldn't be changed is used for flipping the body
     Animation_Controller animation_controller;
 

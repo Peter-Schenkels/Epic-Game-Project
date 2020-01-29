@@ -443,13 +443,6 @@
 				"position_y" : 0.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
-			},
-			{
-				"name" : "corner left in",
-				"position_x" : 900.0,
-				"position_y" : 500.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
 			}
 		]
 	},

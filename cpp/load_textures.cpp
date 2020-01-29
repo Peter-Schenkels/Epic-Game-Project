@@ -80,8 +80,20 @@ inline void load_textures(std::map<std::string, Picture*>& textures) {
 			textures["floor"] = new Picture({ {0,0}, {100, 100}, "img/tiles/Floor normal.png" });
 			textures["wall left"] = new Picture({ {0,0}, {100, 100}, "img/tiles/floor wall left.png" });
 			textures["wall right"] = new Picture({ {0,0}, {100, 100}, "img/tiles/floor wall right.png" });
-			textures["void floor"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor.png" });
-			textures["void floor normal"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/Floor normal.png" });
+			textures["floor1"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor1.png" });
+			textures["floor2"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor2.png" });
+			textures["floor3"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor3.png" });
+			textures["floor4"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor4.png" });
+			textures["corner1"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/corner1.png" });
+			textures["corner2"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/corner2.png" });
+			textures["corner3"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/corner3.png" });
+			textures["corner4"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/corner4.png" });
+			textures["hook1"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/hook1.png" });
+			textures["hook2"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/hook2.png" });
+			textures["hook3"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/hook3.png" });
+			textures["hook4"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/hook4.png" });
+			textures["map"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor.png" });
+
 		}
 	}
 }
