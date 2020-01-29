@@ -524,10 +524,10 @@ public:
 	}
 
 	int Run() {
-		bool Running = true;
+		bool running = true;
 		new_music = true;
 		
-		while (Running) {
+		while (running) {
 			game_get_input();
 			if (esc == true) {
 				esc = false;
