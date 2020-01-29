@@ -23,7 +23,7 @@ public:
 		/*if (!main_menu_music.openFromFile("Giorno's Theme.wav")) {
 			std::cout << "Main menu theme not loaded\n";
 		}*/
-		if (!main_menu_music.openFromFile("sounds/menu_music.wav")) {
+		if (!main_menu_music.openFromFile("sounds/menu_music.ogg")) {
 			std::cout << "Main menu theme not loaded\n";
 		}
 		main_menu_music.setVolume(25);
@@ -42,9 +42,9 @@ public:
 		sf::Text Menu3;
 		int menu = 0;
 
-		if (!Texture.loadFromFile("img/main_menu_game2.png"))
+		if (!Texture.loadFromFile("img/main_menu game.png"))
 		{
-			std::cerr << "Error loading hentai_1_kopie.jpg" << std::endl;
+			std::cerr << "Error loading menu background" << std::endl;
 			return (-1);
 		}
 
