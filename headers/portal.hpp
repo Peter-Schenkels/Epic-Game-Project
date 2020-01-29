@@ -14,6 +14,7 @@ protected:
 	float rotation = 0;
 	bool order;
 	sf::Vector2f portal_size;
+
 	
 public:
 	// Default constructor

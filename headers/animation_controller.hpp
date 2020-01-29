@@ -85,6 +85,14 @@ public:
 
 	}
 
+	void set_position(sf::Vector2f new_position) {
+
+		for (auto& frame : frames) {
+			frame->drawable_set_position(new_position);
+		}
+
+	}
+
 };
 
 
@@ -125,6 +133,10 @@ public:
 				index++;
 			}
 		}
+	}
+
+	void set_position(sf::Vector2f new_position) {
+		animations[current_animation].set_position(new_position);
 	}
 
 	void rotate_animation(std::string name, float degrees) {

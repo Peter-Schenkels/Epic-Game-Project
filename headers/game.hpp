@@ -182,7 +182,7 @@ public:
 				"floor", "wall left", "wall right",
 				"corner1", "corner2","corner3", "corner4",
 				"floor1", "floor2", "floor3", "floor4",
-				"hook1", "hook2", "hook3", "hook4", "map", "fishstick"
+				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike"
 			});
 		level_editor.set_position(player_view.getCenter());
 	}
@@ -192,6 +192,8 @@ public:
 		drawables = drawable_object_read(level_selector.get_current_level().overworld, textures, start_position);
 		void_drawables = drawable_object_read(level_selector.get_current_level().voidworld, textures, start_position);
 		player.drawable_set_position(start_position);
+		player.player_set_speed({ 0,0 });
+		portal_set.reset();
 	}
 
 	// Changes whether the user can edit the level
@@ -279,6 +281,12 @@ public:
 		return drawables;
 	}
 
+	// Saves the current level
+	void save() {
+		drawable_object_write(level_selector.get_current_level().overworld, drawables, start_position);
+		drawable_object_write(level_selector.get_current_level().voidworld, void_drawables, start_position);
+	}
+
 	// Shoots portals
 	void game_shoot_portal(bool order) {
 		sf::Vector2f mouse_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -310,9 +318,8 @@ public:
 	void game_act_on_key(sf::Event key_event) {
 		player.player_input(key_event);
 		if (key_event.type == sf::Event::Closed) {
-			// If the window has been close, save the new objects to a file
-			drawable_object_write(level_selector.get_current_level().overworld, drawables, start_position);
-			drawable_object_write(level_selector.get_current_level().voidworld, void_drawables, start_position);
+			// If the window has been close, save the new objects to a file	
+			save();
 			window.close();
 		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::K) {
@@ -334,13 +341,15 @@ public:
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num9) {
 			stop_music();
 			new_music = true;
+			save();
 			level_selector.next_level();
 			load_level();
 		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num8) {
-			level_selector.previous_level();
 			stop_music();
 			new_music = true;
+			save();
+			level_selector.previous_level();
 			load_level();
 		}
 		else if (key_event.type == sf::Event::KeyPressed && edit) {
@@ -351,6 +360,7 @@ public:
 				view_move_key(key_event);
 			}
 		}
+
 	}
 
 	// Delete object from the game
@@ -404,15 +414,40 @@ public:
 			std::cout << "esc pressed" << std::endl;
 		}
 		// Shoot the portal
-		if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) && !edit) {
-			game_shoot_portal(sf::Mouse::isButtonPressed(sf::Mouse::Left));
-		}
-		
-		// Check for all other events
 		sf::Event key_event;
 		window.pollEvent(key_event);
 		game_act_on_key(key_event);
+		if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) && !edit && key_event.type) {
+			game_shoot_portal(sf::Mouse::isButtonPressed(sf::Mouse::Left));
+		}
+
+		
+		// Check for all other events
 	}
+
+	void win() {
+		sf::Clock timer;
+		sf::Font Font;
+		sf::Text wintext;
+
+		if (!Font.loadFromFile("VerminVibes1989.ttf")) {
+			std::cerr << "Error loading ComicSans.ttf" << std::endl;
+		} else {
+			wintext.setFont(Font);
+		}
+
+		wintext.setCharacterSize(100);
+		wintext.setString("Course Cleared");
+		wintext.setPosition({ 450.f, 100.f });
+		window.draw(wintext);
+		window.display();
+
+		while (timer.getElapsedTime().asSeconds() < 1);
+		level_selector.next_level();
+		load_level();
+	}
+
+
 
 	// Updates the game staete
 	void game_update() {
@@ -422,7 +457,16 @@ public:
 		if (overworld) {
 			for (auto drawable : drawables) {
 				drawable->drawable_update();
+				if (player.player_collision(drawable) & drawable->drawable_get_name() == "fishstick") {
+					win();
+					break;
+				}
+				if (player.player_collision(drawable) & drawable->drawable_get_name() == "spike") {
+					win();
+					break;
+				}
 				player.player_collision(drawable);
+
 			}
 		}
 		else {
@@ -448,11 +492,13 @@ public:
 			portal_teleport.play();
 			portal_set.linked_portals_teleport(player, p1);
 			overworld = p2.drawable_get_dimension();
+			player.input_cooldown();
 		}
 		else if (player.player_intersect(p2.drawable_get_hitbox()) && overworld == p2.drawable_get_dimension()) {
 			portal_teleport.play();
 			portal_set.linked_portals_teleport(player, p2);
 			overworld = p1.drawable_get_dimension();
+			player.input_cooldown();
 		}
 		p1.drawable_update();
 		p2.drawable_update();

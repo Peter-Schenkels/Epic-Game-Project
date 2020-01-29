@@ -26,6 +26,7 @@ public:
 		std::array<std::string, 4> orientations = { "TOP", "LEFT", "BOTTOM", "RIGHT" };
 		bool swap;
 		sf::Vector2f multiplier;
+		float factor = float(0.95);
 		for (unsigned int i = 0; i < 4; i++) {
 			for (unsigned int j = 0; j < 4; j++) {
 				// Select the correct multiplier for all possible combinations of 
@@ -34,17 +35,17 @@ public:
 				// Combinations that invert the Y-axis
 				// TOP > TOP, TOP > LEFT, LEFT > BOTTOM, BOTTOM > BOTTOM
 				if ((i == 0 && (j == 0 || j == 1)) || (j == 2 && (i == 1 || i == 2))) {
-					multiplier = { 1, -1 };
+					multiplier = { factor, -factor };
 				}
 				// Combinations that invert the X-axis
 				// LEFT > LEFT, BOTTOM > LEFT, RIGHT > RIGHT, RIGHT > BOTTOM
 				else if ((j == 1 && (i == 1 || i == 2)) || (i == 3 && (j == 3 || j == 2))) {
-					multiplier = { -1, 1 };
+					multiplier = { -factor, factor };
 				}
 				// Combinations that dont invert the axis
 				// All other combinations
 				else {
-					multiplier = { 1, 1 };
+					multiplier = { factor, factor };
 				}
 
 				// Combinations that swap the X- and Y-axis
@@ -69,6 +70,7 @@ public:
 				}
 			}
 		}
+		reset();
 	}
 
 	// Replace an existing portal
@@ -89,6 +91,10 @@ public:
 		}
 	}
 
+	void reset() {
+		portal_1.drawable_set_position({ 0,0 });
+		portal_2.drawable_set_position({ 0,0 });
+	}
 	// Prints all portals coordinates
 	void linked_portals_print_portals() {
 		auto void_loc = portal_1.drawable_get_location();

@@ -7,16 +7,11 @@ Player_Hitbox::Player_Hitbox(sf::Vector2f position, sf::Vector2f size) :
     left(sf::Vector2f{ 0, size.y / 2 }),
     right{ sf::Vector2f{0, size.y / 2} },
     top({ size.x - size.x / 8, 0 }),
-    bottom({ size.x - size.x / 8, 0 }),
+    bottom({ size.x - size.x / 2, 0 }),
     core({size.x / 2, size.y / 2}),
     box(size)
 {
-    left.setPosition({ position.x, position.y + size.y / 4 });
-    right.setPosition({ position.x + 1 + size.x, position.y + size.y / 4 });
-    top.setPosition(position);
-    bottom.setPosition({ position.x + 1, position.y + size.y });
-    core.setPosition({ position.x + size.x / 4, position.y + size.y / 4 });
-    box.setPosition(position);
+    Player_Hitbox_update(position);
 
     left.setOutlineThickness(1.f);
     right.setOutlineThickness(1.f);
@@ -30,7 +25,7 @@ void Player_Hitbox::Player_Hitbox_update(sf::Vector2f new_position) {
     left.setPosition({ position.x, position.y + size.y / 4 });
     right.setPosition({ position.x + 1 + size.x, position.y + size.y / 4 });
     top.setPosition(position);
-    bottom.setPosition({ position.x + 1, position.y + size.y });
+    bottom.setPosition({ position.x + size.x / 4, position.y + size.y });
     core.setPosition({ position.x + size.x / 4, position.y + size.y / 4 });
     box.setPosition(position);
 }
@@ -67,3 +62,7 @@ bool Player_Hitbox::Player_Hitbox_core_intersect(sf::FloatRect collider) {
 sf::FloatRect Player_Hitbox::Player_Hitbox_get_outerbounds() {
     return box.getGlobalBounds();
 }
+
+
+
+

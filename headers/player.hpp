@@ -14,6 +14,7 @@ private:
     Picture* body;
     Player_Hitbox collision_box;
     sf::Vector2f respawn_location = { 0, 0 } ;
+    sf::Clock timer;
     float gravity = 0.5;
     float resistance = 2;
     bool floating = false;
@@ -88,42 +89,47 @@ public:
         floating = boolean;
     }
 
+    void input_cooldown() {
+        timer.restart();
+    }
+
     // Handles all input events
     void player_input(sf::Event event) {
-        // If key up is pressed: jump!
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && speed.y == -0.5) {
-            speed.y = float(-1 * (jump_speed + 0.01));
-            animation_controller.animation_controller_set_state("Idle");
-        }
-        // If key left is pressed: move left!
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-            speed.x = -7;
-            animation_controller.animation_controller_set_state("Walking left");
-        }
-        else if (speed.x < 0) {
-            animation_controller.animation_controller_set_state("Idle");
-            if (on_ground) {
-                speed.x = 0;
+        if (timer.getElapsedTime().asMilliseconds() > 200) {
+            // If key up is pressed: jump!
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && speed.y == -0.5) {
+                speed.y = float(-1 * (jump_speed + 0.01));
+                animation_controller.animation_controller_set_state("Idle");
             }
-            else {
-                speed.x += 0.5;
+            // If key left is pressed: move left!
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+                speed.x = -7;
+                animation_controller.animation_controller_set_state("Walking left");
             }
-            std::cout << speed.x << "\n";
-        }
-        // If key right is pressed: move right!
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-            speed.x = 7;
-            animation_controller.animation_controller_set_state("Walking right");
-        }
-        else if (speed.x > 0) {
-            animation_controller.animation_controller_set_state("Idle");
-            if (on_ground) {
-                speed.x = 0;
+            else if (speed.x < 0) {
+                animation_controller.animation_controller_set_state("Idle");
+                if (on_ground) {
+                    speed.x = 0;
+                }
+                else {
+                    speed.x += 0.5;
+                }
+                std::cout << speed.x << "\n";
             }
-            else {
-                speed.x -= 0.5;
+            // If key right is pressed: move right!
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+                speed.x = 7;
+                animation_controller.animation_controller_set_state("Walking right");
             }
-            std::cout << speed.x << "\n";
+            else if (speed.x > 0) {
+                animation_controller.animation_controller_set_state("Idle");
+                if (on_ground) {
+                    speed.x = 0;
+                }
+                else {
+                    speed.x -= 0.5;
+                }
+            }
         }
     }
 

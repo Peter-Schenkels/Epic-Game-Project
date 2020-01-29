@@ -78,6 +78,7 @@ inline void load_textures(std::map<std::string, Picture*>& textures) {
 			textures["corner rigth in down"] = new Picture({ {0,0}, {100, 100}, "img/tiles/floor corner right down.png" });
 			textures["corner right in"] = new Picture({ {0,0}, {100, 100}, "img/tiles/floor corner right.png" });
 			textures["floor"] = new Picture({ {0,0}, {100, 100}, "img/tiles/Floor normal.png" });
+			textures["spike"] = new Picture({ {0,0}, {100, 100}, "img/tiles/spike.png" });
 			textures["wall left"] = new Picture({ {0,0}, {100, 100}, "img/tiles/floor wall left.png" });
 			textures["wall right"] = new Picture({ {0,0}, {100, 100}, "img/tiles/floor wall right.png" });
 			textures["floor1"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor1.png" });
