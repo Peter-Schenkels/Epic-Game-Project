@@ -30,7 +30,8 @@ protected:
 	// Textures for the in-game sprites
 	std::map<std::string, Picture*> textures;
 	// The background for the 2d map
-	TileMap map;
+	TileMap map_overworld;
+	TileMap map_void;
 	Player player;
 	//Start position of player
 	sf::Vector2f start_position; 
@@ -107,7 +108,7 @@ public:
 		// Create a random seed and set a range for the amount of different background textures
 		std::random_device rd;
 		std::mt19937 eng(rd());
-		std::uniform_int_distribution<> distr(0, 255);
+		std::uniform_int_distribution<> distr(0, 5);
 
 		// Create a list filled with random numbers using the previously defined seed and range
 		int level[8160];
@@ -116,7 +117,8 @@ public:
 		}
 
 		// Loads map with textures using the random numbers from level
-		map.load("img/backdrops3.png", sf::Vector2u(128, 128), level, 120, 68);
+		map_overworld.load("img/backdrops2.png", sf::Vector2u(100, 100), level, 120, 68);
+		map_void.load("img/void_backdrops.png", sf::Vector2u(100, 100), level, 120, 68);
 
 		// Fill the moves map with the correct keys
 		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Down, sf::Vector2f{ 0, 100 }));
@@ -467,7 +469,12 @@ public:
 
 		window.clear();
 		// Draw the background first
-
+		if (overworld) {
+			window.draw(map_overworld);
+		}
+		else {
+			window.draw(map_void);
+		}
 
 		// Draw the drawable objects in the overworld or the void depending one which one the player finds themselves in
 		if (overworld) {
