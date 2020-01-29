@@ -93,6 +93,7 @@ inline void load_textures(std::map<std::string, Picture*>& textures) {
 			textures["hook3"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/hook3.png" });
 			textures["hook4"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/hook4.png" });
 			textures["map"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor.png" });
+			textures["fishstick"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/fishstick.png" });
 
 		}
 	}

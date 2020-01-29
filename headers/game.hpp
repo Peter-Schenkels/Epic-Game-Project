@@ -179,7 +179,10 @@ public:
 				"filling", "floor down","corner left down","corner left",
 				"corner right down", "corner right", "corner down left",
 				"corner left in", "corner rigth in down", "corner right in",
-				"floor", "wall left", "wall right", "void floor", "void floor normal"
+				"floor", "wall left", "wall right",
+				"corner1", "corner2","corner3", "corner4",
+				"floor1", "floor2", "floor3", "floor4",
+				"hook1", "hook2", "hook3", "hook4", "map", "fishstick"
 			});
 		level_editor.set_position(player_view.getCenter());
 	}
