@@ -492,6 +492,7 @@ public:
 				drawable->drawable_update();
 				if (player.player_collision(drawable) & drawable->drawable_get_name() == "datapad") {
 					win();
+					break;
 				}
 				player.player_collision(drawable);
 			}
