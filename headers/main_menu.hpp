@@ -28,6 +28,7 @@ public:
 			std::cout << "Main menu theme not loaded" << std::endl;
 		}
 		main_menu_music.setVolume(25);
+		main_menu_music.setLoop(true);
 
 		if (!texture.loadFromFile("img/main_menu_game.png")) {
 			std::cerr << "Main menu background not loaded" << std::endl;

@@ -463,13 +463,20 @@ public:
 		sf::Text wintext;
 		level_clear.play();
 		if (!Font.loadFromFile("VerminVibes1989.ttf")) {
-			std::cerr << "Error loading ComicSans.ttf" << std::endl;
+			std::cerr << "Error loading VerminVibes1989.ttf" << std::endl;
 		} else {
 			wintext.setFont(Font);
 		}
 
 		wintext.setCharacterSize(100);
-		wintext.setString("Course Cleared");
+		if (level_selector.get_level_index() == 3) {
+			wintext.setString("Game Cleared");
+			/*level_selector.previous_level();
+			level_selector.previous_level();*/
+		}
+		else {
+			wintext.setString("Course Cleared");
+		}
 		wintext.setColor(sf::Color::Magenta);
 		wintext.setOutlineColor(sf::Color::Black);
 		wintext.setOutlineThickness(5);
@@ -479,7 +486,15 @@ public:
 		window.display();
 
 		while (timer.getElapsedTime().asSeconds() < 10);
-		level_selector.next_level();
+
+		if (level_selector.get_level_index() == 3) {
+			level_selector.previous_level();
+			level_selector.previous_level();
+			esc = true;
+		}
+		else {
+			level_selector.next_level();
+		}
 		game_load_level();
 		new_music = true;
 	}
