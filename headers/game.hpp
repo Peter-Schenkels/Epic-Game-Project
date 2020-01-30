@@ -57,6 +57,8 @@ protected:
 	sf::SoundBuffer portal_teleport_buffer;
 	sf::Sound level_clear;
 	sf::SoundBuffer level_clear_buffer;
+	sf::Sound death_sound;
+	sf::SoundBuffer death_sound_buffer;
 	sf::Music level1_background;
 	sf::Music level2_background;
 	sf::Music level3_background;
@@ -158,6 +160,12 @@ public:
 		}
 		dimension_switch.setBuffer(dimension_switch_buffer);
 
+		// Death sound
+		if (!death_sound_buffer.loadFromFile("sounds/death_sound.wav")) {
+			std::cout << "Death sound not loaded\n";
+		}
+		death_sound.setBuffer(death_sound_buffer);
+
 		// Level clear sound
 		if (!level_clear_buffer.loadFromFile("sounds/level_clear.ogg")) {
 			std::cout << "Level clear sound not loaded\n";
@@ -192,7 +200,7 @@ public:
 				"floor", "wall left", "wall right",
 				"corner1", "corner2","corner3", "corner4",
 				"floor1", "floor2", "floor3", "floor4",
-				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike"
+				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike", "datapad"
 			});
 		level_editor.set_position(player_view.getCenter());
 		portal_set.reset();
@@ -442,10 +450,11 @@ public:
 	}
 
 	void win() {
+		stop_music();
 		sf::Clock timer;
 		sf::Font Font;
 		sf::Text wintext;
-
+		level_clear.play();
 		if (!Font.loadFromFile("VerminVibes1989.ttf")) {
 			std::cerr << "Error loading ComicSans.ttf" << std::endl;
 		} else {
@@ -454,13 +463,18 @@ public:
 
 		wintext.setCharacterSize(100);
 		wintext.setString("Course Cleared");
-		wintext.setPosition({ 450.f, 100.f });
+		wintext.setColor(sf::Color::Magenta);
+		wintext.setOutlineColor(sf::Color::Black);
+		wintext.setOutlineThickness(5);
+		wintext.setLetterSpacing(2);
+		wintext.setPosition({ player.drawable_get_location().x - 410, player.drawable_get_location().y - 200 });
 		window.draw(wintext);
 		window.display();
 
-		while (timer.getElapsedTime().asSeconds() < 1);
+		while (timer.getElapsedTime().asSeconds() < 10);
 		level_selector.next_level();
 		load_level();
+		new_music = true;
 	}
 
 
@@ -473,7 +487,7 @@ public:
 		if (overworld) {
 			for (auto drawable : drawables) {
 				drawable->drawable_update();
-				if (player.player_collision(drawable) & drawable->drawable_get_name() == "fishstick") {
+				if (player.player_collision(drawable) & drawable->drawable_get_name() == "datapad") {
 					win();
 					break;
 				}
@@ -525,6 +539,7 @@ public:
 		dead = player.player_get_dead();
 
 		if (dead == 155) {
+			death_sound.play();
 			player.player_respawn();
 			fade_out.setOrigin(sf::Vector2f{ 960, 540 });
 			overworld = true;
@@ -539,7 +554,6 @@ public:
 			window.draw(fade_out);
 			std::cout << dead << "\n";
 		}
-			
 		player.player_set_dead(dead);
 
 	}
