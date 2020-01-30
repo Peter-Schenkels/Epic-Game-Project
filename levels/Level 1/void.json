@@ -2466,6 +2466,20 @@
 				"position_y" : 2400.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
+			},
+			{
+				"name" : "datapad",
+				"position_x" : 1000.0,
+				"position_y" : 2200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "datapad",
+				"position_x" : 1000.0,
+				"position_y" : 2200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
 			}
 		]
 	},
