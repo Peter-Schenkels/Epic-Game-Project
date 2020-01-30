@@ -1,6 +1,6 @@
-#pragma once
-#ifndef LINKED_TELEPORTERS_HPP
-#define LINKED_TELEPORTERS_HPP
+
+#ifndef LINKED_PORTALS_HPP
+#define LINKED_PORTALS_HPP
 
 #include "player.hpp"
 #include "portal.hpp"

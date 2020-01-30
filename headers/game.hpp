@@ -178,18 +178,21 @@ public:
 		if (!level1_background.openFromFile("sounds/background_music_1.ogg"))
 			std::cout << "Background music level 1 not loaded";
 		level1_background.setVolume(25);
+		level1_background.setLoop(true);
 		musicList.push_back(&level1_background);
 
 		// Level 2 music
 		if (!level2_background.openFromFile("sounds/background_music_2.ogg"))
 			std::cout << "Background music level 2 not loaded";
 		level2_background.setVolume(25);
+		level2_background.setLoop(true);
 		musicList.push_back(&level2_background);
 
 		// Level 3 music
 		if (!level3_background.openFromFile("sounds/background_music_3.ogg"))
 			std::cout << "Background music level 3 not loaded";
 		level3_background.setVolume(25);
+		level3_background.setLoop(true);
 		musicList.push_back(&level3_background);
 
 		/*player_view.setCenter(100, 100);

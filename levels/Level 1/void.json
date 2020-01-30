@@ -1532,13 +1532,6 @@
 			{
 				"name" : "map",
 				"position_x" : 3300.0,
-				"position_y" : 2500.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 3300.0,
 				"position_y" : 2600.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
@@ -2468,13 +2461,6 @@
 				"size_y" : 100.0
 			},
 			{
-				"name" : "datapad",
-				"position_x" : 1000.0,
-				"position_y" : 2200.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
 				"name" : "text2",
 				"position_x" : 1000.0,
 				"position_y" : 1800.0,
@@ -2494,6 +2480,27 @@
 				"position_y" : 2500.0,
 				"size_x" : 270.0,
 				"size_y" : 110.0
+			},
+			{
+				"name" : "text2",
+				"position_x" : 2900.0,
+				"position_y" : 2000.0,
+				"size_x" : 270.0,
+				"size_y" : 110.0
+			},
+			{
+				"name" : "text4",
+				"position_x" : 3200.0,
+				"position_y" : 2000.0,
+				"size_x" : 270.0,
+				"size_y" : 110.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3300.0,
+				"position_y" : 2500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
 			}
 		]
 	},

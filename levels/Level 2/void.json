@@ -47,386 +47,1310 @@
 			},
 			{
 				"name" : "floor1",
+				"position_x" : 1000.0,
+				"position_y" : 2200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor1",
+				"position_x" : 1100.0,
+				"position_y" : 2200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor1",
+				"position_x" : 900.0,
+				"position_y" : 2200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1100.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1200.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1300.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1400.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1500.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1600.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1800.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1700.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1800.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1700.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1600.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1500.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1400.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1300.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1200.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1100.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1100.0,
+				"position_y" : 2500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1100.0,
+				"position_y" : 2400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1100.0,
+				"position_y" : 2300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 2500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 2400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 2300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2100.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2200.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2300.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2500.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2600.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2400.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2100.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2200.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2300.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2400.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2500.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2600.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2700.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2700.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2700.0,
+				"position_y" : 2500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2800.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2800.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2800.0,
+				"position_y" : 2500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
 				"position_x" : 1900.0,
 				"position_y" : 2400.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
-				"name" : "floor1",
+				"name" : "map",
 				"position_x" : 2000.0,
 				"position_y" : 2400.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
-				"name" : "floor1",
-				"position_x" : 1000.0,
-				"position_y" : 2200.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "floor1",
-				"position_x" : 1100.0,
-				"position_y" : 2200.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "floor1",
-				"position_x" : 900.0,
-				"position_y" : 2200.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
 				"name" : "map",
-				"position_x" : 900.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 900.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 900.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1000.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1100.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1200.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1300.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1400.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1500.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1600.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1800.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1700.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 1800.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 1700.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 1600.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 1500.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 1400.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 1300.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 1200.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1100.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1100.0,
-				"position_y" : 2500.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1100.0,
+				"position_x" : 2700.0,
 				"position_y" : 2400.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 1100.0,
-				"position_y" : 2300.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 900.0,
-				"position_y" : 2300.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 900.0,
+				"position_x" : 2800.0,
 				"position_y" : 2400.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 900.0,
-				"position_y" : 2500.0,
+				"position_x" : 2800.0,
+				"position_y" : 2800.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 1000.0,
-				"position_y" : 2500.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1000.0,
-				"position_y" : 2400.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1000.0,
-				"position_y" : 2300.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 1000.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 2100.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 2200.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 2300.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 2500.0,
-				"position_y" : 2700.0,
+				"position_x" : 2700.0,
+				"position_y" : 2800.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
 				"position_x" : 2600.0,
-				"position_y" : 2700.0,
+				"position_y" : 2800.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 2400.0,
-				"position_y" : 2700.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 2100.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 2200.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 2300.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
-				"position_x" : 2400.0,
-				"position_y" : 2600.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "spike",
 				"position_x" : 2500.0,
-				"position_y" : 2600.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2400.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2300.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2200.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2100.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2000.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1900.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1800.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1700.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1600.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1500.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1400.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1300.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1200.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1100.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 2800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1100.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1200.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1300.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1400.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1500.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1600.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1700.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1800.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1900.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2000.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2200.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2300.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2400.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2500.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2600.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2700.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2800.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2100.0,
+				"position_y" : 2900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2800.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2700.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2600.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2500.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2400.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2300.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2200.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2100.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2000.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1900.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1800.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1700.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1600.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1500.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1400.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1300.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1200.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1100.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 1000.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 900.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4200.0,
+				"position_y" : 2000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4100.0,
+				"position_y" : 2000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4300.0,
+				"position_y" : 2000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4000.0,
+				"position_y" : 1600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4000.0,
+				"position_y" : 1500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4000.0,
+				"position_y" : 1400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4400.0,
+				"position_y" : 1500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4400.0,
+				"position_y" : 1600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4100.0,
+				"position_y" : 1600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4200.0,
+				"position_y" : 1600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4300.0,
+				"position_y" : 1600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4400.0,
+				"position_y" : 1200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4300.0,
+				"position_y" : 1200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4200.0,
+				"position_y" : 1200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4100.0,
+				"position_y" : 1200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4000.0,
+				"position_y" : 1200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4000.0,
+				"position_y" : 1300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 1600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 1500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 1000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4600.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4500.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4400.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4300.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4200.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4100.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4000.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4000.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3900.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3800.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 1400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 1700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 1800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4700.0,
+				"position_y" : 1900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4600.0,
+				"position_y" : 1900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4500.0,
+				"position_y" : 1900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4400.0,
+				"position_y" : 1900.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "spike",
-				"position_x" : 2600.0,
-				"position_y" : 2600.0,
+				"position_x" : 3900.0,
+				"position_y" : 1800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 4000.0,
+				"position_y" : 1800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 3800.0,
+				"position_y" : 1800.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 2700.0,
-				"position_y" : 2700.0,
+				"position_x" : 4000.0,
+				"position_y" : 1900.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 2700.0,
-				"position_y" : 2600.0,
+				"position_x" : 3900.0,
+				"position_y" : 1900.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 2700.0,
-				"position_y" : 2500.0,
+				"position_x" : 3800.0,
+				"position_y" : 1900.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 2800.0,
-				"position_y" : 2600.0,
+				"position_x" : 3700.0,
+				"position_y" : 1900.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "map",
-				"position_x" : 2800.0,
-				"position_y" : 2700.0,
+				"position_x" : 3700.0,
+				"position_y" : 1800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 1700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 1600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 1500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 1400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 1300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 1200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 3700.0,
+				"position_y" : 1000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 4000.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 4100.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 4200.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 4300.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 4400.0,
+				"position_y" : 1100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4400.0,
+				"position_y" : 1400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor4",
+				"position_x" : 4700.0,
+				"position_y" : 1300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor4",
+				"position_x" : 4700.0,
+				"position_y" : 1200.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4400.0,
+				"position_y" : 1700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4400.0,
+				"position_y" : 1800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4500.0,
+				"position_y" : 1800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 4600.0,
+				"position_y" : 1800.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "floor1",
-				"position_x" : 2700.0,
-				"position_y" : 2400.0,
+				"position_x" : 4500.0,
+				"position_y" : 1700.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
 			{
 				"name" : "floor1",
-				"position_x" : 2800.0,
-				"position_y" : 2400.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "map",
-				"position_x" : 2800.0,
-				"position_y" : 2500.0,
+				"position_x" : 4600.0,
+				"position_y" : 1700.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			}

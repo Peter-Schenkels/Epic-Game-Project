@@ -39,7 +39,7 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 					if (object->drawable_get_name() == "filling" or object->drawable_get_name() == "map" ) {
 						return { {0,0}, "NONE" };
 					}
-					if (object->drawable_get_name() == "fishstick" or object->drawable_get_name() == "spike",
+					if (object->drawable_get_name() == "fishstick" or object->drawable_get_name() == "spike" or
 						object->drawable_get_name() == "text1" or object->drawable_get_name() == "text2" or
 						object->drawable_get_name() == "text3" or object->drawable_get_name() == "text4"
 						or object->drawable_get_name() == "datapad"){
