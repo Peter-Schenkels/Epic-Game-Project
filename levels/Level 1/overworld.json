@@ -3684,20 +3684,6 @@
 				"position_y" : 2500.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
-			},
-			{
-				"name" : "datapad",
-				"position_x" : 3100.0,
-				"position_y" : 2300.0,
-				"size_x" : 32.0,
-				"size_y" : 64.0
-			},
-			{
-				"name" : "fishstick",
-				"position_x" : 3200.0,
-				"position_y" : 2300.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
 			}
 		]
 	},
