@@ -1,3 +1,4 @@
+
 #pragma once
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
@@ -20,7 +21,7 @@ private:
     bool floating = false;
     bool on_ground = false;
     int dead = 0;
-    int jump_speed = 10; // amount of pixels per update 
+    float jump_speed = 10.5; // amount of pixels per update 
     sf::Vector2f static_scale; // shouldn't be changed is used for flipping the body
     Animation_Controller animation_controller;
 
@@ -97,10 +98,11 @@ public:
     // Handles all input events
     void player_input(sf::Event event) {
         if (timer.getElapsedTime().asMilliseconds() > 200) {
+            
             // If key up is pressed: jump!
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && speed.y == -0.5) {
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N) )&& on_ground) {
                 speed.y = float(-1 * (jump_speed + 0.01));
-                animation_controller.animation_controller_set_state("idle-right");
+                
             }
             // If key left is pressed: move left!
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
@@ -108,12 +110,12 @@ public:
                 animation_controller.animation_controller_set_state("Walking left");
             }
             else if (speed.x < 0) {
-                animation_controller.animation_controller_set_state("idle-left");
+                animation_controller.animation_controller_set_state("idle-right");
                 if (on_ground) {
                     speed.x = 0;
                 }
                 else {
-                    speed.x += 0.5;
+                    speed.x += float(0.5);
                 }
                 std::cout << speed.x << "\n";
             }
@@ -128,7 +130,7 @@ public:
                     speed.x = 0;
                 }
                 else {
-                    speed.x -= 0.5;
+                    speed.x -= float(0.5);
                 }
             }
         }
@@ -162,36 +164,41 @@ public:
                 dead = 155;
             }
         }
+        if (speed.y == float(-0.00001)) {
+            on_ground = true;
+        }
+        else {
+            on_ground = false;
+        }
+
+        // Check if a sf::FloatRect collides with the bottom  or top of the hitbox
+        if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox())){
+            location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
+            speed.y = float(-0.00001);
+
+          
+
+            return true;
+        } 
+        else if (collision_box.Player_Hitbox_top_side_intersect(object->drawable_get_hitbox())){
+            speed.y = 1;
+            return true;
+        }
+     
         // Check if a sf::FloatRect collides with the right  or left side of the hitbox
         if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
             location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
             return true;
         }
-        else if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox())){
+        if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox())){
             speed.x = 0;
             location.x = object->drawable_get_hitbox().left - drawable_get_size().x;
             return true;
         }
-        // Check if a sf::FloatRect collides with the bottom  or top of the hitbox
-        else if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox())){
-            location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
-            speed.y = -0.5;
-            on_ground = true;
-            return true;
-        }
-        else if (collision_box.Player_Hitbox_top_side_intersect(object->drawable_get_hitbox())){
-            on_ground = false;
-            speed.y = 1;
-            return true;
-        }
-        
-        else {
-            on_ground = false;
-        }
         return false;
-    }
 
+    }
 	//check if player hitbox intersect with object mainly used for portal detection
 	bool player_intersect(sf::FloatRect collide){
 		return collision_box.Player_Hitbox_core_intersect(collide) || 

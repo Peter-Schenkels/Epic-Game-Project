@@ -41,7 +41,8 @@ protected:
 	// The in-game animations
 	Animation walking_animation_left;
 	Animation walking_animation_right;
-	Animation idle_animation;
+	Animation idle_animation_left;
+	Animation idle_animation_right;
 	Animation portal_animation_purple;
 	Animation portal_animation_green;
 	// The portals
@@ -102,8 +103,8 @@ public:
 				{ "walk1", "walk2","walk3","walk4","walk5","walk6","walk7" }, "Walking left", 50);
 			walking_animation_right = Animation(textures, { 46 , 126 },
 				{ "left1","left2","left3","left4","left5","left6","left7" }, "Walking right", 50);
-			idle_animation = Animation(textures, { 46, 126 }, { "idle1", "idle1" }, "idle-right", 50);
-			idle_animation = Animation(textures, { 46, 126 }, { "idle2", "idle2" }, "idle-left", 50);
+			idle_animation_right = Animation(textures, { 46, 126 }, { "idle1", "idle1" }, "idle-right", 50);
+			idle_animation_left = Animation(textures, { 46, 126 }, { "idle2", "idle2" }, "idle-left", 50);
 
 		}
 
@@ -134,7 +135,7 @@ public:
 		moves.insert(std::pair<sf::Keyboard::Key, sf::Vector2f>(sf::Keyboard::Right, sf::Vector2f{ 100, 0 }));
 		
 		// Creates a player and the portals
-		player = Player(start_position, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation });
+		player = Player(start_position, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation_right, idle_animation_left });
 		p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
 		p2 = Portal({ 200, 150 }, { 64, 128 }, "RIGHT", { portal_animation_green }, false);
 		game_edit_view.setCenter(start_position);
@@ -204,7 +205,7 @@ public:
 				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike", "datapad"
 			});
 		level_editor.set_position(player_view.getCenter());
-		portal_set.reset();
+		portal_set.set_reset_location({ start_position.x - 100, start_position.y });
 	}
 
 	// Loads the drawables into the vectors for corresponding level
@@ -213,7 +214,7 @@ public:
 		void_drawables = drawable_object_read(level_selector.get_current_level().voidworld, textures, start_position);
 		player.drawable_set_position(start_position);
 		player.player_set_speed({ 0,0 });
-		portal_set.reset();
+		portal_set.set_reset_location({ start_position.x - 100, start_position.y });
 	}
 
 	// Changes whether the user can edit the level
@@ -354,7 +355,7 @@ public:
 				drawing->drawable_deselect();
 			}
 		}
-		else if (key_event.type == sf::Event::MouseButtonReleased && key_event.key.code == sf::Mouse::Left) {
+		else if (key_event.type == sf::Event::MouseButtonReleased && key_event.key.code == sf::Mouse::Left && edit) {
 			// Add objects to level via level editor
 			level_editor.get_input(drawables, void_drawables, overworld, window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 		}
@@ -541,6 +542,7 @@ public:
 
 		if (dead == 155) {
 			death_sound.play();
+			portal_set.reset();
 			player.player_respawn();
 			fade_out.setOrigin(sf::Vector2f{ 960, 540 });
 			overworld = true;

@@ -36,7 +36,9 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 
 				if (object->drawable_get_hitbox().intersects(hitbox)) {
 					// A surface were portals can't be created
-					if (object->drawable_get_name() == "filling" or object->drawable_get_name() == "map") {
+					if (object->drawable_get_name() == "filling" or object->drawable_get_name() == "map",
+						object->drawable_get_name() == "fishstick" or object->drawable_get_name() == "spike"
+						or object->drawable_get_name() == "datapad" ) {
 						return { {0,0}, "NONE" };
 					}
 					if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox()))

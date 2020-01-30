@@ -11,6 +11,8 @@ protected:
 	Portal& portal_1;
 	Portal& portal_2;
 
+	sf::Vector2f reset_location;
+
 	// The first std::string keys are all of the possible orientations for the entry portal
 	// The second std::string keys are all of the possible orientations for the exit portal
 	// By calling on the map using 2 strings, a lambda function will be ran that edits the momentum of the player
@@ -18,6 +20,7 @@ protected:
 	std::map<std::string, std::map<std::string, std::function< void(Player&) >>> change_momentum;
 
 public:
+
 	// Constructor
 	Linked_Portals(Portal& first, Portal& second) :
 		portal_1(first),
@@ -91,9 +94,14 @@ public:
 		}
 	}
 
+	void set_reset_location(sf::Vector2f new_reset_location) {
+		reset_location = new_reset_location;
+		reset();
+	}
+
 	void reset() {
-		portal_1.drawable_set_position({ 0,0 });
-		portal_2.drawable_set_position({ 0,0 });
+		portal_1.drawable_set_position(reset_location);
+		portal_2.drawable_set_position(reset_location);
 	}
 	// Prints all portals coordinates
 	void linked_portals_print_portals() {
