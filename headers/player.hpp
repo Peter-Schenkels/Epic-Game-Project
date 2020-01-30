@@ -38,7 +38,7 @@ public:
         animation_controller = Animation_Controller(animations);
         // Set starting location and sprite
         respawn_location = position;
-        animation_controller.animation_controller_set_state("Idle");
+        animation_controller.animation_controller_set_state("Idle left");
     }
 
 
@@ -100,7 +100,7 @@ public:
             // If key up is pressed: jump!
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && speed.y == -0.5) {
                 speed.y = float(-1 * (jump_speed + 0.01));
-                animation_controller.animation_controller_set_state("Idle");
+                animation_controller.animation_controller_set_state("idle-right");
             }
             // If key left is pressed: move left!
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
@@ -108,7 +108,7 @@ public:
                 animation_controller.animation_controller_set_state("Walking left");
             }
             else if (speed.x < 0) {
-                animation_controller.animation_controller_set_state("Idle");
+                animation_controller.animation_controller_set_state("idle-left");
                 if (on_ground) {
                     speed.x = 0;
                 }
@@ -123,7 +123,7 @@ public:
                 animation_controller.animation_controller_set_state("Walking right");
             }
             else if (speed.x > 0) {
-                animation_controller.animation_controller_set_state("Idle");
+                animation_controller.animation_controller_set_state("idle-left");
                 if (on_ground) {
                     speed.x = 0;
                 }

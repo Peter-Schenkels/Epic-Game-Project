@@ -10,7 +10,8 @@ inline void load_textures(std::map<std::string, Picture*>& textures) {
 
 	std::cout << "Loading Textures..." << std::endl;
 	{
-		textures["Player Texture"] = new Picture({ 10,10 }, { 100,100 }, "img/wovo idle.png");
+		textures["idle1"] = new Picture({ 10,10 }, { 100,100 }, "img/wovo idle.png");
+		textures["idle2"] = new Picture({ 10,10 }, { 100,100 }, "img/wovo idle2.png");
 		{
 			textures["backdrop 1"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 1.png");
 			textures["backdrop 2"] = new Picture({ 10,10 }, { 100,100 }, "img/backdrop 2.png");
@@ -95,6 +96,7 @@ inline void load_textures(std::map<std::string, Picture*>& textures) {
 			textures["hook4"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/hook4.png" });
 			textures["map"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor.png" });
 			textures["fishstick"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/fishstick.png" });
+			textures["datapad"] = new Picture({ {0,0}, {32, 64}, "img/datapad.png" });
 
 		}
 	}

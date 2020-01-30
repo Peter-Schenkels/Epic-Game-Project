@@ -26,7 +26,7 @@ public:
 			tiles.push_back(resources[name]);
 			resources[name]->drawable_set_name(name);
 		}
-		crosshair.setOutlineThickness(2);
+		crosshair.setOutlineThickness(10);
 		crosshair.setFillColor({ 000,000,000,000 });
 	}
 

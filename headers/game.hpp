@@ -100,7 +100,8 @@ public:
 				{ "walk1", "walk2","walk3","walk4","walk5","walk6","walk7" }, "Walking left", 50);
 			walking_animation_right = Animation(textures, { 46 , 126 },
 				{ "left1","left2","left3","left4","left5","left6","left7" }, "Walking right", 50);
-			idle_animation = Animation(textures, { 46, 126 }, { "Player Texture", "Player Texture" }, "Idle", 50);
+			idle_animation = Animation(textures, { 46, 126 }, { "idle1", "idle1" }, "idle-right", 50);
+			idle_animation = Animation(textures, { 46, 126 }, { "idle2", "idle2" }, "idle-left", 50);
 
 		}
 
@@ -192,7 +193,7 @@ public:
 				"floor", "wall left", "wall right",
 				"corner1", "corner2","corner3", "corner4",
 				"floor1", "floor2", "floor3", "floor4",
-				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike"
+				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike", "datapad"
 			});
 		level_editor.set_position(player_view.getCenter());
 		portal_set.reset();
@@ -251,6 +252,7 @@ public:
 				}
 			}
 		}
+
 		else {
 			for (auto drawable : void_drawables) {
 				if (drawable->drawable_hitbox_contains_point(location) && selected == false) {
@@ -473,9 +475,8 @@ public:
 		if (overworld) {
 			for (auto drawable : drawables) {
 				drawable->drawable_update();
-				if (player.player_collision(drawable) & drawable->drawable_get_name() == "fishstick") {
+				if (player.player_collision(drawable) & drawable->drawable_get_name() == "datapad") {
 					win();
-					break;
 				}
 				player.player_collision(drawable);
 			}
