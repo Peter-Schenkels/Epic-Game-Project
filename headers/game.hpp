@@ -110,7 +110,7 @@ public:
 
 		// Load all drawable objects
 		std::cout << "Loading objects..." << std::endl;
-		load_level();
+		game_load_level();
 		std::cout << "Loading objects completed" << std::endl;
 
 		// Create a random seed and set a range for the amount of different background textures
@@ -163,7 +163,7 @@ public:
 		dimension_switch.setBuffer(dimension_switch_buffer);
 
 		// Death sound
-		if (!death_sound_buffer.loadFromFile("sounds/death_sound.wav")) {
+		if (!death_sound_buffer.loadFromFile("sounds/death_sound.ogg")) {
 			std::cout << "Death sound not loaded\n";
 		}
 		death_sound.setBuffer(death_sound_buffer);
@@ -202,14 +202,15 @@ public:
 				"floor", "wall left", "wall right",
 				"corner1", "corner2","corner3", "corner4",
 				"floor1", "floor2", "floor3", "floor4",
-				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike", "datapad"
+				"hook1", "hook2", "hook3", "hook4", "map", "fishstick", "spike", "datapad", "text1", "text2", "text3", "text4"
 			});
 		level_editor.set_position(player_view.getCenter());
 		portal_set.set_reset_location({ start_position.x - 100, start_position.y });
 	}
 
 	// Loads the drawables into the vectors for corresponding level
-	void load_level() {
+	void game_load_level() {
+		overworld = true;
 		drawables = drawable_object_read(level_selector.get_current_level().overworld, textures, start_position);
 		void_drawables = drawable_object_read(level_selector.get_current_level().voidworld, textures, start_position);
 		player.drawable_set_position(start_position);
@@ -369,14 +370,14 @@ public:
 			new_music = true;
 			save();
 			level_selector.next_level();
-			load_level();
+			game_load_level();
 		}
 		else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num8) {
 			stop_music();
 			new_music = true;
 			save();
 			level_selector.previous_level();
-			load_level();
+			game_load_level();
 		}
 		else if (key_event.type == sf::Event::KeyPressed && edit) {
 			// Move around the editing view with the arrow keys
@@ -476,7 +477,7 @@ public:
 
 		while (timer.getElapsedTime().asSeconds() < 10);
 		level_selector.next_level();
-		load_level();
+		game_load_level();
 		new_music = true;
 	}
 
@@ -514,19 +515,20 @@ public:
 		else {
 			window.setView(game_edit_view);
 		}
-		
-		// Intersect with portals and swap to the correct dimension
-		if (player.player_intersect(p1.drawable_get_hitbox()) && overworld == p1.drawable_get_dimension()) {
-			portal_teleport.play();
-			portal_set.linked_portals_teleport(player, p1);
-			overworld = p2.drawable_get_dimension();
-			player.input_cooldown();
-		}
-		else if (player.player_intersect(p2.drawable_get_hitbox()) && overworld == p2.drawable_get_dimension()) {
-			portal_teleport.play();
-			portal_set.linked_portals_teleport(player, p2);
-			overworld = p1.drawable_get_dimension();
-			player.input_cooldown();
+		if (p1.portal_placed_get() && p2.portal_placed_get()) {
+			// Intersect with portals and swap to the correct dimension
+			if (player.player_intersect(p1.drawable_get_hitbox()) && overworld == p1.drawable_get_dimension()) {
+				portal_teleport.play();
+				portal_set.linked_portals_teleport(player, p1);
+				overworld = p2.drawable_get_dimension();
+				player.input_cooldown();
+			}
+			else if (player.player_intersect(p2.drawable_get_hitbox()) && overworld == p2.drawable_get_dimension()) {
+				portal_teleport.play();
+				portal_set.linked_portals_teleport(player, p2);
+				overworld = p1.drawable_get_dimension();
+				player.input_cooldown();
+			}
 		}
 		p1.drawable_update();
 		p2.drawable_update();
@@ -605,7 +607,7 @@ public:
 		window.display();
 	}
 
-	int Run() {
+	int run() {
 		bool running = true;
 		new_music = true;
 		

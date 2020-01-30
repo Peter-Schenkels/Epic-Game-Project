@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef TEXTURE_LOADING_CPP
 #define TEXTURE_LOADING_CPP
 
@@ -97,7 +99,11 @@ inline void load_textures(std::map<std::string, Picture*>& textures) {
 			textures["map"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/floor.png" });
 			textures["fishstick"] = new Picture({ {0,0}, {100, 100}, "img/void tiles/fishstick.png" });
 			textures["datapad"] = new Picture({ {0,0}, {100, 100}, "img/datapad.png" });
-
+			textures["text1"] = new Picture({ {0,0}, {270, 110}, "img/text1.png" });
+			textures["text2"] = new Picture({ {0,0}, {270, 110}, "img/text2.png" });
+			textures["text3"] = new Picture({ {0,0}, {270, 110}, "img/text3.png" });
+			textures["text4"] = new Picture({ {0,0}, {270, 110}, "img/text4.png" });
+			textures["text5"] = new Picture({ {0,0}, {270, 110}, "img/text5.png" });
 		}
 	}
 }

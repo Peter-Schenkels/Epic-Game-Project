@@ -6,9 +6,9 @@ Player_Hitbox::Player_Hitbox(sf::Vector2f position, sf::Vector2f size) :
     size(size),
     left(sf::Vector2f{ 0, size.y / 2 }),
     right{ sf::Vector2f{0, size.y / 2} },
-    top({ size.x - size.x / 8, 0 }),
+    top({ size.x - size.x / 2, 0 }),
     bottom({ size.x - size.x / 2, 0 }),
-    core({ size.x / 3, size.y / 3 }),
+    core({ size.x / 2, size.y / 2 }),
     touch({ size.x - size.x / 8, size.y }),
     box(size)
 {
@@ -25,9 +25,9 @@ void Player_Hitbox::Player_Hitbox_update(sf::Vector2f new_position) {
     position = new_position;
     left.setPosition({ position.x, position.y + size.y / 4 });
     right.setPosition({ position.x + 1 + size.x, position.y + size.y / 4 });
-    top.setPosition(position);
+    top.setPosition({ position.x + size.x / 4, position.y});
     bottom.setPosition({ position.x + size.x / 4, position.y + size.y });
-    core.setPosition({ position.x + size.x / 6, position.y + size.y / 6 });
+    core.setPosition({ position.x + size.x / 4, position.y + size.y / 4 });
     touch.setPosition({ position.x + size.x / 8, position.y });
     box.setPosition(position);
 }

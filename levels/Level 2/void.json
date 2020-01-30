@@ -331,6 +331,104 @@
 				"position_y" : 2700.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2100.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2200.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2300.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2400.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2500.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 2600.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2700.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2700.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2700.0,
+				"position_y" : 2500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2800.0,
+				"position_y" : 2600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2800.0,
+				"position_y" : 2700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor1",
+				"position_x" : 2700.0,
+				"position_y" : 2400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor1",
+				"position_x" : 2800.0,
+				"position_y" : 2400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "map",
+				"position_x" : 2800.0,
+				"position_y" : 2500.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
 			}
 		]
 	},

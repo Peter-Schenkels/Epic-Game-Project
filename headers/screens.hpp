@@ -3,7 +3,7 @@
 
 class Screens {
 public:
-	virtual int Run() = 0;
+	virtual int run() = 0;
 };
 
 #endif

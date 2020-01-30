@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 	//Game platformer(window);
 	window.setFramerateLimit(FRAME_RATE);
 	std::cout << "Starting game..." << std::endl;
-	main_menu s0(window);
+	Main_Menu s0(window);
 	Screens.push_back(&s0);
 	Game platformer(window);
 	Screens.push_back(&platformer);
@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 
 	//Main loop
 	while (screen >= 0) {
-		screen = Screens[screen]->Run();
+		screen = Screens[screen]->run();
 	}
 
 	return EXIT_SUCCESS;

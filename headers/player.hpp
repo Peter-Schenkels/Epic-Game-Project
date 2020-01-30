@@ -62,7 +62,9 @@ public:
 
     // Draw the player
     void drawable_draw(sf::RenderWindow& window) override {
+
         body->drawable_draw(window);
+
     }
 
     // Update the player
@@ -187,12 +189,12 @@ public:
      
         // Check if a sf::FloatRect collides with the right  or left side of the hitbox
         if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
-            speed.x = 0;
+            speed.x = -0.5;
             location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
             return true;
         }
         if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox())){
-            speed.x = 0;
+            speed.x = 0.5;
             location.x = object->drawable_get_hitbox().left - drawable_get_size().x;
             return true;
         }

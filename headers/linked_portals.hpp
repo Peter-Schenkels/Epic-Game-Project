@@ -84,6 +84,7 @@ public:
 			portal_1.drawable_set_position(loc);
 			portal_1.portal_set_entrance(entrance);
 			portal_1.portal_align();
+			portal_1.portal_placed_set(true);
 		}
 		// Set portal-2 if this is the portal that has changed locations
 		else {
@@ -91,17 +92,20 @@ public:
 			portal_2.drawable_set_position(loc);
 			portal_2.portal_set_entrance(entrance);
 			portal_2.portal_align();
+			portal_2.portal_placed_set(true);
 		}
 	}
 
 	void set_reset_location(sf::Vector2f new_reset_location) {
-		reset_location = new_reset_location;
+		reset_location = { 0,0 };
 		reset();
 	}
 
 	void reset() {
 		portal_1.drawable_set_position(reset_location);
 		portal_2.drawable_set_position(reset_location);
+		portal_1.portal_placed_set(false);
+		portal_2.portal_placed_set(false);
 	}
 	// Prints all portals coordinates
 	void linked_portals_print_portals() {
@@ -134,27 +138,30 @@ public:
 
 	// Teleport the player in between portals
 	void linked_portals_teleport(Player& player, Portal entry) {
-		bool portal = entry.portal_get_order();
+		
+			bool portal = entry.portal_get_order();
 
 		// Select which portal to teleport to; if entry is true the point of entry is portal_1, otherwise it's portal_2
-		if (portal) { // Player teleports from p1 to p2
-			player.drawable_set_position(portal_2.drawable_get_location());
+		
+			if (portal) { // Player teleports from p1 to p2
+				player.drawable_set_position(portal_2.drawable_get_location());
 
-			// Change momentum of the player to match the difference in angles between the portals
-			change_momentum[portal_1.portal_get_entrance()][portal_2.portal_get_entrance()](player);
+				// Change momentum of the player to match the difference in angles between the portals
+				change_momentum[portal_1.portal_get_entrance()][portal_2.portal_get_entrance()](player);
 
-			// Teleport next to destination instead of inside of the other portal to prevent endless teleporting loops
-			linked_portals_set_offset(player, portal_2);
-		}
-		else { // Player teleports from p2 to p1
-			player.drawable_set_position(portal_1.drawable_get_location());
+				// Teleport next to destination instead of inside of the other portal to prevent endless teleporting loops
+				linked_portals_set_offset(player, portal_2);
+			}
+			else { // Player teleports from p2 to p1
+				player.drawable_set_position(portal_1.drawable_get_location());
 
-			// Change momentum of the player to match the difference in angles between the portals
-			change_momentum[portal_2.portal_get_entrance()][portal_1.portal_get_entrance()](player);
+				// Change momentum of the player to match the difference in angles between the portals
+				change_momentum[portal_2.portal_get_entrance()][portal_1.portal_get_entrance()](player);
 
-			// Teleport next to destination instead of inside of the other portal to prevent endless teleporting loops
-			linked_portals_set_offset(player, portal_1);
-		}
+				// Teleport next to destination instead of inside of the other portal to prevent endless teleporting loops
+				linked_portals_set_offset(player, portal_1);
+			}
+		
 	}
 };
 

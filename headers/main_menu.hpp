@@ -6,7 +6,7 @@
 #include <SFML/Audio.hpp>
 #include "screens.hpp"
 
-class main_menu : public Screens {
+class Main_Menu : public Screens {
 private:
 	bool playing;
 	sf::Music main_menu_music;
@@ -20,7 +20,7 @@ private:
 	int menu = 0;
 
 public:
-	main_menu(sf::RenderWindow& window) :
+	Main_Menu(sf::RenderWindow& window) :
 		window(window)
 	{
 		playing = false;
@@ -55,7 +55,7 @@ public:
 		menu_continue.setString("Continue");
 		menu_continue.setPosition({ 865.f, 500.f });
 	};
-	int Run() {
+	int run() {
 
 		bool Running = true;
 		sf::Event Event;

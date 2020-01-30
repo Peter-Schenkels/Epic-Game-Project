@@ -14,6 +14,7 @@ protected:
 	float rotation = 0;
 	bool order;
 	sf::Vector2f portal_size;
+	bool placed = false;
 
 	
 public:
@@ -53,6 +54,16 @@ public:
 		//std::cout << location.x << " " << location.y << std::endl;
 		hitbox = sf::FloatRect(location.x -32 , location.y -32 , 64 , 64);
 
+	}
+
+	// To get first time placement
+	bool portal_placed_get() {
+		return placed;
+	}
+
+	// for first time placement
+	void portal_placed_set(bool new_value) {
+		placed = new_value;
 	}
 
 	// Set entrance
