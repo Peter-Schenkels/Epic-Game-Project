@@ -1,5 +1,10 @@
 #include "game.hpp"
 
+// game.cpp
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
+// Contains all functions for the Game class
+
+
 // Constructor
 Game::Game(sf::RenderWindow& window) :
 	window(window)
@@ -21,13 +26,12 @@ Game::Game(sf::RenderWindow& window) :
 			{ "left1","left2","left3","left4","left5","left6","left7" }, "Walking right", 50);
 		idle_animation_right = Animation(textures, { 46, 126 }, { "idle1", "idle1" }, "idle-right", 50);
 		idle_animation_left = Animation(textures, { 46, 126 }, { "idle2", "idle2" }, "idle-left", 50);
-
 	}
 
-	// Load all drawable objects
-	std::cout << "Loading objects..." << std::endl;
+	// Load all drawable objects from json files
+	//std::cout << "Loading objects..." << std::endl;
 	game_load_level();
-	std::cout << "Loading objects completed" << std::endl;
+	//std::cout << "Loading objects completed" << std::endl;
 
 	// Create a random seed and set a range for the amount of different background textures
 	std::random_device rd;
@@ -54,12 +58,13 @@ Game::Game(sf::RenderWindow& window) :
 	player = Player(start_position, { 46 , 126 }, { walking_animation_right, walking_animation_left, idle_animation_right, idle_animation_left });
 	p1 = Portal({ 50, 50 }, { 64, 128 }, "RIGHT", { portal_animation_purple }, true);
 	p2 = Portal({ 200, 150 }, { 64, 128 }, "RIGHT", { portal_animation_green }, false);
+	
+	// Create different field of views for the player and the edit mode
 	game_edit_view.setCenter(start_position);
 	game_edit_view.zoom(1.5);
-
 	player_view.zoom(float(0.85));
 
-	// Creates the sound and music
+	// Creates the sounds and music
 	// Shoot sound
 	if (!portal_shoot_buffer.loadFromFile("sounds/portal_shooting.ogg")) {
 		std::cout << "Portal shooting sound not loaded\n";
@@ -111,8 +116,7 @@ Game::Game(sf::RenderWindow& window) :
 	level3_background.setLoop(true);
 	musicList.push_back(&level3_background);
 
-	/*player_view.setCenter(100, 100);
-	window.setView(player_view);*/
+	// Creates the level editor
 	level_editor = Level_Editor(textures,
 		{
 			"filling", "floor down","corner left down","corner left",
@@ -126,8 +130,11 @@ Game::Game(sf::RenderWindow& window) :
 			"cross", "arrow left", "arrow right", "arrow up", "arrow down"
 		});
 	level_editor.set_position(player_view.getCenter());
-	portal_set.set_reset_location({ start_position.x - 100, start_position.y });
+
+	// Sets a standard location for the portals
+	portal_set.set_reset_location({ 0, 0 });
 }
+
 
 // Loads the drawables into the vectors for corresponding level
 void Game::game_load_level() {
@@ -136,7 +143,7 @@ void Game::game_load_level() {
 	void_drawables = drawable_object_read(level_selector.get_current_level().voidworld, textures, start_position);
 	player.drawable_set_position(start_position);
 	player.player_set_speed({ 0,0 });
-	portal_set.set_reset_location({ start_position.x - 100, start_position.y });
+	portal_set.set_reset_location({ 0, 0 });
 }
 
 // Changes whether the user can edit the level
@@ -149,26 +156,29 @@ bool Game::game_get_edit() {
 	return edit;
 }
 
+// Pause the music
 void Game::pause_music() {
 	for (auto music : musicList) {
 		music->pause();
 	}
 }
 
+// Stop the music
 void Game::stop_music() {
 	for (auto music : musicList) {
 		music->stop();
 	}
 }
 
+// Change the music depending on the level
 void Game::change_music(int level) {
-	std::cout << "changing music";
+	//std::cout << "changing music";
 	musicList[level - 1]->play();
 }
 
-// Selects which drawable item has to be moved by the level editor
+// Selects which drawable item has to be edited by the level editor
 void Game::game_select(sf::Vector2f location) {
-	std::cout << "selected\n";
+	//std::cout << "selected\n";
 	bool selected = false;
 
 	// Select a drawable item from the overworld or the void depending on which dimension is currently displayed
@@ -183,7 +193,6 @@ void Game::game_select(sf::Vector2f location) {
 			}
 		}
 	}
-
 	else {
 		for (auto drawable : void_drawables) {
 			if (drawable->drawable_hitbox_contains_point(location) && selected == false) {
@@ -225,7 +234,7 @@ std::vector<Drawable*> Game::game_get_drawables() {
 	return drawables;
 }
 
-// Saves the current level
+// Saves the current level to json file
 void Game::save() {
 	drawable_object_write(level_selector.get_current_level().overworld, drawables, start_position);
 	drawable_object_write(level_selector.get_current_level().voidworld, void_drawables, start_position);
@@ -287,6 +296,7 @@ void Game::game_act_on_key(sf::Event key_event) {
 		overworld = !overworld;
 	}
 	else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num9) {
+		// Go to the next level
 		stop_music();
 		new_music = true;
 		save();
@@ -294,6 +304,7 @@ void Game::game_act_on_key(sf::Event key_event) {
 		game_load_level();
 	}
 	else if (key_event.type == sf::Event::KeyReleased && key_event.key.code == sf::Keyboard::Num8) {
+		// Go to the previous level
 		stop_music();
 		new_music = true;
 		save();
@@ -308,12 +319,11 @@ void Game::game_act_on_key(sf::Event key_event) {
 			view_move_key(key_event);
 		}
 	}
-
 }
 
 // Delete object from the game
 void Game::game_delete_object(sf::Vector2f location) {
-	std::cout << "deleted\n";
+	//std::cout << "deleted\n";
 	if (overworld) {
 		for (auto& drawable : drawables) {
 			if (drawable->drawable_get_selected()) {
@@ -357,10 +367,12 @@ void Game::game_get_input() {
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+		// Go to pause menu
 		esc = true;
 		pause_music();
-		std::cout << "esc pressed" << std::endl;
+		//std::cout << "esc pressed" << std::endl;
 	}
+
 	// Shoot the portal
 	sf::Event key_event;
 	window.pollEvent(key_event);
@@ -369,12 +381,11 @@ void Game::game_get_input() {
 		game_shoot_portal(sf::Mouse::isButtonPressed(sf::Mouse::Left));
 		portal_placement_delay.restart();
 	}
-
-
-	// Check for all other events
 }
 
+// Change the game upon the player winning the current level
 void Game::win() {
+	// Play a special song
 	stop_music();
 	sf::Clock timer;
 	sf::Font Font;
@@ -387,11 +398,10 @@ void Game::win() {
 		wintext.setFont(Font);
 	}
 
+	// Write completion text
 	wintext.setCharacterSize(100);
 	if (level_selector.get_level_index() == 3) {
 		wintext.setString("Game Cleared");
-		/*level_selector.previous_level();
-		level_selector.previous_level();*/
 	}
 	else {
 		wintext.setString("Course Cleared");
@@ -404,8 +414,10 @@ void Game::win() {
 	window.draw(wintext);
 	window.display();
 
+	// Wait a while before going to the next level
 	while (timer.getElapsedTime().asSeconds() < 10);
 
+	// Select the correct next level and load it
 	if (level_selector.get_level_index() == 3) {
 		level_selector.previous_level();
 		level_selector.previous_level();
@@ -418,9 +430,7 @@ void Game::win() {
 	new_music = true;
 }
 
-
-
-// Updates the game staete
+// Updates the game state
 void Game::game_update() {
 	player.drawable_update();
 	// Update overworld or void depending on which one the player finds themselves currently in
@@ -451,6 +461,7 @@ void Game::game_update() {
 	else {
 		window.setView(game_edit_view);
 	}
+	// Only teleport if both portals have been placed at least once
 	if (p1.portal_placed_get() && p2.portal_placed_get()) {
 		// Intersect with portals and swap to the correct dimension
 		if (player.player_intersect(p1.drawable_get_hitbox()) && overworld == p1.drawable_get_dimension()) {
@@ -468,41 +479,41 @@ void Game::game_update() {
 	}
 	p1.drawable_update();
 	p2.drawable_update();
+	// Change music if necessary
 	if (new_music) {
 		change_music(level_selector.get_level_index());
 		new_music = false;
 	}
 }
 
-
+// Check for whether the player has died and display the black fade-in when respawning
 void Game::check_player_death() {
-
 	dead = player.player_get_dead();
 
+	// If the player just died
 	if (dead == 155) {
 		death_sound.play();
 		portal_set.reset();
 		player.player_respawn();
-		fade_out.setOrigin(sf::Vector2f{ 960, 540 });
+		fade_in.setOrigin(sf::Vector2f{ 960, 540 });
 		overworld = true;
 	}
 
+	// Fade-in for a certain amount of time
 	if (dead > 0) {
-		fade_out.setPosition(player.drawable_get_location());
+		fade_in.setPosition(player.drawable_get_location());
 		sf::Uint8 temp = dead + 100;
 		sf::Color filler = { 0, 0, 0, temp };
-		fade_out.setFillColor(filler);
+		fade_in.setFillColor(filler);
 		dead -= 1;
-		window.draw(fade_out);
-		std::cout << dead << "\n";
+		window.draw(fade_in);
+		//std::cout << dead << "\n";
 	}
 	player.player_set_dead(dead);
-
 }
 
 // Draw the current game state
 void Game::game_draw() {
-
 	window.clear();
 	// Draw the background first
 	if (overworld) {
@@ -540,19 +551,20 @@ void Game::game_draw() {
 	}
 
 	check_player_death();
-
 	window.display();
 }
 
+// Run the game
 int Game::run() {
 	bool running = true;
 	new_music = true;
 
+	// Switch between the game and the menu screen
 	while (running) {
 		game_get_input();
 		if (esc == true) {
 			esc = false;
-			std::cout << "to main menu" << std::endl;
+			//std::cout << "to main menu" << std::endl;
 			window.setView(sf::View({ 960,540 }, { 1920, 1080 }));
 			return(0);
 		}

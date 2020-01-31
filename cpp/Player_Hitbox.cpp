@@ -1,6 +1,12 @@
+// Player_Hitbox.cpp
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
+// Contains all functions for the Player_Hitbox class
+
+
 #include "player_hitbox.hpp"
 
 
+// Constructor
 Player_Hitbox::Player_Hitbox(sf::Vector2f position, sf::Vector2f size) :
     position(position),
     size(size),
@@ -21,6 +27,7 @@ Player_Hitbox::Player_Hitbox(sf::Vector2f position, sf::Vector2f size) :
     core.setOutlineThickness(1.f);
 }
 
+// Update the hitbox
 void Player_Hitbox::Player_Hitbox_update(sf::Vector2f new_position) {
     position = new_position;
     left.setPosition({ position.x, position.y + size.y / 4 });
@@ -32,6 +39,7 @@ void Player_Hitbox::Player_Hitbox_update(sf::Vector2f new_position) {
     box.setPosition(position);
 }
 
+// Draw the hitbox
 void Player_Hitbox::Player_Hitbox_draw(sf::RenderWindow& window) {
     window.draw(left);
     window.draw(right);
@@ -40,6 +48,7 @@ void Player_Hitbox::Player_Hitbox_draw(sf::RenderWindow& window) {
     window.draw(core);
 }
 
+// Check whether this certain part of the hitbox collides with an object
 bool Player_Hitbox::Player_Hitbox_left_side_intersect(sf::FloatRect collider) {
     return left.getGlobalBounds().intersects(collider);
 }
@@ -56,7 +65,6 @@ bool Player_Hitbox::Player_Hitbox_bottom_side_intersect(sf::FloatRect collider) 
     return bottom.getGlobalBounds().intersects(collider);
 }
 
-
 bool Player_Hitbox::Player_Hitbox_core_intersect(sf::FloatRect collider) {
     return core.getGlobalBounds().intersects(collider);
 }
@@ -65,10 +73,7 @@ bool Player_Hitbox::Player_Hitbox_touch_intersect(sf::FloatRect collider) {
     return touch.getGlobalBounds().intersects(collider);
 }
 
+// Return the hitbox outerbounds
 sf::FloatRect Player_Hitbox::Player_Hitbox_get_outerbounds() {
     return box.getGlobalBounds();
 }
-
-
-
-

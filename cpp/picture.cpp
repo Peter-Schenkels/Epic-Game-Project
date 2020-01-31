@@ -1,10 +1,10 @@
 #include "drawables.hpp"
 
 // picture.cpp
-
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
 // Contains all functions for the picture subclass
 
-// Constructor that stores the given location and link to the texture
+// Constructor that stores the given location, size and link to the texture
 Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 	Drawable(location, size, "PICTURE", "none"),
 	size(size),
@@ -15,10 +15,9 @@ Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link) :
 	sprite.setTexture(texture);
 	sprite.setPosition(location);
 	picture_set_size(size);
-
 }
 
-// Constructor that stores the given location and link to the texture and specific name
+// Constructor that stores the given location,size, link to the texture and a specific name for the object
 Picture::Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name) :
 	Drawable(location, size, name, "none"),
 	size(size),
@@ -38,7 +37,6 @@ void Picture::picture_set_size(sf::Vector2f new_size) {
 	sf::Vector2f new_factor((new_size.x / size.x),
 	(new_size.y / size.y));
 	sprite.setScale(new_factor);
-
 }
 
 // Draws the picture
@@ -62,9 +60,10 @@ void Picture::drawable_update() {
 // Sets picture scale
 void Picture::picture_set_scale(sf::Vector2f scale) { sprite.setScale(scale); }
 
-// Returns pciture scale
+// Returns picture scale
 sf::Vector2f Picture::picture_get_scale() { return sprite.getScale(); }
 
+// Sets picture offset
 void Picture::picture_set_offset(sf::Vector2f new_offset) { offset = new_offset; };
 
 // Sets picture color
@@ -75,4 +74,3 @@ void Picture::picture_set_rotation(float rotation) { sprite.setRotation(rotation
 
 // Sets origin of picture
 void Picture::picture_set_origin(sf::Vector2f origin) { sprite.setOrigin(origin); }
-

@@ -2,9 +2,8 @@
 #define DRAWABLES_HPP
 
 // drawable.hpp
-// Daniel van Eijk-Bos Bulkowski, 02-Dec-19, Version 1
-
-// Contains all classes that can be read from and written to a file
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
+// Contains the drawable superclass and the simpler drawable subclasses: Circle, Picture and Rectangle
 
 #include <functional>
 #include <SFML/Graphics.hpp>
@@ -15,8 +14,8 @@
 #include <map>
 
 
-class Drawable {
 // Superclass for all the of the objects that can be used
+class Drawable {
 protected:
 	// Location of the object and a bool to remember whether an object has been selected by the user
 	sf::Vector2f location;
@@ -25,17 +24,21 @@ protected:
 	std::string type;
 	std::string color;
 	bool in_over_world;
-	sf::RectangleShape visual_hitbox; // for debuggen
-	std::string name; // optional member if you want to find the object by ID
+	// Visible hitbox for debugging purposes
+	sf::RectangleShape visual_hitbox;
+	// Optional member for finding drawables by name
+	std::string name;
 
 public:
 	// Default Constructor
 	Drawable(){}
-	// Constructor for drawable objects that use a size parameter
+
+	// Constructor for drawable objects that uses a size parameter
 	Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, std::string color);
 
-	// Constructor for drawable objects that use a radius parameter
+	// Constructor for drawable objects that uses a radius parameter
 	Drawable(sf::Vector2f location, float radius, std::string type, std::string color);
+
 
 	// Returns whether the object has been selected by the user or not
 	bool drawable_get_selected();
@@ -87,8 +90,8 @@ public:
 	virtual void drawable_update() = 0;
 };
 
+// Subclass of drawable for objects with a sprite
 class Picture : public Drawable {
-// Subclass of drawable for picture objects
 protected:
 	// The sprite, texture and link to the texture for the object
 	sf::Sprite sprite;
@@ -100,13 +103,15 @@ protected:
 	sf::Vector2f offset = { 0,0 };
 
 public:
-
 	// Default constructor
 	Picture() {}
-	// Constructor that stores the given location and link to the texture
+
+	// Constructor that stores the given location, size and link to the texture
 	Picture(sf::Vector2f location, sf::Vector2f size, std::string link);
 
+	// Constructor that also accepts a name for the object
 	Picture(sf::Vector2f location, sf::Vector2f size, std::string link, std::string name);
+
 
 	// Draws the picture
 	void drawable_draw(sf::RenderWindow& window) override;
@@ -126,6 +131,7 @@ public:
 	// Returns pciture scale
 	sf::Vector2f picture_get_scale();
 
+	// Set picture offset
 	void picture_set_offset(sf::Vector2f new_offset);
 
 	// Sets picture color
@@ -136,11 +142,10 @@ public:
 
 	// Sets origin of picture
 	void picture_set_origin(sf::Vector2f origin);
-
 };
 
-class Circle : public Drawable {
 // Subclass of drawable for circle objects
+class Circle : public Drawable {
 protected:
 	// Shape of the circle, radius of the circle and the color of the circle that is read from the file
 	sf::CircleShape shape;
@@ -162,8 +167,8 @@ public:
 };
 
 
-class Rectangle : public Drawable {
 // Subclass of drawable for rectangle objects
+class Rectangle : public Drawable {
 protected:
 	// Shape, size and image of the rectangle
 	sf::RectangleShape shape;
@@ -174,8 +179,7 @@ protected:
 	sf::Vector2f next_position = { 0,0 };
 
 public:
-
-	// Constructor for the rectangle class that stores the given location, size and color for the rectangle
+	// Constructor for the rectangle class that stores the given location, size and picture for the rectangle
 	Rectangle(sf::Vector2f location, sf::Vector2f size, Picture* sprite);
 
 	// Function that draws the rectangle
@@ -186,7 +190,6 @@ public:
 
 	// Update the rectangle
 	void drawable_update() override;
-
 };
 
 

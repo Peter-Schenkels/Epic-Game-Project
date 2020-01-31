@@ -1,9 +1,14 @@
+// player.cpp
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
+// Contains all functions for Player class
+
+
 #include "player.hpp"
 
+// Constructor
 Player::Player(sf::Vector2f position, sf::Vector2f size, std::vector<Animation> animations) :
     Drawable(position, size, "player", "White"),
     collision_box(position, size)
-
 {
     // Load the set of sprites as an animation
     animation_controller = Animation_Controller(animations);
@@ -32,9 +37,7 @@ void Player::set_picture(Picture* sprite) {
 
 // Draw the player
 void Player::drawable_draw(sf::RenderWindow& window) {
-
     body->drawable_draw(window);
-
 }
 
 // Update the player
@@ -63,6 +66,7 @@ void Player::player_set_static(bool boolean) {
     floating = boolean;
 }
 
+// Prevent portal spamming
 void Player::input_cooldown() {
     timer.restart();
 }
@@ -70,13 +74,12 @@ void Player::input_cooldown() {
 // Handles all input events
 void Player::player_input(sf::Event event) {
     if (timer.getElapsedTime().asMilliseconds() > 200) {
-
-        // If key up is pressed: jump!
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N)) && on_ground) {
+        // If key W or spacebar is pressed: jump!
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) && on_ground) {
             speed.y = float(-1 * (jump_speed + 0.01));
 
         }
-        // If key left is pressed: move left!
+        // If key A is pressed: move left!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
             speed.x = -7;
             animation_controller.animation_controller_set_state("Walking left");
@@ -89,9 +92,8 @@ void Player::player_input(sf::Event event) {
             else {
                 speed.x += float(0.5);
             }
-            std::cout << speed.x << "\n";
         }
-        // If key right is pressed: move right!
+        // If key D is pressed: move right!
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
             speed.x = 7;
             animation_controller.animation_controller_set_state("Walking right");
@@ -125,24 +127,29 @@ void Player::player_respawn() {
 
 // Collision detection between a player and a sf::FloatRect
 bool Player::player_collision(Drawable* object) {
-
     std::string object_name = object->drawable_get_name();
 
     // If the object shouldn't collide with player put the name right here
     if (object_name == "arrow left" or object_name == "arrow right" or object_name == "arrow up"
-        or object_name == "arrow down" or object_name == "cross") return 0;
+        or object_name == "arrow down" or object_name == "cross") {
+        return 0;
+    }
 
+    // Collision with main body with player, which means the player teleported inside of something and dies
     if (collision_box.Player_Hitbox_core_intersect(object->drawable_get_hitbox()) && dead == 0) {
         dead = 155;
         return true;
     }
-    // Check if a sf::FloatRect collides with the body of Mr. wo
+
+    // Check if a sf::FloatRect collides with the body of the player
     if (collision_box.Player_Hitbox_touch_intersect(object->drawable_get_hitbox())) {
-        // If the object is a spike kill mr wo
+        // If the object is a spike kill the player
         if (object->drawable_get_name() == "spike") {
             dead = 155;
         }
     }
+
+    // Set the on_ground variable
     if (speed.y == float(-0.00001)) {
         on_ground = true;
     }
@@ -150,13 +157,10 @@ bool Player::player_collision(Drawable* object) {
         on_ground = false;
     }
 
-    // Check if a sf::FloatRect collides with the bottom  or top of the hitbox
+    // Check if a sf::FloatRect collides with the bottom or top of the hitbox
     if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox())) {
         location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
         speed.y = float(-0.00001);
-
-
-
         return true;
     }
     else if (collision_box.Player_Hitbox_top_side_intersect(object->drawable_get_hitbox())) {
@@ -176,9 +180,9 @@ bool Player::player_collision(Drawable* object) {
         return true;
     }
     return false;
-
 }
-//check if player hitbox intersect with object mainly used for portal detection
+
+// Check if player hitbox intersect with an object, used for portals to keep the momentum going
 bool Player::player_intersect(sf::FloatRect collide) {
     return collision_box.Player_Hitbox_core_intersect(collide) ||
         collision_box.Player_Hitbox_left_side_intersect(collide) ||

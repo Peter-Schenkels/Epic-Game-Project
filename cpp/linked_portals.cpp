@@ -1,16 +1,24 @@
+// linked_portals.cpp
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
+// Contains all functions for Linked_Portals class
+
+
 #include "linked_portals.hpp"
 
+// Constructor
 Linked_Portals::Linked_Portals(Portal& first, Portal& second) :
 	portal_1(first),
 	portal_2(second)
 {
+	// Creates a map filled with lambda functions that with the correct ways to change the players momentum when
+	// entering portals
 	std::array<std::string, 4> orientations = { "TOP", "LEFT", "BOTTOM", "RIGHT" };
 	bool swap;
 	sf::Vector2f multiplier;
 	float factor = float(0.65);
 	for (unsigned int i = 0; i < 4; i++) {
 		for (unsigned int j = 0; j < 4; j++) {
-			// Select the correct multiplier for all possible combinations of 
+			// Select the correct multiplier and swap for all possible combinations of 
 			// 0 = TOP, 1 = LEFT, 2 = BOTTOM, 3 = RIGHT
 
 			// Combinations that invert the Y-axis
@@ -54,6 +62,7 @@ Linked_Portals::Linked_Portals(Portal& first, Portal& second) :
 	reset();
 }
 
+
 // Replace an existing portal
 void Linked_Portals::linked_portals_portal_set(sf::Vector2f loc, std::string entrance, bool order, bool overworld) {
 	// Set portal_1 if this is the portal that has changed locations
@@ -74,17 +83,20 @@ void Linked_Portals::linked_portals_portal_set(sf::Vector2f loc, std::string ent
 	}
 }
 
+// Set new reset_location
 void Linked_Portals::set_reset_location(sf::Vector2f new_reset_location) {
-	reset_location = { 0,0 };
+	reset_location = new_reset_location;
 	reset();
 }
 
+// Reset portals
 void Linked_Portals::reset() {
 	portal_1.drawable_set_position(reset_location);
 	portal_2.drawable_set_position(reset_location);
 	portal_1.portal_placed_set(false);
 	portal_2.portal_placed_set(false);
 }
+
 // Prints all portals coordinates
 void Linked_Portals::linked_portals_print_portals() {
 	auto void_loc = portal_1.drawable_get_location();
@@ -116,11 +128,9 @@ void Linked_Portals::linked_portals_set_offset(Player& player, Portal exit) {
 
 // Teleport the player in between portals
 void Linked_Portals::linked_portals_teleport(Player& player, Portal entry) {
-
 	bool portal = entry.portal_get_order();
 
 	// Select which portal to teleport to; if entry is true the point of entry is portal_1, otherwise it's portal_2
-
 	if (portal) { // Player teleports from p1 to p2
 		player.drawable_set_position(portal_2.drawable_get_location());
 

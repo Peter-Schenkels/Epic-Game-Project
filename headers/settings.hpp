@@ -1,5 +1,10 @@
 #pragma once
 
+// settings.hpp
+// Check if a sf::FloatRect collides with the right or left side of the hitbox
+// Contains global settings for game
+
+
 //#define WINDOW_SIZE_X 1000
 //#define WINDOW_SIZE_Y 750
 #define WINDOW_SIZE_X 1920

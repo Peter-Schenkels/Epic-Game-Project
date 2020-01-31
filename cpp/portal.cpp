@@ -1,6 +1,12 @@
+// portal.cpp
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
+// Contains all functions for the Portal class
+
+
 #include "portal.hpp"
 
 
+// Constructor
 Portal::Portal(sf::Vector2f position, sf::Vector2f size, std::string entrance, std::vector<Animation> animations, bool order) :
 	Drawable(position, size, "Portal", "White"),
 	entrance(entrance),
@@ -34,7 +40,6 @@ void Portal::drawable_update() {
 	body->drawable_update();
 	//std::cout << location.x << " " << location.y << std::endl;
 	hitbox = sf::FloatRect(location.x - 32, location.y - 32, 64, 64);
-
 }
 
 // To get first time placement
@@ -42,7 +47,7 @@ bool Portal::portal_placed_get() {
 	return placed;
 }
 
-// for first time placement
+// For first time placement
 void Portal::portal_placed_set(bool new_value) {
 	placed = new_value;
 }
@@ -62,6 +67,7 @@ bool Portal::portal_get_order() {
 	return order;
 }
 
+// Align portal with the surface it's currently stuck on
 void Portal::portal_align() {
 	float rotation;
 	std::array<std::string, 4> orientations{ "RIGHT", "BOTTOM", "LEFT", "TOP" };

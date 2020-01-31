@@ -1,6 +1,10 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+// game.hpp
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
+// Contains game class, which runs the entire game
+
 #include <iostream>
 #include <exception>
 #include "SFML/Audio.hpp"
@@ -19,23 +23,24 @@
 #include "level_selector.hpp"
 #include "screens.hpp"
 
+// Massive class that runs the entire game
 class Game : public Screens {
 protected:
+	sf::RenderWindow& window;
 	// Which dimension is currently being displayed
 	bool overworld = true;
 	// Lists of drawable objects for each of the dimensions
 	std::vector<Drawable*> drawables;
 	std::vector<Drawable*> void_drawables;
-	sf::RenderWindow & window;
 	// Textures for the in-game sprites
 	std::map<std::string, Picture*> textures;
-	// The background for the 2d map
-	TileMap map_overworld;
-	TileMap map_void;
+	// The background for the 2d map for both dimensions
+	Tile_Map map_overworld;
+	Tile_Map map_void;
 	Player player;
-	//Start position of player
+	// Start position of player
 	sf::Vector2f start_position; 
-	// The field of view for the player
+	// The field of view for the player and for the editor
 	sf::View player_view = { { 960,540 },  { 1920, 1080 } };
 	sf::View game_edit_view = { { 960,540 },  { 1920, 1080 } };
 	// The in-game animations
@@ -64,8 +69,9 @@ protected:
 	sf::Music level2_background;
 	sf::Music level3_background;
 	std::vector<sf::Music*> musicList;
-	sf::Clock portal_placement_delay; // For portal placement delay
-	// A map filled with keys and their effects
+	// Clock for portal placement delay
+	sf::Clock portal_placement_delay;
+	// A map filled with keypresses and their effects
 	std::map<sf::Keyboard::Key, sf::Vector2f> moves{};
 	// Boolean that shows whether the user can currently edit the world
 	bool edit = false;
@@ -77,11 +83,13 @@ protected:
 		{LOCATION_OVERWORLD_LEVEL_2, LOCATION_VOID_LEVEL_2 },
 		{LOCATION_OVERWORLD_LEVEL_3, LOCATION_VOID_LEVEL_3 }
 		});
+	// Bool that shows whether the user is in the menu
 	bool esc = false;
+	// Bool for playing different background music
 	bool new_music = true;
+	// Variables for the fade-in when respawning
 	int dead = 0;
-	sf::RectangleShape fade_out{ sf::Vector2f{1920, 1080} };
-	
+	sf::RectangleShape fade_in{ sf::Vector2f{1920, 1080} };
 
 public:
 	// Constructor
@@ -96,13 +104,16 @@ public:
 	// Returns whether the user can edit the level
 	bool game_get_edit();
 
+	// Pauses the music
 	void pause_music();
 
+	// Stops the music
 	void stop_music();
 
+	// Changes the music depending on the level
 	void change_music(int level);
 
-	// Selects which drawable item has to be moved by the level editor
+	// Selects which drawable item has to be edited by the level editor
 	void game_select(sf::Vector2f location);
 
 	// Move the selected drawable object along with where the mouse is
@@ -139,7 +150,7 @@ public:
 	// Draw the current game state
 	void game_draw();
 
-	int run();
+	int run() override;
 };
 
 

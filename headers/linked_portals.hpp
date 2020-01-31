@@ -1,6 +1,10 @@
-
 #ifndef LINKED_PORTALS_HPP
 #define LINKED_PORTALS_HPP
+
+// linked_portals.hpp
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
+// Contains Linked_Portals class
+
 
 #include "player.hpp"
 #include "portal.hpp"
@@ -10,7 +14,7 @@ class Linked_Portals {
 protected:
 	Portal& portal_1;
 	Portal& portal_2;
-
+	// Reset location for portals
 	sf::Vector2f reset_location;
 
 	// The first std::string keys are all of the possible orientations for the entry portal
@@ -20,15 +24,16 @@ protected:
 	std::map<std::string, std::map<std::string, std::function< void(Player&) >>> change_momentum;
 
 public:
-
 	// Constructor
 	Linked_Portals(Portal& first, Portal& second);
 
 	// Replace an existing portal
 	void linked_portals_portal_set(sf::Vector2f loc, std::string entrance, bool order, bool overworld);
 
+	// Set the reset_location
 	void set_reset_location(sf::Vector2f new_reset_location);
 
+	// Reset portals
 	void reset();
 
 	// Prints all portals coordinates

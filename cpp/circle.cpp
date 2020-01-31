@@ -1,10 +1,10 @@
 #include "drawables.hpp"
 
 // circle.cpp
-// Daniel van Eijk-Bos Bulkowski, 02-Dec-19, Version 1
-
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
 // Contains all functions for the circle subclass
 
+// Constructor
 Circle::Circle(sf::Vector2f location, float radius, std::string color) :
 	Drawable(location, radius, "CIRCLE", color),
 	radius(radius)

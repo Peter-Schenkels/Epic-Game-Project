@@ -1,8 +1,7 @@
 #include "drawables.hpp"
 
 // drawable.cpp
-// Daniel van Eijk-Bos Bulkowski, 02-Dec-19, Version 1
-
+// Daniel van Eijk-Bos Bulkowski - Peter Schenkels - Rick van Mourik - Noah Titarsole, 31-Jan-2020, Version 3.4
 // Contains all functions for the drawable superclass
 
 // Constructor for drawable objects that use a size parameter
@@ -14,8 +13,6 @@ Drawable::Drawable(sf::Vector2f location, sf::Vector2f size, std::string type, s
 	color(color),
 	in_over_world(true)
 {}
-
-
 
 // Constructor for drawable objects that use a radius parameter
 Drawable::Drawable(sf::Vector2f location, float radius, std::string type, std::string color) :
