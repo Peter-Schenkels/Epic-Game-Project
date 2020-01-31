@@ -140,16 +140,19 @@ public:
 	// Checks for certain inputs and acts accordingly
 	void game_get_input();
 
+	// Change the game upon the player winning the current level
 	void win();
 
 	// Updates the game staete
 	void game_update();
 
+	// Check for whether the player has died and display the black fade-in when respawning
 	void check_player_death();
 
 	// Draw the current game state
 	void game_draw();
 
+	// Run the game
 	int run() override;
 };
 
