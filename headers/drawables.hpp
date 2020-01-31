@@ -121,21 +121,21 @@ public:
 	void picture_set_size(sf::Vector2f new_size);
 
 	// Sets picture scale
-	void picture_set_scale(sf::Vector2f scale) { sprite.setScale(scale); }
+	void picture_set_scale(sf::Vector2f scale);
 
 	// Returns pciture scale
-	sf::Vector2f picture_get_scale() { return sprite.getScale(); }
+	sf::Vector2f picture_get_scale();
 
-	void picture_set_offset(sf::Vector2f new_offset) { offset = new_offset; };
+	void picture_set_offset(sf::Vector2f new_offset);
 
 	// Sets picture color
-	void picture_set_color(sf::Color color) { sprite.setColor(color); }
+	void picture_set_color(sf::Color color);
 
 	// Sets rotation of picture
-	void picture_set_rotation(float rotation) { sprite.setRotation(rotation); }
+	void picture_set_rotation(float rotation);
 
 	// Sets origin of picture
-	void picture_set_origin(sf::Vector2f origin) { sprite.setOrigin(origin); }
+	void picture_set_origin(sf::Vector2f origin);
 
 };
 

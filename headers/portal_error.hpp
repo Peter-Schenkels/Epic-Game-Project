@@ -1,7 +1,8 @@
+#pragma once
+
 #include <exception>
 #include <string>
 #include <iostream>
-
 
 class No_impact : public std::exception
 {

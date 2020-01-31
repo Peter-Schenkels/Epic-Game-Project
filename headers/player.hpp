@@ -10,7 +10,9 @@
 
 // Class for the player character
 class Player : public Drawable {
+
 private:
+
     sf::Vector2f speed = { 0, 0 };
     Picture* body;
     Player_Hitbox collision_box;
@@ -26,189 +28,55 @@ private:
     Animation_Controller animation_controller;
 
 public:
+
     // Default contructor
     Player() {}
 
     // Constructor 
-    Player(sf::Vector2f position, sf::Vector2f size, std::vector<Animation> animations) :
-        Drawable(position, size, "player", "White"),
-        collision_box(position, size)
-       
-    {
-        // Load the set of sprites as an animation
-        animation_controller = Animation_Controller(animations);
-        // Set starting location and sprite
-        respawn_location = position;
-        animation_controller.animation_controller_set_state("Idle left");
-    }
-
+    Player(
+        sf::Vector2f position, 
+        sf::Vector2f size, 
+        std::vector<Animation> animations
+    );
 
     // Set player speed
-    void player_set_speed(sf::Vector2f new_speed) {
-        speed = new_speed;
-    }
+    void player_set_speed(sf::Vector2f new_speed);
 
     // Get player speed
-    sf::Vector2f player_get_speed() {
-        return speed;
-    }
+    sf::Vector2f player_get_speed();
 
     // Sets the displayed picture to a new sprite
-    void set_picture(Picture* sprite) {
-        if (sprite != body) {
-            body = sprite;
-        }
-    }
+    void set_picture(Picture* sprite);
 
     // Draw the player
-    void drawable_draw(sf::RenderWindow& window) override {
-
-        body->drawable_draw(window);
-
-    }
+    void drawable_draw(sf::RenderWindow& window) override;
 
     // Update the player
-    void drawable_update() override {
-        // Set picture to the next one in line from the animation
-        set_picture(animation_controller.get_frame());
-        animation_controller.update();
-        // Apply gravity and speed
-        if (!floating) {
-            speed.y += gravity;
-            location += speed;
-        }
-        // Update the player hitbox and the picture
-        collision_box.Player_Hitbox_update(location);
-        body->drawable_set_position(location);
-        body->drawable_update();
-    }
+    void drawable_update() override;
 
     // Return visual
-    std::string drawable_get_visual() override {
-        return color;
-    };
+    std::string drawable_get_visual() override;
 
     // Set gravity (for debugging)
-    void player_set_static(bool boolean) {
-        floating = boolean;
-    }
+    void player_set_static(bool boolean);
 
-    void input_cooldown() {
-        timer.restart();
-    }
+    void input_cooldown();
 
     // Handles all input events
-    void player_input(sf::Event event) {
-        if (timer.getElapsedTime().asMilliseconds() > 200) {
-            
-            // If key up is pressed: jump!
-            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N) )&& on_ground) {
-                speed.y = float(-1 * (jump_speed + 0.01));
-                
-            }
-            // If key left is pressed: move left!
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-                speed.x = -7;
-                animation_controller.animation_controller_set_state("Walking left");
-            }
-            else if (speed.x < 0) {
-                animation_controller.animation_controller_set_state("idle-right");
-                if (on_ground) {
-                    speed.x = 0;
-                }
-                else {
-                    speed.x += float(0.5);
-                }
-                std::cout << speed.x << "\n";
-            }
-            // If key right is pressed: move right!
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-                speed.x = 7;
-                animation_controller.animation_controller_set_state("Walking right");
-            }
-            else if (speed.x > 0) {
-                animation_controller.animation_controller_set_state("idle-left");
-                if (on_ground) {
-                    speed.x = 0;
-                }
-                else {
-                    speed.x -= float(0.5);
-                }
-            }
-        }
-    }
+    void player_input(sf::Event event);
 
     // Return dead variable
-    int player_get_dead() {
-        return dead;
-    }
+    int player_get_dead();
 
     // Set dead variable
-    void player_set_dead(int new_dead) {
-        dead = new_dead;
-    }
+    void player_set_dead(int new_dead);
 
     // Respawn the player
-    void player_respawn() {
-        drawable_set_position(respawn_location);
-    }
-
+    void player_respawn();
     // Collision detection between a player and a sf::FloatRect
-    bool player_collision(Drawable* object) {
-        if (collision_box.Player_Hitbox_core_intersect(object->drawable_get_hitbox()) && dead == 0) {
-            dead = 155;
-            return true;
-        }
-        // Check if a sf::FloatRect collides with the body of Mr. wo
-        if (collision_box.Player_Hitbox_touch_intersect(object->drawable_get_hitbox())) {
-            // If the object is a spike kill mr wo
-            if (object->drawable_get_name() == "spike") {
-                dead = 155;
-            }
-        }
-        if (speed.y == float(-0.00001)) {
-            on_ground = true;
-        }
-        else {
-            on_ground = false;
-        }
-
-        // Check if a sf::FloatRect collides with the bottom  or top of the hitbox
-        if (collision_box.Player_Hitbox_bottom_side_intersect(object->drawable_get_hitbox())){
-            location.y = object->drawable_get_hitbox().top - drawable_get_size().y;
-            speed.y = float(-0.00001);
-
-          
-
-            return true;
-        } 
-        else if (collision_box.Player_Hitbox_top_side_intersect(object->drawable_get_hitbox())){
-            speed.y = 1;
-            return true;
-        }
-     
-        // Check if a sf::FloatRect collides with the right  or left side of the hitbox
-        if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox())){
-            speed.x = -0.5;
-            location.x = object->drawable_get_hitbox().left + object->drawable_get_hitbox().width;
-            return true;
-        }
-        if (collision_box.Player_Hitbox_right_side_intersect(object->drawable_get_hitbox())){
-            speed.x = 0.5;
-            location.x = object->drawable_get_hitbox().left - drawable_get_size().x;
-            return true;
-        }
-        return false;
-
-    }
+    bool player_collision(Drawable* object);
 	//check if player hitbox intersect with object mainly used for portal detection
-	bool player_intersect(sf::FloatRect collide){
-		return collision_box.Player_Hitbox_core_intersect(collide) || 
-            collision_box.Player_Hitbox_left_side_intersect(collide) || 
-            collision_box.Player_Hitbox_right_side_intersect(collide) || 
-            collision_box.Player_Hitbox_top_side_intersect(collide) || 
-            collision_box.Player_Hitbox_bottom_side_intersect(collide);
-	}
+    bool player_intersect(sf::FloatRect collide);
 
 
 

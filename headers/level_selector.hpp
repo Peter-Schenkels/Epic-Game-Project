@@ -11,10 +11,8 @@ public:
 	std::string voidworld;
 	std::string overworld;
 
-	Level(std::string overworld, std::string voidworld) :
-		overworld(overworld),
-		voidworld(voidworld)
-	{}
+	// Takes in a string to the corresponding json file location of the overworld and voidworld
+	Level(std::string overworld, std::string voidworld);
 
 };
 
@@ -26,38 +24,22 @@ class Level_Selector {
 	unsigned int current_level = 1;
 	int amount_of_levels = 0;
 
-public: 
+public:
 
 	// Level Selector constructor
-	Level_Selector(std::vector<Level> levels):
-		levels(levels)
-	{
-		for (auto level : levels) {
-			amount_of_levels++;
-		}
-	}
+	Level_Selector(std::vector<Level> levels);
 
 	// Get the file location of the void and overworld of current level
-	Level get_current_level() {
-		return levels[current_level-1];
-	}
+	Level get_current_level();
 
 	// set current level to next level
-	void next_level() {
-		if (current_level != amount_of_levels) {
-			current_level++;
-		}
-	}
-	// set current level to previous level
-	void previous_level() {
-		if (current_level-1 != 0) {
-			current_level--;
-		}
-	}
+	void next_level();
 
-	int get_level_index() {
-		return current_level;
-	}
+	// set current level to previous level
+	void previous_level();
+
+	// Returns the current level number
+	int get_level_index();
 
 };
 

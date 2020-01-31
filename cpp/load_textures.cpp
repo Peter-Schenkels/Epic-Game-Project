@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef TEXTURE_LOADING_CPP
 #define TEXTURE_LOADING_CPP
@@ -104,6 +103,13 @@ inline void load_textures(std::map<std::string, Picture*>& textures) {
 			textures["text3"] = new Picture({ {0,0}, {270, 110}, "img/text3.png" });
 			textures["text4"] = new Picture({ {0,0}, {270, 110}, "img/text4.png" });
 			textures["text5"] = new Picture({ {0,0}, {270, 110}, "img/text5.png" });
+			textures["arrow right"] = new Picture({ {0,0}, {100, 100}, "img/arrow right.png" });
+			textures["arrow left"] = new Picture({ {0,0}, {100, 100}, "img/arrow left.png" });
+			textures["arrow up"] = new Picture({ {0,0}, {100, 100} , "img/arrow up.png" });
+			textures["arrow down"] = new Picture({ {0,0}, {100, 100}, "img/arrow down.png" });
+			textures["cross"] = new Picture({ {0,0}, {100, 100}, "img/kruis.png" });
+
+
 		}
 	}
 }

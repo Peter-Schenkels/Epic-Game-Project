@@ -706,13 +706,6 @@
 			{
 				"name" : "wall left",
 				"position_x" : 2800.0,
-				"position_y" : 3400.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "wall left",
-				"position_x" : 2800.0,
 				"position_y" : 3300.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
@@ -805,13 +798,6 @@
 				"name" : "wall right",
 				"position_x" : 3300.0,
 				"position_y" : 2900.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
-				"name" : "wall right",
-				"position_x" : 3300.0,
-				"position_y" : 3000.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			},
@@ -5002,13 +4988,6 @@
 				"size_y" : 100.0
 			},
 			{
-				"name" : "fishstick",
-				"position_x" : 5700.0,
-				"position_y" : 3800.0,
-				"size_x" : 100.0,
-				"size_y" : 100.0
-			},
-			{
 				"name" : "filling",
 				"position_x" : 3300.0,
 				"position_y" : 3400.0,
@@ -5026,6 +5005,482 @@
 				"name" : "filling",
 				"position_x" : 2000.0,
 				"position_y" : 1300.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 700.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 800.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 800.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 900.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1000.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1000.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1100.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1200.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1300.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1400.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1500.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1600.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1700.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1800.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1800.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1700.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1600.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1500.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1400.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1300.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1200.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1100.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 1000.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 900.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 800.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor",
+				"position_x" : 700.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "corner right",
+				"position_x" : 600.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "corner left down",
+				"position_x" : 600.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "wall right",
+				"position_x" : 600.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 700.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 800.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 900.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1000.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1100.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1200.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1300.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1400.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1500.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1600.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1700.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "floor down",
+				"position_x" : 1800.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "corner right down",
+				"position_x" : 1900.0,
+				"position_y" : 3900.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "corner left",
+				"position_x" : 1900.0,
+				"position_y" : 3700.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "wall left",
+				"position_x" : 1900.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 600.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "spike",
+				"position_x" : 1900.0,
+				"position_y" : 3600.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1800.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1700.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1600.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1500.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1400.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1300.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1200.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1100.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 1000.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 900.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 800.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 700.0,
+				"position_y" : 3800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "wall left",
+				"position_x" : 2800.0,
+				"position_y" : 3400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "arrow up",
+				"position_x" : 1800.0,
+				"position_y" : 1800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "arrow up",
+				"position_x" : 1600.0,
+				"position_y" : 1400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "cross",
+				"position_x" : 3100.0,
+				"position_y" : 1800.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 2900.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 3000.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "filling",
+				"position_x" : 3100.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "arrow down",
+				"position_x" : 3000.0,
+				"position_y" : 3000.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "cross",
+				"position_x" : 3300.0,
+				"position_y" : 3400.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
+			},
+			{
+				"name" : "cross",
+				"position_x" : 6000.0,
+				"position_y" : 3900.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
 			}

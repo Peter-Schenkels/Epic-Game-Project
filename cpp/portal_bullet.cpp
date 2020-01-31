@@ -1,10 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include "portal_bullet.hpp"
-#include "player_hitbox.hpp"
-#include <iostream>
-#include <string>
-#include "portal_error.hpp"
-#include <exception>
+
+
+
+Portal_Bullet::Portal_Bullet(sf::Vector2f& pos_player, sf::Vector2u windowSize, sf::Vector2f& pos_mouse) :
+	Drawable(pos_player, sf::Vector2f(8.00, 8.00), "BULLET", "white"),
+	start_pos(pos_player),
+	window(windowSize),
+	collision_box(pos_player, sf::Vector2f(8.00, 8.00)),
+	hitbox(sf::FloatRect(pos_player, sf::Vector2f(8.00, 8.00)))
+{
+	sf::Vector2f aimdir = pos_mouse - pos_player;
+	angle = aimdir / sqrt(pow(aimdir.x, 2) + pow(aimdir.y, 2));
+}
 
 void Portal_Bullet::drawable_draw(sf::RenderWindow& window) {
 	return;
@@ -35,16 +43,20 @@ std::pair<sf::Vector2f, std::string>  Portal_Bullet::portal_bullet_impact_calc(c
 				// Check if a sf::FloatRect collides with the right or left side of the hitbox
 
 				if (object->drawable_get_hitbox().intersects(hitbox)) {
+
+					std::string object_name = object->drawable_get_name();
+
 					// A surface were portals can't be created
-					if (object->drawable_get_name() == "filling" or object->drawable_get_name() == "map" ) {
+					if (object_name == "filling" or object_name == "map" or
+						object_name == "fishstick" or object_name == "spike" or
+						object_name == "text1" or object_name == "text2" or
+						object_name == "text3" or object_name == "text4" or 
+						object_name == "datapad" or object_name == "arrow left" or 
+						object_name == "arrow right" or object_name == "arrow up" or
+						object_name == "arrow down" or object_name == "cross") {
 						return { {0,0}, "NONE" };
 					}
-					if (object->drawable_get_name() == "fishstick" or object->drawable_get_name() == "spike" or
-						object->drawable_get_name() == "text1" or object->drawable_get_name() == "text2" or
-						object->drawable_get_name() == "text3" or object->drawable_get_name() == "text4"
-						or object->drawable_get_name() == "datapad"){
-						return { {0,0}, "NONE" };
-					}
+				 
 					if (collision_box.Player_Hitbox_left_side_intersect(object->drawable_get_hitbox()))
 					{
 						std::cout << "collision detected left\n";

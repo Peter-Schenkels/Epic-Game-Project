@@ -59,3 +59,20 @@ void Picture::drawable_update() {
 
 }
 
+// Sets picture scale
+void Picture::picture_set_scale(sf::Vector2f scale) { sprite.setScale(scale); }
+
+// Returns pciture scale
+sf::Vector2f Picture::picture_get_scale() { return sprite.getScale(); }
+
+void Picture::picture_set_offset(sf::Vector2f new_offset) { offset = new_offset; };
+
+// Sets picture color
+void Picture::picture_set_color(sf::Color color) { sprite.setColor(color); }
+
+// Sets rotation of picture
+void Picture::picture_set_rotation(float rotation) { sprite.setRotation(rotation); }
+
+// Sets origin of picture
+void Picture::picture_set_origin(sf::Vector2f origin) { sprite.setOrigin(origin); }
+

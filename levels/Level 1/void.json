@@ -2501,6 +2501,13 @@
 				"position_y" : 2500.0,
 				"size_x" : 100.0,
 				"size_y" : 100.0
+			},
+			{
+				"name" : "cross",
+				"position_x" : 5800.0,
+				"position_y" : 2100.0,
+				"size_x" : 100.0,
+				"size_y" : 100.0
 			}
 		]
 	},
